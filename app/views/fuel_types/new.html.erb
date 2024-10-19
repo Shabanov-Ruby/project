@@ -1,0 +1,11 @@
+<% content_for :title, "New fuel type" %>
+
+<h1>New fuel type</h1>
+
+<%= render "form", fuel_type: @fuel_type %>
+
+<br>
+
+<div>
+  <%= link_to "Back to fuel types", fuel_types_path %>
+</div>

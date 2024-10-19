@@ -1,14 +1,39 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
+  # Проверка здоровья приложения
   get "up" => "rails/health#show", as: :rails_health_check
 
-  # Render dynamic PWA files from app/views/pwa/*
+  # PWA routes
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
-  # Defines the root path route ("/")
-  # root "posts#index"
+  # API ресурсы
+  resources :images
+  resources :fuel_types
+  resources :drive_types
+  resources :gearbox_types
+  resources :engine_types
+  resources :body_types
+  resources :colors
+  resources :brands
+  resources :generations
+  resources :models
+  resources :history_cars
+  resources :call_requests
+  resources :cars, only: [:index, :show]
+
+  # Можно добавить корневой маршрут, если это необходимо
+  # root "home#index"
+  get 'cars' => 'cars#index'
+  get 'cars/:brand' => 'cars#show'
+  get 'cars/:brand/:model' => 'cars#show'
+  get 'cars/:brand/:model/:generation' => 'cars#show'
+end
+
+Rails.application.config.middleware.insert_before 0, Rack::Cors do
+  allow do
+    origins 'http://localhost:3000' # Замените на URL вашего фронтенда
+    resource '*',
+      headers: :any,
+      methods: [:get, :post, :put, :patch, :delete, :options, :head]
+  end
 end

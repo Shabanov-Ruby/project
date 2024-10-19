@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Fuel types" %>
+
+<h1>Fuel types</h1>
+
+<div id="fuel_types">
+  <% @fuel_types.each do |fuel_type| %>
+    <%= render fuel_type %>
+    <p>
+      <%= link_to "Show this fuel type", fuel_type %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New fuel type", new_fuel_type_path %>

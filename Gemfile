@@ -29,11 +29,12 @@ gem 'kaminari'
 gem 'ransack'
 # Переводы
 gem 'rails-i18n'
-
+#Рандом
+gem 'faker'
+# Импорт XML
+gem 'nokogiri'
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
-#у меня есть приложение фронт которого будет на фраемворке а бэк будет на rails,
-# мне нудно что бы данные с бэка отправлялись на фронт, как это сделать? 
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
@@ -78,3 +79,7 @@ group :test do
   gem "selenium-webdriver"
   gem 'rspec-rails'
 end
+
+gem 'active_model_serializers', '~> 0.10.0'
+
+gem 'rack-cors'

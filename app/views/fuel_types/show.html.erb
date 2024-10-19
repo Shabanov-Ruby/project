@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @fuel_type %>
+
+<div>
+  <%= link_to "Edit this fuel type", edit_fuel_type_path(@fuel_type) %> |
+  <%= link_to "Back to fuel types", fuel_types_path %>
+
+  <%= button_to "Destroy this fuel type", @fuel_type, method: :delete %>
+</div>
