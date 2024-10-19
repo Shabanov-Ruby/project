@@ -362,6 +362,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   kaminari
+  nokogiri
   pg (~> 1.1)
   puma (>= 5.0)
   rack-cors

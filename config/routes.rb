@@ -28,12 +28,3 @@ Rails.application.routes.draw do
   get 'cars/:brand/:model' => 'cars#show'
   get 'cars/:brand/:model/:generation' => 'cars#show'
 end
-
-Rails.application.config.middleware.insert_before 0, Rack::Cors do
-  allow do
-    origins 'http://localhost:3000' # Замените на URL вашего фронтенда
-    resource '*',
-      headers: :any,
-      methods: [:get, :post, :put, :patch, :delete, :options, :head]
-  end
-end
