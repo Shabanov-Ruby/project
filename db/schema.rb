@@ -10,9 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_18_124446) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_21_110109) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "banks", force: :cascade do |t|
+    t.string "name"
+    t.string "country"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "body_types", force: :cascade do |t|
     t.string "name"
@@ -22,6 +29,17 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_18_124446) do
 
   create_table "brands", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "buyouts", force: :cascade do |t|
+    t.string "name"
+    t.string "phone"
+    t.text "brand"
+    t.text "model"
+    t.integer "year"
+    t.integer "mileage"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -69,6 +87,18 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_18_124446) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "credits", force: :cascade do |t|
+    t.integer "car_id"
+    t.string "name"
+    t.string "phone"
+    t.integer "credit_term"
+    t.decimal "initial_contribution"
+    t.integer "banks_id"
+    t.integer "programs_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "drive_types", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -79,6 +109,17 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_18_124446) do
     t.string "name"
     t.integer "engine_power"
     t.decimal "engine_capacity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "exchanges", force: :cascade do |t|
+    t.integer "car_id"
+    t.text "customer_car"
+    t.string "name"
+    t.string "phone"
+    t.integer "credit_term"
+    t.decimal "initial_contribution"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -140,12 +181,30 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_18_124446) do
     t.index ["car_id"], name: "index_images_on_car_id"
   end
 
+  create_table "installments", force: :cascade do |t|
+    t.integer "car_id"
+    t.string "name"
+    t.string "phone"
+    t.integer "credit_term"
+    t.decimal "initial_contribution"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "models", force: :cascade do |t|
     t.bigint "brand_id", null: false
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["brand_id"], name: "index_models_on_brand_id"
+  end
+
+  create_table "programs", force: :cascade do |t|
+    t.integer "bank_id"
+    t.string "program_name"
+    t.float "interest_rate"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "call_requests", "cars"
@@ -158,8 +217,14 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_18_124446) do
   add_foreign_key "cars", "gearbox_types"
   add_foreign_key "cars", "generations"
   add_foreign_key "cars", "models"
+  add_foreign_key "credits", "banks", column: "banks_id"
+  add_foreign_key "credits", "cars"
+  add_foreign_key "credits", "programs", column: "programs_id"
+  add_foreign_key "exchanges", "cars"
   add_foreign_key "generations", "models"
   add_foreign_key "history_cars", "cars"
   add_foreign_key "images", "cars"
+  add_foreign_key "installments", "cars"
   add_foreign_key "models", "brands"
+  add_foreign_key "programs", "banks"
 end

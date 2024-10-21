@@ -19,12 +19,30 @@ Rails.application.routes.draw do
   resources :models
   resources :history_cars
   resources :call_requests
-  resources :cars, only: [:index, :show]
+  resources :cars
+  resources :banks, only: [:index]
+  resources :programs 
+  resources :installments
+  resources :exchanges
+  resources :buyouts
+  resources :credits
+  resources :trade_in_offers
+  resources :installment_plans
+  resources :credit_offers
+  resources :offers
 
-  # Можно добавить корневой маршрут, если это необходимо
-  # root "home#index"
   get 'cars' => 'cars#index'
   get 'cars/:brand' => 'cars#show'
   get 'cars/:brand/:model' => 'cars#show'
   get 'cars/:brand/:model/:generation' => 'cars#show'
+
+  get 'exchange' => 'exchanges#index'
+  post 'exchange' => 'exchanges#create'
+  get 'installment' => 'installments#index'
+  post 'installment' => 'installments#create'
+  get 'buyout' => 'buyouts#index'
+  post 'buyout' => 'buyouts#create'
+  get 'credit' => 'credits#top_programs'
+  post 'credit' => 'credits#create'
+  get 'credit/:id' => 'credits#show'
 end
