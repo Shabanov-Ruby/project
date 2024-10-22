@@ -43,7 +43,7 @@ Rails.application.routes.draw do
   get 'buyout' => 'buyouts#index'
   post 'buyout' => 'buyouts#create'
   get 'credit' => 'credits#top_programs'
-  get 'credits' => 'credits#index'
+  get 'credits' => 'credits#index '
   post 'credit' => 'credits#create'
   get 'credit/:id' => 'credits#show'
   
