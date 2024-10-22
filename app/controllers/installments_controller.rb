@@ -26,38 +26,26 @@ class InstallmentsController < ApplicationController
     Rails.logger.info "Received params: #{params.inspect}"
     @installment = Installment.new(installment_params)
 
-    respond_to do |format|
-      if @installment.save
-        format.html { redirect_to @installment, notice: "Installment was successfully created." }
-        format.json { render :show, status: :created, location: @installment }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @installment.errors, status: :unprocessable_entity }
-      end
+    if @installment.save  
+      render json: @installment, status: :created
+    else
+      render json: @installment.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /installments/1 or /installments/1.json
   def update
-    respond_to do |format|
-      if @installment.update(installment_params)
-        format.html { redirect_to @installment, notice: "Installment was successfully updated." }
-        format.json { render :show, status: :ok, location: @installment }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @installment.errors, status: :unprocessable_entity }
-      end
-    end
+    if @installment.update(installment_params)
+      render json: @installment, status: :ok
+    else
+      render json: @installment.errors, status: :unprocessable_entity
+    end     
   end
 
   # DELETE /installments/1 or /installments/1.json
   def destroy
     @installment.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to installments_path, status: :see_other, notice: "Installment was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    render json: {}, status: :no_content      
   end
 
   private

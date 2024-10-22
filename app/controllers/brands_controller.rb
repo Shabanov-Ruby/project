@@ -3,14 +3,14 @@ class BrandsController < ApplicationController
 
   # GET /brands
   def index
-    @brands = Brand.includes(models: :generations).all
-    render json: @brands, include: ['models.generations']
+    @brand = Brand.all
+    render json: @brand
   end
 
   # GET /brands/1
   def show
-    @brand = Brand.includes(models: :generations).find(params[:id])
-    render json: @brand, include: ['models.generations']
+    @brand = Brand.find(params[:id])
+    render json: @brand
   end
 
   # POST /brands

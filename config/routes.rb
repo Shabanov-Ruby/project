@@ -6,7 +6,10 @@ Rails.application.routes.draw do
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
-  # API ресурсы
+  # Маршруты для обработки бренда, модели и поколения через один экшен `show`
+  #get 'cars/:brand_name(/:model_name(/:generation_name(/:car_id)))', to: 'cars#index', as: :car_details
+
+  # Остальные ресурсы
   resources :images
   resources :fuel_types
   resources :drive_types
@@ -19,9 +22,9 @@ Rails.application.routes.draw do
   resources :models
   resources :history_cars
   resources :call_requests
-  resources :cars
-  resources :banks, only: [:index]
-  resources :programs 
+  resources :cars, only: [:index, :show]
+  resources :banks
+  resources :programs
   resources :installments
   resources :exchanges
   resources :buyouts
@@ -32,10 +35,7 @@ Rails.application.routes.draw do
   resources :offers
 
   get 'cars' => 'cars#index'
-  get 'cars/:brand' => 'cars#show'
-  get 'cars/:brand/:model' => 'cars#show'
-  get 'cars/:brand/:model/:generation' => 'cars#show'
-
+  get 'cars/:id' => 'cars#show'
   get 'exchange' => 'exchanges#index'
   post 'exchange' => 'exchanges#create'
   get 'installment' => 'installments#index'
@@ -43,6 +43,8 @@ Rails.application.routes.draw do
   get 'buyout' => 'buyouts#index'
   post 'buyout' => 'buyouts#create'
   get 'credit' => 'credits#top_programs'
+  get 'credits' => 'credits#index'
   post 'credit' => 'credits#create'
   get 'credit/:id' => 'credits#show'
+  
 end

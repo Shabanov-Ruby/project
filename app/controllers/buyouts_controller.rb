@@ -21,27 +21,19 @@ class BuyoutsController < ApplicationController
     Rails.logger.info "Received params: #{params.inspect}"
     @buyout = Buyout.new(buyout_params)
 
-    respond_to do |format|
-      if @buyout.save
-        format.html { redirect_to @buyout, notice: "Buyout was successfully created." }
-        format.json { render :show, status: :created, location: @buyout }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @buyout.errors, status: :unprocessable_entity }
-      end
+    if @buyout.save
+      render json: @buyout, status: :created
+    else
+      render json: @buyout.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /buyouts/1 or /buyouts/1.json
   def update
-    respond_to do |format|
-      if @buyout.update(buyout_params)
-        format.html { redirect_to @buyout, notice: "Buyout was successfully updated." }
-        format.json { render :show, status: :ok, location: @buyout }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @buyout.errors, status: :unprocessable_entity }
-      end
+    if @buyout.update(buyout_params)
+      render json: @buyout, status: :ok
+    else
+      render json: @buyout.errors, status: :unprocessable_entity
     end
   end
 
@@ -49,10 +41,7 @@ class BuyoutsController < ApplicationController
   def destroy
     @buyout.destroy!
 
-    respond_to do |format|
-      format.html { redirect_to buyouts_path, status: :see_other, notice: "Buyout was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    render json: {}, status: :no_content
   end
 
   private

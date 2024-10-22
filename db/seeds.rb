@@ -69,7 +69,7 @@ end
 generations_data = [
   { model: 'Audi A4', name: 'B8', start_date: '2008-01-01', end_date: '2015-12-31', modernization: 'Обновленный дизайн фар и решетки радиатора, улучшенная система MMI' },
   { model: 'Audi A4', name: 'B9', start_date: '2016-01-01', end_date: Date.today.to_s, modernization: 'Новая платформа MLB Evo, виртуальная приборная панель Audi Virtual Cockpit' },
-  { model: 'Audi Q5', name: '8R', start_date: '2008-01-01', end_date: '2017-12-31', modernization: 'Рестайлинг' },
+  { model: 'Audi Q5', name: 'B8', start_date: '2008-01-01', end_date: '2017-12-31', modernization: 'Рестайлинг' },
   { model: 'Audi Q5', name: 'FY', start_date: '2017-01-01', end_date: Date.today.to_s, modernization: 'Рестайлинг' },
   { model: 'BMW 3 Series', name: 'F30', start_date: '2011-01-01', end_date: '2019-12-31', modernization: 'Рестайлинг' },
   { model: 'BMW 3 Series', name: 'G20', start_date: '2019-01-01', end_date: Date.today.to_s, modernization: 'Рестайлинг' },

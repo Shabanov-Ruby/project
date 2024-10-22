@@ -29,38 +29,26 @@ class CreditsController < ApplicationController
     Rails.logger.info "Received params: #{params.inspect}"
     @credit = Credit.new(credit_params)
 
-    respond_to do |format|
-      if @credit.save
-        format.html { redirect_to @credit, notice: "Credit was successfully created." }
-        format.json { render :show, status: :created, location: @credit }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @credit.errors, status: :unprocessable_entity }
-      end
+    if @credit.save 
+      render json: @credit, status: :created
+    else
+      render json: @credit.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /credits/1 or /credits/1.json
   def update
-    respond_to do |format|
-      if @credit.update(credit_params)
-        format.html { redirect_to @credit, notice: "Credit was successfully updated." }
-        format.json { render :show, status: :ok, location: @credit }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @credit.errors, status: :unprocessable_entity }
-      end
+    if @credit.update(credit_params)
+      render json: @credit, status: :ok
+    else
+      render json: @credit.errors, status: :unprocessable_entity
     end
   end
 
   # DELETE /credits/1 or /credits/1.json
   def destroy
     @credit.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to credits_path, status: :see_other, notice: "Credit was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    render json: {}, status: :no_content    
   end
 
   private

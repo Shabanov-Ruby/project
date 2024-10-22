@@ -8,7 +8,7 @@ class CarFilterService
 
     cars = cars.by_brand_name(@params[:brand_name]) if @params[:brand_name].present?
     cars = cars.by_model_name(@params[:model_name]) if @params[:model_name].present?
-    cars = cars.by_generation(@params[:generation_id]) if @params[:generation_id].present?  
+    cars = cars.by_generation(@params[:generation_name]) if @params[:generation_name].present?
 
     cars = cars.by_year_from(@params[:year_from]) if @params[:year_from].present?
     cars = cars.by_price(@params[:max_price]) if @params[:max_price].present?

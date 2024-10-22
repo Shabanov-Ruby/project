@@ -1,16 +1,45 @@
 class CarsController < ApplicationController
-  before_action :set_car, only: %i[ show edit update destroy ]
+  before_action :set_car, only: [:show, :edit, :update, :destroy]
 
-  # GET /cars or /cars.json
   def index
     filtered_cars = CarFilterService.new(filter_params).call
     render json: filtered_cars
   end
 
-  # GET /cars/1 or /cars/1.json
+
   def show
-    @car = Car.find(params[:id])
     render json: @car
+
+    # @brand = Brand.find_by(name: params[:brand_name])
+    # return render json: { error: "Brand not found" }, status: :not_found unless @brand
+
+    # if params[:model_name].present?
+    #   @model = @brand.models.find_by(name: params[:model_name])
+    #   return render json: { error: "Model not found" }, status: :not_found unless @model
+    # end
+
+    # if params[:generation_name].present?
+    #   @generation = @model.generations.find_by(name: params[:generation_name])
+    #   return render json: { error: "Generation not found" }, status: :not_found unless @generation
+    # end
+
+    # if params[:car_id].present?
+    #   return render json: { error: "Invalid car ID" }, status: :bad_request unless params[:car_id].match?(/^\d+$/)
+
+    #   @car = Car.find_by(id: params[:car_id])
+    #   return render json: { error: "Car not found" }, status: :not_found unless @car
+
+    #   render json: @car
+    # else
+    #   @cars = if @generation
+    #             @generation.cars
+    #           elsif @model
+    #             @model.cars
+    #           else
+    #             @brand.cars
+    #           end
+    #   render json: @cars
+    # end
   end
 
   # GET /cars/new
@@ -72,6 +101,6 @@ class CarsController < ApplicationController
     end
 
     def filter_params
-      params.permit(:brand_name, :model_name, :generation_id, :year_from, :max_price, :engine_type_id, :gearbox_type_id, :body_type_id, :drive_type_id, :owners_count)
+      params.permit(:brand_name, :model_name, :generation_name, :year_from, :max_price, :engine_type_id, :gearbox_type_id, :body_type_id, :drive_type_id, :owners_count)
     end
 end

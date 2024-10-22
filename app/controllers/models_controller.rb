@@ -1,15 +1,15 @@
 class ModelsController < ApplicationController
   before_action :set_model, only: [:show, :update, :destroy]
-
+  
   # GET /models or /models.json
   def index
-    @models = Model.all
-    render json: @models, include: :generations
+    @model = Model.all
+    render json: @model
   end
 
   # GET /models/1 or /models/1.json
   def show
-    render json: @model, include: :generations
+    render json: @model
   end
 
   # GET /models/new
@@ -60,6 +60,9 @@ class ModelsController < ApplicationController
   end
 
   private
+    def set_brand
+      @brand = Brand.find_by(name: params[:brand_name])
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_model
       @model = Model.find(params[:id])
