@@ -9,8 +9,8 @@ class CreditsController < ApplicationController
   end
 
   def top_programs
-    @top_programs = TopProgramsService.call
-    render json: @top_programs
+    @all_banks = Bank.includes(:programs).all
+    render json: @all_banks.to_json(include: :programs)
   end
 
   # GET /credits/1 or /credits/1.json
