@@ -2,25 +2,19 @@ class CarsController < ApplicationController
   before_action :set_car, only: [:show, :edit, :update, :destroy]
 
   def index
+    # Фильтрация автомобилей
     filtered_cars = CarFilterService.new(filter_params).call
 
-    render json: filtered_cars, each_serializer: CarSerializer
+    # Применение пагинации к отфильтрованным автомобилям
+    paginated_cars = filtered_cars.page(params[:page]).per(30)
+
+    # Рендеринг JSON с использованием сериализатора
+    render json: paginated_cars, each_serializer: CarSerializer
   end
 
 
   def show
-    render json: @car.as_json(include: [
-      :images,
-      :history_cars,
-      :brand,          # Пример включения бренда
-      :model,          # Пример включения модели
-      :generation,     # Пример включения поколения
-      :color,          # Пример включения цвета
-      :body_type,      # Пример включения типа кузова
-      :engine_type,    # Пример включения типа двигателя
-      :gearbox_type,   # Пример включения типа коробки передач
-      :drive_type      # Пример включения типа привода
-    ])
+    render json: @car, serializer: CarSerializer
 
     # @brand = Brand.find_by(name: params[:brand_name])
     # return render json: { error: "Brand not found" }, status: :not_found unless @brand
