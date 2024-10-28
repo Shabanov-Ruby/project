@@ -4,6 +4,7 @@ class ImagesController < ApplicationController
   # GET /images or /images.json
   def index
     @images = Image.all
+    render json: @images, each_serializer: ImageSerializer
   end
 
   # GET /images/1 or /images/1.json
@@ -23,27 +24,19 @@ class ImagesController < ApplicationController
   def create
     @image = Image.new(image_params)
 
-    respond_to do |format|
-      if @image.save
-        format.html { redirect_to @image, notice: "Image was successfully created." }
-        format.json { render :show, status: :created, location: @image }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @image.errors, status: :unprocessable_entity }
-      end
-    end
+    if @image.save
+      render json: @image, status: :created
+    else
+      render json: @image.errors, status: :unprocessable_entity
+    end   
   end
 
   # PATCH/PUT /images/1 or /images/1.json
   def update
-    respond_to do |format|
-      if @image.update(image_params)
-        format.html { redirect_to @image, notice: "Image was successfully updated." }
-        format.json { render :show, status: :ok, location: @image }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @image.errors, status: :unprocessable_entity }
-      end
+    if @image.update(image_params)
+      render json: @image, status: :ok
+    else
+      render json: @image.errors, status: :unprocessable_entity
     end
   end
 
@@ -51,9 +44,7 @@ class ImagesController < ApplicationController
   def destroy
     @image.destroy!
 
-    respond_to do |format|
-      format.html { redirect_to images_path, status: :see_other, notice: "Image was successfully destroyed." }
-      format.json { head :no_content }
+    render json: { message: 'Image was successfully destroyed.' }, status: :see_other
     end
   end
 
@@ -65,6 +56,6 @@ class ImagesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def image_params
-      params.require(:image).permit(:car_id, :url, :description, :is_primary)
+      params.require(:image).permit(:car_id, :url, :is_primary)
     end
 end

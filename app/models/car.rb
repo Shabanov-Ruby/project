@@ -8,7 +8,6 @@ class Car < ApplicationRecord
   belongs_to :engine_type
   belongs_to :gearbox_type
   belongs_to :drive_type
-  belongs_to :fuel_type
   
   has_many :call_requests
   has_many :history_cars
@@ -20,11 +19,17 @@ class Car < ApplicationRecord
 
   scope :by_year_from, -> (year) { where('year >= ?', year) }
   scope :by_price, -> (max_price) { where('price <= ?', max_price) if max_price.present? }
-  scope :by_engine_type, -> (engine_type_id) { where(engine_type_id: engine_type_id) if engine_type_id.present? }
+  
   scope :by_gearbox_type, -> (gearbox_type_id) { where(gearbox_type_id: gearbox_type_id) if gearbox_type_id.present? }
   scope :by_body_type, -> (body_type_id) { where(body_type_id: body_type_id) if body_type_id.present? }
   scope :by_drive_type, -> (drive_type_id) { where(drive_type_id: drive_type_id) if drive_type_id.present? }
   scope :by_owners_count, -> (owners_count) { where(owners_count: owners_count) if owners_count.present? }
+
+  scope :by_owners_count, -> (owners_count) { joins(:history_cars).where(history_cars: { previous_owners: owners_count }) if owners_count.present? }
  
+  scope :by_engine_type_name, -> (engine_type_name) {
+    joins(:engine_type).where(engine_types: { name: engine_type_name }) if engine_type_name.present?
+  }
+
   belongs_to :generation
 end

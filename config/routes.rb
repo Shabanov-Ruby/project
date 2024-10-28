@@ -11,7 +11,6 @@ Rails.application.routes.draw do
 
   # Остальные ресурсы
   resources :images
-  resources :fuel_types
   resources :drive_types
   resources :gearbox_types
   resources :engine_types
@@ -33,8 +32,11 @@ Rails.application.routes.draw do
   resources :installment_plans
   resources :credit_offers
   resources :offers
+  resources :call_requests
 
   get 'cars' => 'cars#index'
+  get 'last_cars' => 'cars#last_cars'
+  get 'cars_count' => 'cars#cars_count'
   get 'cars/:id' => 'cars#show'
   get 'exchange' => 'exchanges#index'
   post 'exchange' => 'exchanges#create'

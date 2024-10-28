@@ -1,9 +1,11 @@
 class CallRequestsController < ApplicationController
-  before_action :set_call_request, only: %i[ show edit update destroy ]
+  #before_action :set_call_request, only: %i[ show edit update destroy ]
+  protect_from_forgery with: :null_session
 
   # GET /call_requests or /call_requests.json
   def index
     @call_requests = CallRequest.all
+    render json: @call_requests
   end
 
   # GET /call_requests/1 or /call_requests/1.json
@@ -23,38 +25,26 @@ class CallRequestsController < ApplicationController
   def create
     @call_request = CallRequest.new(call_request_params)
 
-    respond_to do |format|
-      if @call_request.save
-        format.html { redirect_to @call_request, notice: "Call request was successfully created." }
-        format.json { render :show, status: :created, location: @call_request }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @call_request.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+    if @call_request.save
+      render json: @call_request, status: :created
+    else
+      render json: @call_request.errors, status: :unprocessable_entity
+    end 
+  end 
 
   # PATCH/PUT /call_requests/1 or /call_requests/1.json
   def update
-    respond_to do |format|
-      if @call_request.update(call_request_params)
-        format.html { redirect_to @call_request, notice: "Call request was successfully updated." }
-        format.json { render :show, status: :ok, location: @call_request }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @call_request.errors, status: :unprocessable_entity }
-      end
+    if @call_request.update(call_request_params)
+      render json: @call_request, status: :ok
+    else
+      render json: @call_request.errors, status: :unprocessable_entity
     end
-  end
+  end   
 
   # DELETE /call_requests/1 or /call_requests/1.json
   def destroy
     @call_request.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to call_requests_path, status: :see_other, notice: "Call request was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    render json: { message: 'Call request was successfully destroyed.' }, status: :see_other
   end
 
   private

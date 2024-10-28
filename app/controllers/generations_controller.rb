@@ -25,38 +25,26 @@ class GenerationsController < ApplicationController
   def create
     @generation = Generation.new(generation_params)
 
-    respond_to do |format|
-      if @generation.save
-        format.html { redirect_to @generation, notice: "Generation was successfully created." }
-        format.json { render :show, status: :created, location: @generation }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @generation.errors, status: :unprocessable_entity }
-      end
+    if @generation.save 
+      render json: @generation, status: :created
+    else
+      render json: @generation.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /generations/1 or /generations/1.json
   def update
-    respond_to do |format|
-      if @generation.update(generation_params)
-        format.html { redirect_to @generation, notice: "Generation was successfully updated." }
-        format.json { render :show, status: :ok, location: @generation }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @generation.errors, status: :unprocessable_entity }
-      end
+    if @generation.update(generation_params)
+      render json: @generation, status: :ok
+    else
+      render json: @generation.errors, status: :unprocessable_entity
     end
   end
 
   # DELETE /generations/1 or /generations/1.json
   def destroy
     @generation.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to generations_path, status: :see_other, notice: "Generation was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    render json: { message: "Generation was successfully destroyed." }, status: :see_other
   end
 
   private

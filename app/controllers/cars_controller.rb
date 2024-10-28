@@ -3,12 +3,24 @@ class CarsController < ApplicationController
 
   def index
     filtered_cars = CarFilterService.new(filter_params).call
-    render json: filtered_cars
+
+    render json: filtered_cars, each_serializer: CarSerializer
   end
 
 
   def show
-    render json: @car
+    render json: @car.as_json(include: [
+      :images,
+      :history_cars,
+      :brand,          # Пример включения бренда
+      :model,          # Пример включения модели
+      :generation,     # Пример включения поколения
+      :color,          # Пример включения цвета
+      :body_type,      # Пример включения типа кузова
+      :engine_type,    # Пример включения типа двигателя
+      :gearbox_type,   # Пример включения типа коробки передач
+      :drive_type      # Пример включения типа привода
+    ])
 
     # @brand = Brand.find_by(name: params[:brand_name])
     # return render json: { error: "Brand not found" }, status: :not_found unless @brand
@@ -51,42 +63,56 @@ class CarsController < ApplicationController
   def edit
   end
 
+  def last_cars
+    @cars = Car.last(20)
+    render json: @cars
+  end
+
+  def cars_count
+    brand_model_generation_counts = Car.joins(:brand, :model, :generation)
+                                       .group('brands.name', 'models.name', 'generations.name')
+                                       .count
+
+    brand_counts = Car.joins(:brand)
+                      .group('brands.name')
+                      .count
+
+    result = brand_counts.each_with_object({}) do |(brand_name, total_count), hash|
+      hash[brand_name] = { total: total_count, models: {} }
+    end
+
+    brand_model_generation_counts.each do |(brand_name, model_name, generation_name), count|
+      result[brand_name][:models][model_name] ||= { total: 0, generations: {} }
+      result[brand_name][:models][model_name][:total] += count
+      result[brand_name][:models][model_name][:generations][generation_name] = count
+    end
+
+    render json: result
+  end
+
   # POST /cars or /cars.json
   def create
     @car = Car.new(car_params)
-
-    respond_to do |format|
-      if @car.save
-        format.html { redirect_to @car, notice: "Car was successfully created." }
-        format.json { render :show, status: :created, location: @car }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @car.errors, status: :unprocessable_entity }
-      end
+    if @car.save
+      render json: @car, status: :created
+    else
+      render json: @car.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /cars/1 or /cars/1.json
   def update
-    respond_to do |format|
-      if @car.update(car_params)
-        format.html { redirect_to @car, notice: "Car was successfully updated." }
-        format.json { render :show, status: :ok, location: @car }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @car.errors, status: :unprocessable_entity }
-      end
+    if @car.update(car_params)
+      render json: @car, status: :ok
+    else
+      render json: @car.errors, status: :unprocessable_entity
     end
   end
 
   # DELETE /cars/1 or /cars/1.json
   def destroy
     @car.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to cars_path, status: :see_other, notice: "Car was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    render json: { message: "Car was successfully destroyed." }, status: :see_other
   end
 
   private
@@ -97,10 +123,10 @@ class CarsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def car_params
-      params.require(:car).permit(:model_id, :brand_id, :year, :price, :description, :color_id, :body_type_id, :engine_type_id, :gearbox_type_id, :drive_type_id, :fuel_type_id)
+      params.require(:car).permit(:model_id, :brand_id, :year, :price, :description, :color_id, :body_type_id, :engine_type_id, :gearbox_type_id, :drive_type_id, :generation_id)
     end
 
     def filter_params
-      params.permit(:brand_name, :model_name, :generation_name, :year_from, :max_price, :engine_type_id, :gearbox_type_id, :body_type_id, :drive_type_id, :owners_count)
+      params.permit(:brand_name, :model_name, :generation_name, :year_from, :max_price, :gearbox_type_id, :body_type_id, :drive_type_id, :owners_count, :engine_type_name)
     end
 end

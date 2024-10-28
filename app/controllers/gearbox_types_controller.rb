@@ -65,6 +65,6 @@ class GearboxTypesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def gearbox_type_params
-      params.require(:gearbox_type).permit(:name)
+      params.require(:gearbox_type).permit(:name, :abbreviation)
     end
 end

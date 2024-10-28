@@ -47,8 +47,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_21_110109) do
   create_table "call_requests", force: :cascade do |t|
     t.bigint "car_id", null: false
     t.string "name"
-    t.string "phone"
-    t.datetime "preferred_time"
+    t.bigint "phone"
+    t.string "preferred_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["car_id"], name: "index_call_requests_on_car_id"
@@ -65,7 +65,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_21_110109) do
     t.bigint "engine_type_id", null: false
     t.bigint "gearbox_type_id", null: false
     t.bigint "drive_type_id", null: false
-    t.bigint "fuel_type_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "generation_id", null: false
@@ -74,7 +73,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_21_110109) do
     t.index ["color_id"], name: "index_cars_on_color_id"
     t.index ["drive_type_id"], name: "index_cars_on_drive_type_id"
     t.index ["engine_type_id"], name: "index_cars_on_engine_type_id"
-    t.index ["fuel_type_id"], name: "index_cars_on_fuel_type_id"
     t.index ["gearbox_type_id"], name: "index_cars_on_gearbox_type_id"
     t.index ["generation_id"], name: "index_cars_on_generation_id"
     t.index ["model_id"], name: "index_cars_on_model_id"
@@ -124,14 +122,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_21_110109) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "fuel_types", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "gearbox_types", force: :cascade do |t|
     t.string "name"
+    t.string "abbreviation"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -213,7 +206,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_21_110109) do
   add_foreign_key "cars", "colors"
   add_foreign_key "cars", "drive_types"
   add_foreign_key "cars", "engine_types"
-  add_foreign_key "cars", "fuel_types"
   add_foreign_key "cars", "gearbox_types"
   add_foreign_key "cars", "generations"
   add_foreign_key "cars", "models"

@@ -1,3 +1,3 @@
 class GearboxTypeSerializer < ActiveModel::Serializer
-  attributes :id, :name
+  attributes :id, :name, :abbreviation
 end
