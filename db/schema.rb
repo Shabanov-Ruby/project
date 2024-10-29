@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_29_133924) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_29_150725) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -130,14 +130,22 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_29_133924) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "extra_names", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_extra_names_on_name", unique: true
+  end
+
   create_table "extras", force: :cascade do |t|
     t.bigint "car_id", null: false
     t.bigint "category_id", null: false
-    t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "extra_name_id"
     t.index ["car_id"], name: "index_extras_on_car_id"
     t.index ["category_id"], name: "index_extras_on_category_id"
+    t.index ["extra_name_id"], name: "index_extras_on_extra_name_id"
   end
 
   create_table "gearbox_types", force: :cascade do |t|
@@ -245,6 +253,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_29_133924) do
   add_foreign_key "exchanges", "cars"
   add_foreign_key "extras", "cars"
   add_foreign_key "extras", "categories"
+  add_foreign_key "extras", "extra_names"
   add_foreign_key "generations", "models"
   add_foreign_key "history_cars", "cars"
   add_foreign_key "images", "cars"

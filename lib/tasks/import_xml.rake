@@ -176,7 +176,8 @@ namespace :import do
                           end
 
           category = Category.find_or_create_by(name: category_name)
-          Extra.create(car: car, category: category, name: extra)
+          extra_name = ExtraName.find_or_create_by(name: extra)
+          Extra.create(car: car, category: category, extra_name: extra_name)
         end
       else
         puts "Failed to create car for VIN: #{vin}"

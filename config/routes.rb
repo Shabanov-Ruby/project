@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :extra_names
   resources :extras
   resources :categories
   # Проверка здоровья приложения

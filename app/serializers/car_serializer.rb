@@ -14,10 +14,10 @@ class CarSerializer < ActiveModel::Serializer
   has_many :extras
 
   def extras
-    object.extras.includes(:category).map do |extra|
+    object.extras.includes(:category, :extra_name).group_by { |extra| extra.category.name }.map do |category_name, extras|
       {
-        name: extra.name,
-        category: extra.category.name
+        category: category_name,
+        names: extras.map { |extra| extra.extra_name.name }
       }
     end
   end
