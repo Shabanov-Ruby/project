@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :extras
+  resources :categories
   # Проверка здоровья приложения
   get "up" => "rails/health#show", as: :rails_health_check
 

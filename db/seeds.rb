@@ -46,3 +46,5 @@ banks.each do |bank|
     { bank_id: bank.id, program_name: "Экспресс кредит", interest_rate: 6.5 }
   ])
 end
+
+puts "Banks and programs created successfully"

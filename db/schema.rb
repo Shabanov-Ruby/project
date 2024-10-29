@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_21_110109) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_29_133924) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -68,6 +68,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_21_110109) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "generation_id", null: false
+    t.boolean "online_view_available", default: true
     t.index ["body_type_id"], name: "index_cars_on_body_type_id"
     t.index ["brand_id"], name: "index_cars_on_brand_id"
     t.index ["color_id"], name: "index_cars_on_color_id"
@@ -76,6 +77,13 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_21_110109) do
     t.index ["gearbox_type_id"], name: "index_cars_on_gearbox_type_id"
     t.index ["generation_id"], name: "index_cars_on_generation_id"
     t.index ["model_id"], name: "index_cars_on_model_id"
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_categories_on_name", unique: true
   end
 
   create_table "colors", force: :cascade do |t|
@@ -122,6 +130,16 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_21_110109) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "extras", force: :cascade do |t|
+    t.bigint "car_id", null: false
+    t.bigint "category_id", null: false
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["car_id"], name: "index_extras_on_car_id"
+    t.index ["category_id"], name: "index_extras_on_category_id"
+  end
+
   create_table "gearbox_types", force: :cascade do |t|
     t.string "name"
     t.string "abbreviation"
@@ -145,19 +163,31 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_21_110109) do
     t.string "vin"
     t.string "registration_number"
     t.integer "last_mileage"
-    t.boolean "registration_restrictions"
-    t.boolean "wanted_status"
-    t.boolean "pledge_status"
+    t.string "registration_restrictions"
+    t.string "registration_restrictions_info"
+    t.string "wanted_status"
+    t.string "wanted_status_info"
+    t.string "pledge_status"
+    t.string "pledge_status_info"
     t.integer "previous_owners"
-    t.boolean "accidents_found"
-    t.boolean "repair_estimates_found"
-    t.boolean "taxi_usage"
-    t.boolean "carsharing_usage"
-    t.boolean "diagnostics_found"
-    t.boolean "technical_inspection_found"
-    t.boolean "imported"
-    t.boolean "insurance_found"
-    t.boolean "recall_campaigns_found"
+    t.string "accidents_found"
+    t.string "accidents_found_info"
+    t.string "repair_estimates_found"
+    t.string "repair_estimates_found_info"
+    t.string "carsharing_usage"
+    t.string "carsharing_usage_info"
+    t.string "taxi_usage"
+    t.string "taxi_usage_info"
+    t.string "diagnostics_found"
+    t.string "diagnostics_found_info"
+    t.string "technical_inspection_found"
+    t.string "technical_inspection_found_info"
+    t.string "imported"
+    t.string "imported_info"
+    t.string "insurance_found"
+    t.string "insurance_found_info"
+    t.string "recall_campaigns_found"
+    t.string "recall_campaigns_found_info"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["car_id"], name: "index_history_cars_on_car_id"
@@ -213,6 +243,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_21_110109) do
   add_foreign_key "credits", "cars"
   add_foreign_key "credits", "programs", column: "programs_id"
   add_foreign_key "exchanges", "cars"
+  add_foreign_key "extras", "cars"
+  add_foreign_key "extras", "categories"
   add_foreign_key "generations", "models"
   add_foreign_key "history_cars", "cars"
   add_foreign_key "images", "cars"
