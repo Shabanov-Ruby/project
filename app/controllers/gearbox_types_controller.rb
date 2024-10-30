@@ -3,11 +3,13 @@ class GearboxTypesController < ApplicationController
 
   # GET /gearbox_types or /gearbox_types.json
   def index
-    @gearbox_types = GearboxType.all
+    @gearbox_types = GearboxType.all  
+    render json: @gearbox_types
   end
 
   # GET /gearbox_types/1 or /gearbox_types/1.json
-  def show
+  def show  
+    render json: @gearbox_type
   end
 
   # GET /gearbox_types/new
@@ -16,7 +18,8 @@ class GearboxTypesController < ApplicationController
   end
 
   # GET /gearbox_types/1/edit
-  def edit
+  def edit  
+    render json: @gearbox_type
   end
 
   # POST /gearbox_types or /gearbox_types.json
@@ -25,35 +28,28 @@ class GearboxTypesController < ApplicationController
 
     respond_to do |format|
       if @gearbox_type.save
-        format.html { redirect_to @gearbox_type, notice: "Gearbox type was successfully created." }
-        format.json { render :show, status: :created, location: @gearbox_type }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @gearbox_type.errors, status: :unprocessable_entity }
-      end
+    if @gearbox_type.save
+      render json: @gearbox_type, status: :created
+    else
+      render json: @gearbox_type.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /gearbox_types/1 or /gearbox_types/1.json
-  def update
-    respond_to do |format|
-      if @gearbox_type.update(gearbox_type_params)
-        format.html { redirect_to @gearbox_type, notice: "Gearbox type was successfully updated." }
-        format.json { render :show, status: :ok, location: @gearbox_type }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @gearbox_type.errors, status: :unprocessable_entity }
-      end
+  def update  
+    if @gearbox_type.update(gearbox_type_params)
+      render json: @gearbox_type, status: :ok
+    else
+      render json: @gearbox_type.errors, status: :unprocessable_entity
     end
-  end
+  end   
 
   # DELETE /gearbox_types/1 or /gearbox_types/1.json
   def destroy
-    @gearbox_type.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to gearbox_types_path, status: :see_other, notice: "Gearbox type was successfully destroyed." }
-      format.json { head :no_content }
+    if @gearbox_type.destroy!
+      render json: { message: 'Gearbox type was successfully destroyed.' }, status: :see_other    
+    else
+      render json: @gearbox_type.errors, status: :unprocessable_entity
     end
   end
 

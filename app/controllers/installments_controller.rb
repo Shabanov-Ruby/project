@@ -9,7 +9,8 @@ class InstallmentsController < ApplicationController
   end
 
   # GET /installments/1 or /installments/1.json
-  def show
+  def show  
+    render json: @installment
   end
 
   # GET /installments/new
@@ -18,7 +19,8 @@ class InstallmentsController < ApplicationController
   end
 
   # GET /installments/1/edit
-  def edit
+  def edit  
+    render json: @installment
   end
 
   # POST /installments or /installments.json
@@ -44,8 +46,11 @@ class InstallmentsController < ApplicationController
 
   # DELETE /installments/1 or /installments/1.json
   def destroy
-    @installment.destroy!
-    render json: {}, status: :no_content      
+    if @installment.destroy!
+      render json: { message: "Installment was successfully destroyed." }, status: :see_other    
+    else
+      render json: @installment.errors, status: :unprocessable_entity
+    end
   end
 
   private

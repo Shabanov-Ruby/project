@@ -9,6 +9,7 @@ class ImagesController < ApplicationController
 
   # GET /images/1 or /images/1.json
   def show
+    render json: @image
   end
 
   # GET /images/new
@@ -17,7 +18,8 @@ class ImagesController < ApplicationController
   end
 
   # GET /images/1/edit
-  def edit
+  def edit  
+    render json: @image
   end
 
   # POST /images or /images.json
@@ -42,9 +44,10 @@ class ImagesController < ApplicationController
 
   # DELETE /images/1 or /images/1.json
   def destroy
-    @image.destroy!
-
-    render json: { message: 'Image was successfully destroyed.' }, status: :see_other
+    if @image.destroy!
+      render json: { message: 'Image was successfully destroyed.' }, status: :see_other
+    else
+      render json: @image.errors, status: :unprocessable_entity
     end
   end
 

@@ -18,44 +18,35 @@ class ModelsController < ApplicationController
   end
 
   # GET /models/1/edit
-  def edit
+  def edit  
+    render json: @model
   end
 
   # POST /models or /models.json
   def create
     @model = Model.new(model_params)
-
-    respond_to do |format|
-      if @model.save
-        format.html { redirect_to @model, notice: "Model was successfully created." }
-        format.json { render :show, status: :created, location: @model }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @model.errors, status: :unprocessable_entity }
-      end
-    end
+    if @model.save
+      render json: @model, status: :created
+    else
+      render json: @model.errors, status: :unprocessable_entity
+    end   
   end
 
   # PATCH/PUT /models/1 or /models/1.json
   def update
-    respond_to do |format|
-      if @model.update(model_params)
-        format.html { redirect_to @model, notice: "Model was successfully updated." }
-        format.json { render :show, status: :ok, location: @model }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @model.errors, status: :unprocessable_entity }
-      end
-    end
+    if @model.update(model_params)
+      render json: @model, status: :ok
+    else
+      render json: @model.errors, status: :unprocessable_entity
+    end           
   end
 
   # DELETE /models/1 or /models/1.json
   def destroy
-    @model.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to models_path, status: :see_other, notice: "Model was successfully destroyed." }
-      format.json { head :no_content }
+    if @model.destroy!
+      render json: { message: "Model was successfully destroyed." }, status: :see_other    
+    else
+      render json: @model.errors, status: :unprocessable_entity
     end
   end
 

@@ -4,10 +4,12 @@ class ProgramsController < ApplicationController
   # GET /programs or /programs.json
   def index
     @programs = Program.all
+    render json: @programs
   end
 
   # GET /programs/1 or /programs/1.json
   def show
+    render json: @program
   end
 
   # GET /programs/new
@@ -17,43 +19,34 @@ class ProgramsController < ApplicationController
 
   # GET /programs/1/edit
   def edit
+    render json: @program
   end
 
   # POST /programs or /programs.json
   def create
     @program = Program.new(program_params)
-
-    respond_to do |format|
-      if @program.save
-        format.html { redirect_to @program, notice: "Program was successfully created." }
-        format.json { render :show, status: :created, location: @program }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @program.errors, status: :unprocessable_entity }
-      end
+    if @program.save
+      render json: @program, status: :created
+    else
+      render json: @program.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /programs/1 or /programs/1.json
   def update
-    respond_to do |format|
-      if @program.update(program_params)
-        format.html { redirect_to @program, notice: "Program was successfully updated." }
-        format.json { render :show, status: :ok, location: @program }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @program.errors, status: :unprocessable_entity }
-      end
+    if @program.update(program_params)
+      render json: @program, status: :ok
+    else
+      render json: @program.errors, status: :unprocessable_entity
     end
   end
 
   # DELETE /programs/1 or /programs/1.json
   def destroy
-    @program.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to programs_path, status: :see_other, notice: "Program was successfully destroyed." }
-      format.json { head :no_content }
+    if @program.destroy!
+      render json: { message: "Program was successfully destroyed." }, status: :see_other    
+    else
+      render json: @program.errors, status: :unprocessable_entity
     end
   end
 

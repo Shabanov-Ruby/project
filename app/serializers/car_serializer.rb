@@ -1,8 +1,6 @@
 class CarSerializer < ActiveModel::Serializer
   attributes :id, :year, :price, :description, :online_view_available
 
-  has_many :images
-  has_many :history_cars
   belongs_to :brand
   belongs_to :model
   belongs_to :generation
@@ -12,6 +10,8 @@ class CarSerializer < ActiveModel::Serializer
   belongs_to :gearbox_type
   belongs_to :drive_type
   has_many :extras
+  has_many :history_cars
+  has_many :images
 
   def extras
     object.extras.includes(:category, :extra_name).group_by { |extra| extra.category.name }.map do |category_name, extras|

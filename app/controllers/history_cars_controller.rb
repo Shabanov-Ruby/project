@@ -3,11 +3,13 @@ class HistoryCarsController < ApplicationController
 
   # GET /history_cars or /history_cars.json
   def index
-    @history_cars = HistoryCar.all
+    @history_cars = HistoryCar.all  
+    render json: @history_cars
   end
 
   # GET /history_cars/1 or /history_cars/1.json
-  def show
+  def show  
+    render json: @history_car
   end
 
   # GET /history_cars/new
@@ -16,44 +18,35 @@ class HistoryCarsController < ApplicationController
   end
 
   # GET /history_cars/1/edit
-  def edit
+  def edit  
+    render json: @history_car
   end
 
   # POST /history_cars or /history_cars.json
-  def create
+  def create  
     @history_car = HistoryCar.new(history_car_params)
-
-    respond_to do |format|
-      if @history_car.save
-        format.html { redirect_to @history_car, notice: "History car was successfully created." }
-        format.json { render :show, status: :created, location: @history_car }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @history_car.errors, status: :unprocessable_entity }
-      end
-    end
+    if @history_car.save
+      render json: @history_car, status: :created
+    else
+      render json: @history_car.errors, status: :unprocessable_entity
+    end 
   end
 
   # PATCH/PUT /history_cars/1 or /history_cars/1.json
   def update
-    respond_to do |format|
-      if @history_car.update(history_car_params)
-        format.html { redirect_to @history_car, notice: "History car was successfully updated." }
-        format.json { render :show, status: :ok, location: @history_car }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @history_car.errors, status: :unprocessable_entity }
-      end
+    if @history_car.update(history_car_params)
+      render json: @history_car, status: :ok
+    else
+      render json: @history_car.errors, status: :unprocessable_entity
     end
   end
 
   # DELETE /history_cars/1 or /history_cars/1.json
   def destroy
-    @history_car.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to history_cars_path, status: :see_other, notice: "History car was successfully destroyed." }
-      format.json { head :no_content }
+    if @history_car.destroy!
+      render json: { message: "History car was successfully destroyed." }, status: :see_other    
+    else
+      render json: @history_car.errors, status: :unprocessable_entity
     end
   end
 

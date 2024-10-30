@@ -4,10 +4,12 @@ class FuelTypesController < ApplicationController
   # GET /fuel_types or /fuel_types.json
   def index
     @fuel_types = FuelType.all
+    render json: @fuel_types
   end
 
   # GET /fuel_types/1 or /fuel_types/1.json
   def show
+    render json: @fuel_type
   end
 
   # GET /fuel_types/new
@@ -17,43 +19,35 @@ class FuelTypesController < ApplicationController
 
   # GET /fuel_types/1/edit
   def edit
+    render json: @fuel_type
   end
 
   # POST /fuel_types or /fuel_types.json
   def create
     @fuel_type = FuelType.new(fuel_type_params)
 
-    respond_to do |format|
-      if @fuel_type.save
-        format.html { redirect_to @fuel_type, notice: "Fuel type was successfully created." }
-        format.json { render :show, status: :created, location: @fuel_type }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @fuel_type.errors, status: :unprocessable_entity }
-      end
-    end
+    if @fuel_type.save
+        render json: @fuel_type, status: :created
+    else
+      render json: @fuel_type.errors, status: :unprocessable_entity
+    end   
   end
 
   # PATCH/PUT /fuel_types/1 or /fuel_types/1.json
-  def update
-    respond_to do |format|
-      if @fuel_type.update(fuel_type_params)
-        format.html { redirect_to @fuel_type, notice: "Fuel type was successfully updated." }
-        format.json { render :show, status: :ok, location: @fuel_type }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @fuel_type.errors, status: :unprocessable_entity }
-      end
+  def update  
+    if @fuel_type.update(fuel_type_params)
+      render json: @fuel_type, status: :ok
+    else  
+      render json: @fuel_type.errors, status: :unprocessable_entity
     end
   end
 
   # DELETE /fuel_types/1 or /fuel_types/1.json
   def destroy
-    @fuel_type.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to fuel_types_path, status: :see_other, notice: "Fuel type was successfully destroyed." }
-      format.json { head :no_content }
+    if @fuel_type.destroy!
+      render json: { message: 'Fuel type was successfully destroyed.' }, status: :see_other    
+    else
+      render json: @fuel_type.errors, status: :unprocessable_entity
     end
   end
 

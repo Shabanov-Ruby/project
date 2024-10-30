@@ -4,57 +4,48 @@ class BodyTypesController < ApplicationController
   # GET /body_types or /body_types.json
   def index
     @body_types = BodyType.all
+    render json: @body_types
   end
 
   # GET /body_types/1 or /body_types/1.json
   def show
+    render json: @body_type
   end
 
   # GET /body_types/new
   def new
     @body_type = BodyType.new
+    render json: @body_type
   end
 
   # GET /body_types/1/edit
   def edit
+    render json: @body_type
   end
 
   # POST /body_types or /body_types.json
   def create
     @body_type = BodyType.new(body_type_params)
-
-    respond_to do |format|
-      if @body_type.save
-        format.html { redirect_to @body_type, notice: "Body type was successfully created." }
-        format.json { render :show, status: :created, location: @body_type }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @body_type.errors, status: :unprocessable_entity }
-      end
-    end
+    if @body_type.save
+      render json: @body_type, status: :created
+    else
+      render json: @body_type.errors, status: :unprocessable_entity
+    end     
   end
 
   # PATCH/PUT /body_types/1 or /body_types/1.json
   def update
-    respond_to do |format|
-      if @body_type.update(body_type_params)
-        format.html { redirect_to @body_type, notice: "Body type was successfully updated." }
-        format.json { render :show, status: :ok, location: @body_type }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @body_type.errors, status: :unprocessable_entity }
-      end
+    if @body_type.update(body_type_params)
+      render json: @body_type, status: :ok
+    else
+      render json: @body_type.errors, status: :unprocessable_entity
     end
-  end
+  end     
 
   # DELETE /body_types/1 or /body_types/1.json
   def destroy
     @body_type.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to body_types_path, status: :see_other, notice: "Body type was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    render json: { message: 'Body type was successfully destroyed.' }, status: :see_other  
   end
 
   private

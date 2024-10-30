@@ -4,10 +4,12 @@ class ExtrasController < ApplicationController
   # GET /extras or /extras.json
   def index
     @extras = Extra.all
+    render json: @extras
   end
 
   # GET /extras/1 or /extras/1.json
   def show
+    render json: @extra
   end
 
   # GET /extras/new
@@ -17,43 +19,35 @@ class ExtrasController < ApplicationController
 
   # GET /extras/1/edit
   def edit
+    render json: @extra
   end
 
   # POST /extras or /extras.json
   def create
     @extra = Extra.new(extra_params)
 
-    respond_to do |format|
-      if @extra.save
-        format.html { redirect_to @extra, notice: "Extra was successfully created." }
-        format.json { render :show, status: :created, location: @extra }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @extra.errors, status: :unprocessable_entity }
-      end
+    if @extra.save
+      render json: @extra, status: :created
+    else
+      render json: @extra.errors, status: :unprocessable_entity
     end
-  end
+  end   
 
   # PATCH/PUT /extras/1 or /extras/1.json
   def update
-    respond_to do |format|
-      if @extra.update(extra_params)
-        format.html { redirect_to @extra, notice: "Extra was successfully updated." }
-        format.json { render :show, status: :ok, location: @extra }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @extra.errors, status: :unprocessable_entity }
-      end
+    if @extra.update(extra_params)
+      render json: @extra, status: :ok
+    else
+      render json: @extra.errors, status: :unprocessable_entity
     end
   end
 
   # DELETE /extras/1 or /extras/1.json
   def destroy
-    @extra.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to extras_path, status: :see_other, notice: "Extra was successfully destroyed." }
-      format.json { head :no_content }
+    if @extra.destroy!
+      render json: { message: 'Extra was successfully destroyed.' }, status: :see_other   
+    else
+      render json: @extra.errors, status: :unprocessable_entity
     end
   end
 

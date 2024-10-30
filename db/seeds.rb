@@ -1,49 +1,43 @@
 # db/seeds.rb
 require 'faker'
 
-generations_data = [
-  { name: 'Банк 1', country: 'Россия' },
-  { name: 'Банк 2', country: 'Россия' },
-  { name: 'Банк 3', country: 'Россия' },
-]
-
 # Создаем банки
 banks = Bank.create([
-  { name: "Сбербанк", country: "Russia" },
-  { name: "Т Банк", country: "Russia" },
-  { name: "Альфа Банк", country: "Russia" },
-  { name: "АТБ", country: "Russia" },
-  { name: "ВТБ", country: "Russia" },
-  { name: "Газпромбанк", country: "Russia" },
-  { name: "Банк Зенит", country: "Russia" },
-  { name: "Ингосстрах Банк", country: "Russia" },
-  { name: "Райффайзен Банк", country: "Russia" },
-  { name: "Открытие", country: "Russia" },
-  { name: "Экспобанк", country: "Russia" },
-  { name: "Абсолют Банк", country: "Russia" },
-  { name: "МКБ", country: "Russia" },
-  { name: "Оранжевый Банк", country: "Russia" },
-  { name: "Отп Банк", country: "Russia" },
-  { name: "Россельхозбанк", country: "Russia" },
-  { name: "Почта Банк", country: "Russia" },
-  { name: "Ренессанс Кредит", country: "Russia" },
-  { name: "ЛокоБанк", country: "Russia" },
-  { name: "Совкомбанк", country: "Russia" },
-  { name: "ПСБ", country: "Russia" },
-  { name: "Юрганк", country: "Russia" },
-  { name: "Хоум Банк", country: "Russia" },
-  { name: "Банк Центр-Инвест", country: "Russia" },
-  { name: "ДрайвКлик", country: "Russia" },
-  { name: "ПримСоцБанк", country: "Russia" },
-  { name: "Банк Авангард", country: "Russia" }
+  { name: "Сбербанк", country: "Sberbank" },
+  { name: "Т Банк", country: "T Bank" },
+  { name: "Альфа Банк", country: "Alfa Bank" },
+  { name: "АТБ", country: "ATB" },
+  { name: "ВТБ", country: "VTB" },
+  { name: "Газпромбанк", country: "Gazprombank" },
+  { name: "Банк Зенит", country: "Zenit Bank" },
+  { name: "Ингосстрах Банк", country: "Ingosstrakh Bank" },
+  { name: "Райффайзен Банк", country: "Raiffeisen Bank" },
+  { name: "Открытие", country: "Otkritie" },
+  { name: "Экспобанк", country: "Expobank" },
+  { name: "Абсолют Банк", country: "Absolut Bank" },
+  { name: "МКБ", country: "MKB" },
+  { name: "Оранжевый Банк", country: "Orange Bank" },
+  { name: "Отп Банк", country: "OTP Bank" },
+  { name: "Россельхозбанк", country: "Rosselkhozbank" },
+  { name: "Почта Банк", country: "Post Bank" },
+  { name: "Ренессанс Кредит", country: "Renescans Credit" },
+  { name: "ЛокоБанк", country: "LokoBank" },
+  { name: "Совкомбанк", country: "Sovcombank" },
+  { name: "ПСБ", country: "PSB" },
+  { name: "Юрганк", country: "Yurgang" },
+  { name: "Хоум Банк", country: "HomeBank" },
+  { name: "Банк Центр-Инвест", country: "Center-Invest" },
+  { name: "ДрайвКлик", country: "DriveClick" },
+  { name: "ПримСоцБанк", country: "Primsocbank" },
+  { name: "Банк Авангард", country: "Bank Avangard" }
 ])
 
 # Для каждого банка создаем 2-3 кредитные программы
 banks.each do |bank|
   Program.create([
-    { bank_id: bank.id, program_name: "Стандартная программа", interest_rate: 5.5 },
-    { bank_id: bank.id, program_name: "Премиум программа", interest_rate: 4.5 },
-    { bank_id: bank.id, program_name: "Экспресс кредит", interest_rate: 6.5 }
+    { bank_id: bank.id, program_name: "Стандарт", interest_rate: 5.5 },
+    { bank_id: bank.id, program_name: "Премиум", interest_rate: 4.5 },
+    { bank_id: bank.id, program_name: "Экспресс", interest_rate: 6.5 }
   ])
 end
 

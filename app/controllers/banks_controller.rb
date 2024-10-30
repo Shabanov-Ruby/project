@@ -23,39 +23,26 @@ class BanksController < ApplicationController
   # POST /banks or /banks.json
   def create
     @bank = Bank.new(bank_params)
-
-    respond_to do |format|
-      if @bank.save
-        format.html { redirect_to @bank, notice: "Bank was successfully created." }
-        format.json { render :show, status: :created, location: @bank }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @bank.errors, status: :unprocessable_entity }
-      end
+    if @bank.save 
+      render json: @bank, status: :created
+    else
+      render json: @bank.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /banks/1 or /banks/1.json
   def update
-    respond_to do |format|
-      if @bank.update(bank_params)
-        format.html { redirect_to @bank, notice: "Bank was successfully updated." }
-        format.json { render :show, status: :ok, location: @bank }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @bank.errors, status: :unprocessable_entity }
-      end
+    if @bank.update(bank_params)
+      render json: @bank, status: :ok
+    else
+      render json: @bank.errors, status: :unprocessable_entity
     end
   end
 
   # DELETE /banks/1 or /banks/1.json
   def destroy
     @bank.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to banks_path, status: :see_other, notice: "Bank was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    render json: { message: 'Bank was successfully destroyed.' }, status: :see_other  
   end
 
   private

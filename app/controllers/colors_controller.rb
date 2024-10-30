@@ -3,11 +3,13 @@ class ColorsController < ApplicationController
 
   # GET /colors or /colors.json
   def index
-    @colors = Color.all
+    @colors = Color.all 
+    render json: @colors
   end
 
   # GET /colors/1 or /colors/1.json
   def show
+    render json: @color
   end
 
   # GET /colors/new
@@ -17,44 +19,33 @@ class ColorsController < ApplicationController
 
   # GET /colors/1/edit
   def edit
+    render json: @color 
   end
 
   # POST /colors or /colors.json
   def create
     @color = Color.new(color_params)
 
-    respond_to do |format|
-      if @color.save
-        format.html { redirect_to @color, notice: "Color was successfully created." }
-        format.json { render :show, status: :created, location: @color }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @color.errors, status: :unprocessable_entity }
-      end
-    end
+    if @color.save  
+      render json: @color, status: :created
+    else
+      render json: @color.errors, status: :unprocessable_entity
+    end       
   end
 
   # PATCH/PUT /colors/1 or /colors/1.json
   def update
-    respond_to do |format|
-      if @color.update(color_params)
-        format.html { redirect_to @color, notice: "Color was successfully updated." }
-        format.json { render :show, status: :ok, location: @color }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @color.errors, status: :unprocessable_entity }
-      end
-    end
+    if @color.update(color_params)
+      render json: @color, status: :ok
+    else
+      render json: @color.errors, status: :unprocessable_entity
+    end 
   end
 
   # DELETE /colors/1 or /colors/1.json
   def destroy
     @color.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to colors_path, status: :see_other, notice: "Color was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    render json: { message: 'Color was successfully destroyed.' }, status: :see_other       
   end
 
   private

@@ -3,11 +3,13 @@ class EngineTypesController < ApplicationController
 
   # GET /engine_types or /engine_types.json
   def index
-    @engine_types = EngineType.all
+    @engine_types = EngineType.all 
+    render json: @engine_types
   end
 
   # GET /engine_types/1 or /engine_types/1.json
   def show
+    render json: @engine_type
   end
 
   # GET /engine_types/new
@@ -17,44 +19,33 @@ class EngineTypesController < ApplicationController
 
   # GET /engine_types/1/edit
   def edit
+    render json: @engine_type
   end
 
   # POST /engine_types or /engine_types.json
   def create
     @engine_type = EngineType.new(engine_type_params)
 
-    respond_to do |format|
-      if @engine_type.save
-        format.html { redirect_to @engine_type, notice: "Engine type was successfully created." }
-        format.json { render :show, status: :created, location: @engine_type }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @engine_type.errors, status: :unprocessable_entity }
-      end
+    if @engine_type.save
+      render json: @engine_type, status: :created
+    else
+      render json: @engine_type.errors, status: :unprocessable_entity
     end
-  end
+  end       
 
   # PATCH/PUT /engine_types/1 or /engine_types/1.json
   def update
-    respond_to do |format|
-      if @engine_type.update(engine_type_params)
-        format.html { redirect_to @engine_type, notice: "Engine type was successfully updated." }
-        format.json { render :show, status: :ok, location: @engine_type }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @engine_type.errors, status: :unprocessable_entity }
-      end
+    if @engine_type.update(engine_type_params)
+      render json: @engine_type, status: :ok
+    else
+      render json: @engine_type.errors, status: :unprocessable_entity
     end
-  end
+  end   
 
   # DELETE /engine_types/1 or /engine_types/1.json
   def destroy
     @engine_type.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to engine_types_path, status: :see_other, notice: "Engine type was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    render json: { message: 'Engine type was successfully destroyed.' }, status: :see_other    
   end
 
   private

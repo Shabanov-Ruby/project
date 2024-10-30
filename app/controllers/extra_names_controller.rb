@@ -4,10 +4,12 @@ class ExtraNamesController < ApplicationController
   # GET /extra_names or /extra_names.json
   def index
     @extra_names = ExtraName.all
+    render json: @extra_names
   end
 
   # GET /extra_names/1 or /extra_names/1.json
   def show
+    render json: @extra_name
   end
 
   # GET /extra_names/new
@@ -17,44 +19,34 @@ class ExtraNamesController < ApplicationController
 
   # GET /extra_names/1/edit
   def edit
+    render json: @extra_name
   end
 
   # POST /extra_names or /extra_names.json
   def create
     @extra_name = ExtraName.new(extra_name_params)
 
-    respond_to do |format|
-      if @extra_name.save
-        format.html { redirect_to @extra_name, notice: "Extra name was successfully created." }
-        format.json { render :show, status: :created, location: @extra_name }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @extra_name.errors, status: :unprocessable_entity }
-      end
+    if @extra_name.save
+      render json: @extra_name, status: :created
+    else
+      render json: @extra_name.errors, status: :unprocessable_entity
     end
-  end
+  end 
+
 
   # PATCH/PUT /extra_names/1 or /extra_names/1.json
   def update
-    respond_to do |format|
-      if @extra_name.update(extra_name_params)
-        format.html { redirect_to @extra_name, notice: "Extra name was successfully updated." }
-        format.json { render :show, status: :ok, location: @extra_name }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @extra_name.errors, status: :unprocessable_entity }
-      end
+    if @extra_name.update(extra_name_params)
+      render json: @extra_name, status: :ok
+    else
+      render json: @extra_name.errors, status: :unprocessable_entity
     end
   end
 
   # DELETE /extra_names/1 or /extra_names/1.json
   def destroy
     @extra_name.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to extra_names_path, status: :see_other, notice: "Extra name was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    render json: { message: 'Extra name was successfully destroyed.' }, status: :see_other    
   end
 
   private

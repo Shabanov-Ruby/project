@@ -1,18 +1,8 @@
 Rails.application.routes.draw do
+  #Все ресурсы
   resources :extra_names
   resources :extras
   resources :categories
-  # Проверка здоровья приложения
-  get "up" => "rails/health#show", as: :rails_health_check
-
-  # PWA routes
-  get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
-  get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-
-  # Маршруты для обработки бренда, модели и поколения через один экшен `show`
-  #get 'cars/:brand_name(/:model_name(/:generation_name(/:car_id)))', to: 'cars#index', as: :car_details
-
-  # Остальные ресурсы
   resources :images
   resources :drive_types
   resources :gearbox_types
@@ -37,19 +27,20 @@ Rails.application.routes.draw do
   resources :offers
   resources :call_requests
 
-  get 'cars' => 'cars#index'
-  get 'last_cars' => 'cars#last_cars'
-  get 'cars_count' => 'cars#cars_count'
-  get 'cars/:id' => 'cars#show'
-  get 'exchange' => 'exchanges#index'
-  post 'exchange' => 'exchanges#create'
-  get 'installment' => 'installments#index'
-  post 'installment' => 'installments#create'
-  get 'buyout' => 'buyouts#index'
-  post 'buyout' => 'buyouts#create'
-  get 'credit' => 'credits#top_programs'
-  get 'credits' => 'credits#index '
-  post 'credit' => 'credits#create'
-  get 'credit/:id' => 'credits#show'
+  #Маршруты для клиентов
+  get 'cars' => 'cars#index'#Список автомобилей
+  get 'last_cars' => 'cars#last_cars'#Последние 20 автомобилей
+  get 'cars_count' => 'cars#cars_count'#Количество автомобилей
+  get 'cars/:id' => 'cars#show'#Показать автомобиль
+  get 'exchange' => 'exchanges#index'#Обмен
+  post 'exchange' => 'exchanges#create'#Создать обмен
+  get 'installment' => 'installments#index'#Рассрочка
+  post 'installment' => 'installments#create'#Создать рассрочку
+  get 'buyout' => 'buyouts#index'#Выкуп
+  post 'buyout' => 'buyouts#create'#Создать выкуп
+  get 'credit' => 'credits#top_programs'#Топ программ
+  get 'credits' => 'credits#index '#Список программ
+  post 'credit' => 'credits#create'#Создать программу
+  get 'credit/:id' => 'credits#show'#Показать программу
   
 end

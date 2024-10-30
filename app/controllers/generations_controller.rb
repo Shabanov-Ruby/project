@@ -18,7 +18,8 @@ class GenerationsController < ApplicationController
   end
 
   # GET /generations/1/edit
-  def edit
+  def edit  
+    render json: @generation
   end
 
   # POST /generations or /generations.json
@@ -43,8 +44,11 @@ class GenerationsController < ApplicationController
 
   # DELETE /generations/1 or /generations/1.json
   def destroy
-    @generation.destroy!
-    render json: { message: "Generation was successfully destroyed." }, status: :see_other
+    if @generation.destroy!
+      render json: { message: "Generation was successfully destroyed." }, status: :see_other
+    else
+      render json: @generation.errors, status: :unprocessable_entity
+    end
   end
 
   private
