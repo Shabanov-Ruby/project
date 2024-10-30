@@ -27,7 +27,15 @@ class CarsController < ApplicationController
   end
 
   def cars_count
-    result = CarCountService.call
+    result = BrandModelGenerationCountService.call
+    render json: result
+  end
+
+  def car_details
+    brand_name = params[:brand_name]
+    model_name = params[:model_name]
+    generation_name = params[:generation_name]
+    result = CarDetailService.call(brand_name, model_name, generation_name)
     render json: result
   end
 
