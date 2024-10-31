@@ -46,7 +46,7 @@ class CarDetailService
       gearbox_type: format_gearbox_type(car),
       drive_type: format_association(car, :drive_type),
       images: format_images(car),
-      history: format_history(car)
+      history_cars: format_history(car)
     }
   end
 
