@@ -7,7 +7,7 @@ class CarDetailService
   private
 
   def self.fetch_cars(brand_name, model_name, generation_name)
-    Car.joins(:brand, :model, :generation, :color, :body_type, :engine_type, :gearbox_type, :drive_type)
+    Car.joins(:brand, :model, :generation, :color, :body_type, :engine_type, :gearbox_type, :drive_type, :history_car)
        .includes(:images)
        .where('brands.name = ? AND models.name = ? AND generations.name = ?', brand_name, model_name, generation_name)
        .select(select_fields)
@@ -25,7 +25,9 @@ class CarDetailService
      engine_types.engine_power, engine_types.engine_capacity, 
      gearbox_types.id as gearbox_type_id, gearbox_types.name as gearbox_type_name, 
      gearbox_types.abbreviation, 
-     drive_types.id as drive_type_id, drive_types.name as drive_type_name'
+     drive_types.id as drive_type_id, drive_types.name as drive_type_name,
+     history_cars.vin, history_cars.registration_number, history_cars.last_mileage,
+     history_cars.previous_owners'
   end
 
   def self.format_car_details(car)
@@ -43,7 +45,17 @@ class CarDetailService
       engine_type: format_engine_type(car),
       gearbox_type: format_gearbox_type(car),
       drive_type: format_association(car, :drive_type),
-      images: format_images(car)
+      images: format_images(car),
+      history: format_history(car)
+    }
+  end
+
+  def self.format_history(car)
+    {
+      vin: car.vin,
+      registration_number: car.registration_number,
+      last_mileage: car.last_mileage,
+      previous_owners: car.previous_owners,
     }
   end
 

@@ -16,6 +16,8 @@ class Car < ApplicationRecord
   has_many :extras
   has_many :categories, through: :extras
 
+  has_one :history_car
+
   scope :by_brand_name, -> (brand_name) { joins(model: :brand ).where(brands: { name: brand_name }) if brand_name.present? }
   scope :by_model_name, -> (model_name) { joins(:model).where(models: { name: model_name }) if model_name.present? }
   scope :by_generation, -> (generation_name) { joins(:generation).where(generations: { name: generation_name }) if generation_name.present? }
