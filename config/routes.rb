@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   get 'last_cars' => 'cars#last_cars'#Последние 20 автомобилей
   get 'cars_count' => 'cars#cars_count'#Количество автомобилей
   get 'car_details' => 'cars#car_details'#Детали автомобиля
+  get 'filters', to: 'cars#filters'#Фильтры для автомобилей
   get 'cars/:id' => 'cars#show'#Показать автомобиль
   get 'exchange' => 'exchanges#index'#Обмен
   post 'exchange' => 'exchanges#create'#Создать обмен

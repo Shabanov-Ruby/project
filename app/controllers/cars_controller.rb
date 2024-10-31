@@ -31,6 +31,13 @@ class CarsController < ApplicationController
     render json: result
   end
 
+  def ???
+    filters = params.permit(:brand_name, :model_name, :generation_name, :year_from, :max_price, :gearbox_type_id, :body_type_id, :drive_type_id, :owners_count, :engine_type_name)
+    result = CarFilterDataService.call(filters)
+    render json: result
+  end
+
+
   def car_details
     brand_name = params[:brand_name]
     model_name = params[:model_name]
