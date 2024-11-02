@@ -81,7 +81,7 @@ class CarsController < ApplicationController
     def car_params
       params.require(:car).permit(:model_id, :brand_id, :year, :price, :description, 
                                   :color_id, :body_type_id, :engine_type_id, :gearbox_type_id, 
-                                  :drive_type_id, :generation_id, :online_view_available)
+                                  :drive_type_id, :generation_id, :online_view_available, :complectation_name)
     end
 
     def filter_params

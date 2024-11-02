@@ -1,5 +1,5 @@
 class CarSerializer < ActiveModel::Serializer
-  attributes :id, :year, :price, :description, :online_view_available
+  attributes :id, :year, :price, :description, :online_view_available, :complectation_name
 
   belongs_to :brand
   belongs_to :model

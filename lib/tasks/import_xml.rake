@@ -39,7 +39,8 @@ namespace :import do
       engine_type: engine_type,
       gearbox_type: gearbox_type,
       drive_type: drive_type,
-      online_view_available: true
+      online_view_available: true,
+      complectation_name: node.at_xpath('complectation_name').text
     )
 
     if car.save

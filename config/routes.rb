@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   resources :installments
   resources :exchanges
   resources :buyouts
-  resources :credits
+  resources :credit
   resources :trade_in_offers
   resources :installment_plans
   resources :credit_offers
