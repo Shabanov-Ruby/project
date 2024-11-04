@@ -46,3 +46,4 @@ Rails.application.routes.draw do
   get 'credit/:id' => 'credits#show'#Показать программу
   
 end
+  
