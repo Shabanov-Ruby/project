@@ -6,8 +6,8 @@ class CarFilterDataService
     if filters.empty?
       [
         { key: :brands, values: cars.joins(:brand).distinct.pluck('brands.name') },
-        { key: :models, values: 'Все модели' },
-        { key: :generations, values: 'Поколение' },
+        { key: :models, values: ['Все модели'] },
+        { key: :generations, values: ['Поколение'] },
         { key: :years, values: cars.distinct.pluck(:year).sort },
         { key: :prices, values: fetch_price_ranges(cars) },
         { key: :engines, values: cars.joins(:engine_type).distinct.pluck('engine_types.name') },
@@ -46,7 +46,7 @@ class CarFilterDataService
       [
         { key: :brands, values: cars.joins(:brand).distinct.pluck('brands.name') },
         { key: :models, values: cars.joins(:model).distinct.pluck('models.name') },
-        { key: :generations, values: 'Поколение' },
+        { key: :generations, values: ['Поколение'] },
         { key: :years, values: cars.distinct.pluck(:year).sort },
         { key: :prices, values: fetch_price_ranges(cars) },
         { key: :engines, values: cars.joins(:engine_type).distinct.pluck('engine_types.name') },
