@@ -1,6 +1,8 @@
 # db/seeds.rb
 require 'faker'
 
+
+
 # Создаем банки
 banks = Bank.create([
   { name: "Сбербанк", country: "Sberbank" },
@@ -42,3 +44,7 @@ banks.each do |bank|
 end
 
 puts "Banks and programs created successfully"
+
+Admin.create(email: 'admin1@gmail.com', password: 'password')
+Admin.create(email: 'admin2@gmail.com', password: '123456')
+puts "Admin created successfully"

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :admins
   #Все ресурсы
   resources :extra_names
   resources :extras
@@ -26,6 +27,7 @@ Rails.application.routes.draw do
   resources :credit_offers
   resources :offers
   resources :call_requests
+  resources :admins, only: [:login]
 
   #Маршруты для клиентов
   get 'cars' => 'cars#index'#Список автомобилей
@@ -48,6 +50,8 @@ Rails.application.routes.draw do
   get 'credits' => 'credits#index '#Список программ
   post 'credit' => 'credits#create'#Создать программу
   get 'credit/:id' => 'credits#show'#Показать программу
+
+  post 'admins/login' => 'admins#login'#Авторизация
   
 end
   
