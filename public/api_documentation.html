@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Documentation</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { color: #333; }
+        h2 { color: #555; }
+        p { margin: 5px 0; }
+        code { background-color: #f4f4f4; padding: 2px 4px; }
+        ul { margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>API Documentation</h1>
+    <h2>Cars</h2>
+    <p><code>GET /cars?page=1</code> - Список автомобилей</p>
+    <p><code>GET /last_cars</code> - Последние 20 автомобилей</p>
+    <p><code>GET /call_requests</code> - Количество автомобилей</p>
+    <pre>
+    {
+        "call_request": {
+          "car_id": 1,
+          "name": "Иван Иванов",
+          "phone": "+79991234567",
+          "preferred_time": "с 11.00 до 12.00"
+        }
+    }
+    </pre>
+    <p><code>GET /cars_count</code> - Количество автомобилей</p>
+    <pre>
+        {
+            "brand": "Ford",
+            "total": 1,
+            "models": [
+                {
+                    "name": "Focus",
+                    "total": 1,
+                    "generations": [
+                        {
+                            "name": "III Рестайлинг",
+                            "count": 1
+                        }
+                    ]
+                }
+            ]
+        }
+    </pre>
+
+    <p><code>GET /car_details?brand_name=(НАЗВАНИЕ БРЕНДА)&model_name=(НАЗВАНИЕ МОДЕЛИ)&generation_name=(НАЗВАНИЕ ПОКОЛЕНИЯ)</code> - Детали автомобилей про бренду, модели и поколения</p>
+    <p><code>GET /filters</code> - Фильтры для автомобилей</p>
+    <p><code>GET /cars/:id</code> - Показать автомобиль</p>
+
+    <h3>Фильтры для автомобилей</h3>
+    <ul>
+        <li><code>brand_name</code> - Название бренда автомобиля</li>
+        <li><code>model_name</code> - Название модели автомобиля</li>
+        <li><code>generation_name</code> - Название поколения автомобиля</li>
+        <li><code>year_from</code> - Год выпуска, начиная с</li>
+        <li><code>max_price</code> - Максимальная цена</li>
+        <li><code>gearbox_type_id</code> - Тип коробки передач (ID)</li>
+        <li><code>body_type_id</code> - Тип кузова (ID)</li>
+        <li><code>drive_type_id</code> - Тип привода (ID)</li>
+        <li><code>owners_count</code> - Количество владельцев</li>
+        <li><code>engine_type_name</code> - Тип двигателя</li>
+    </ul>
+
+    <h2>Exchanges</h2>
+    <p><code>GET /exchange</code> - Обмен</p>
+    <p><code>POST /exchange</code> - Создать обмен</p>
+    <pre> 
+        "exchange":{
+            "car_id": "1",
+            "stomer_car": "toyota corola 3.5",
+            "name": "Sergei",
+            "phone": 375336085016,
+            "credit_term": 36,
+            "initial_contribution": 500000
+        }
+    </pre>
+
+    <h2>Installments</h2>
+    <p><code>GET /installment</code> - Рассрочка</p>
+    <p><code>POST /installment</code> - Создать рассрочку</p>
+    <pre> 
+        "installment": {
+            "car_id": 1,
+            "name": "John Doe", 
+            "phone": "1234567890", 
+            "credit_term": 24, 
+            "initial_contribution": 30000
+            }
+    </pre>
+
+    <h2>Buyouts</h2>
+    <p><code>GET /buyout</code> - Выкуп</p>
+    <p><code>POST /buyout</code> - Создать выкуп</p>
+    <pre> 
+        "buyout": {
+            "car_id": 1, 
+            "name": "Toyota",
+            "phone": "John Doe",
+            "brand": "Toyota",
+            "model": "Corola 3.5",
+            "year": 2006,
+            "mileage": 130000
+        }
+    </pre>
+
+    <h2>Credits</h2>
+    <p><code>GET /credit</code> - Топ программ</p>
+    <p><code>GET /credits</code> - Список заявок на кредит</p>
+    <p><code>POST /credit</code> - Создать заявку на кредит</p>
+    <pre>
+    {
+     "credit": {
+            "car_id": 1,
+            "name": "Sergey",
+            "phone": 37533605016,
+            "credit_term": 36,
+            "initial_contribution": 20000,
+            "banks_id": null,
+            "programs_id": 1
+            }
+        }   
+    </pre>
+    <p><code>GET /credit/:id</code> - Показать заявку на кредит</p>
+</body>
+</html>

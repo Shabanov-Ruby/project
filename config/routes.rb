@@ -14,13 +14,13 @@ Rails.application.routes.draw do
   resources :models
   resources :history_cars
   resources :call_requests
-  resources :cars, only: [:index, :show]
+  resources :cars
   resources :banks
   resources :programs
   resources :installments
   resources :exchanges
   resources :buyouts
-  resources :credit
+  resources :credits
   resources :trade_in_offers
   resources :installment_plans
   resources :credit_offers
@@ -32,14 +32,18 @@ Rails.application.routes.draw do
   get 'last_cars' => 'cars#last_cars'#Последние 20 автомобилей
   get 'cars_count' => 'cars#cars_count'#Количество автомобилей
   get 'car_details' => 'cars#car_details'#Детали автомобиля
-  get 'filters', to: 'cars#filters'#Фильтры для автомобилей
   get 'cars/:id' => 'cars#show'#Показать автомобиль
+  get 'filters', to: 'cars#filters'#Фильтры для автомобилей
+  
   get 'exchange' => 'exchanges#index'#Обмен
   post 'exchange' => 'exchanges#create'#Создать обмен
+  
   get 'installment' => 'installments#index'#Рассрочка
   post 'installment' => 'installments#create'#Создать рассрочку
+  
   get 'buyout' => 'buyouts#index'#Выкуп
   post 'buyout' => 'buyouts#create'#Создать выкуп
+  
   get 'credit' => 'credits#top_programs'#Топ программ
   get 'credits' => 'credits#index '#Список программ
   post 'credit' => 'credits#create'#Создать программу

@@ -272,6 +272,12 @@ GEM
       rspec-mocks (~> 3.13)
       rspec-support (~> 3.13)
     rspec-support (3.13.1)
+    rswag-api (2.15.0)
+      activesupport (>= 5.2, < 8.0)
+      railties (>= 5.2, < 8.0)
+    rswag-ui (2.15.0)
+      actionpack (>= 5.2, < 8.0)
+      railties (>= 5.2, < 8.0)
     rubocop (1.67.0)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
@@ -325,6 +331,7 @@ GEM
     stimulus-rails (1.3.4)
       railties (>= 6.0.0)
     stringio (3.1.1)
+    swagger-blocks (3.0.0)
     thor (1.3.2)
     time (0.2.0)
       date
@@ -378,6 +385,8 @@ DEPENDENCIES
   rails-i18n
   ransack
   rspec-rails
+  rswag-api
+  rswag-ui
   rubocop
   rubocop-rails
   rubocop-rails-omakase
@@ -385,6 +394,7 @@ DEPENDENCIES
   selenium-webdriver
   sprockets-rails
   stimulus-rails
+  swagger-blocks
   turbo-rails
   tzinfo-data
   web-console

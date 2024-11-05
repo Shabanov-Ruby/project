@@ -3,18 +3,43 @@ class CarFilterDataService
     cars = Car.all
     cars = apply_filters(cars, filters)
 
-    [
-      { key: :brands, values: cars.joins(:brand).distinct.pluck('brands.name') },
-      { key: :models, values: cars.joins(:model).distinct.pluck('models.name') },
-      { key: :generations, values: cars.joins(:generation).distinct.pluck('generations.name') },
-      { key: :years, values: cars.distinct.pluck(:year).sort },
-      { key: :prices, values: fetch_price_ranges(cars) },
-      { key: :engines, values: cars.joins(:engine_type).distinct.pluck('engine_types.name') },
-      { key: :gearboxes, values: cars.joins(:gearbox_type).distinct.pluck('gearbox_types.name') },
-      { key: :body_types, values: cars.joins(:body_type).distinct.pluck('body_types.name') },
-      { key: :drives, values: cars.joins(:drive_type).distinct.pluck('drive_types.name') },
-      { key: :previous_owners, values: cars.joins(:history_cars).distinct.pluck('history_cars.previous_owners').sort }
-    ]
+    if filters.empty?
+      [
+        { key: :brands, values: cars.joins(:brand).distinct.pluck('brands.name') },
+        { key: :years, values: cars.distinct.pluck(:year).sort },
+        { key: :prices, values: fetch_price_ranges(cars) },
+        { key: :engines, values: cars.joins(:engine_type).distinct.pluck('engine_types.name') },
+        { key: :gearboxes, values: cars.joins(:gearbox_type).distinct.pluck('gearbox_types.name') },
+        { key: :body_types, values: cars.joins(:body_type).distinct.pluck('body_types.name') },
+        { key: :drives, values: cars.joins(:drive_type).distinct.pluck('drive_types.name') },
+        { key: :previous_owners, values: cars.joins(:history_cars).distinct.pluck('history_cars.previous_owners').sort }
+      ]
+    elsif filters[:brand_name].present?
+      [
+        { key: :brands, values: cars.joins(:brand).distinct.pluck('brands.name') },
+        { key: :models, values: cars.joins(:model).distinct.pluck('models.name') },
+        { key: :years, values: cars.distinct.pluck(:year).sort },
+        { key: :prices, values: fetch_price_ranges(cars) },
+        { key: :engines, values: cars.joins(:engine_type).distinct.pluck('engine_types.name') },
+        { key: :gearboxes, values: cars.joins(:gearbox_type).distinct.pluck('gearbox_types.name') },
+        { key: :body_types, values: cars.joins(:body_type).distinct.pluck('body_types.name') },
+        { key: :drives, values: cars.joins(:drive_type).distinct.pluck('drive_types.name') },
+        { key: :previous_owners, values: cars.joins(:history_cars).distinct.pluck('history_cars.previous_owners').sort }
+      ]
+    elsif filters[:model_name].present?
+      [
+        { key: :brands, values: cars.joins(:brand).distinct.pluck('brands.name') },
+        { key: :models, values: cars.joins(:model).distinct.pluck('models.name') },
+        { key: :generations, values: cars.joins(:generation).distinct.pluck('generations.name') },
+        { key: :years, values: cars.distinct.pluck(:year).sort },
+        { key: :prices, values: fetch_price_ranges(cars) },
+        { key: :engines, values: cars.joins(:engine_type).distinct.pluck('engine_types.name') },
+        { key: :gearboxes, values: cars.joins(:gearbox_type).distinct.pluck('gearbox_types.name') },
+        { key: :body_types, values: cars.joins(:body_type).distinct.pluck('body_types.name') },
+        { key: :drives, values: cars.joins(:drive_type).distinct.pluck('drive_types.name') },
+        { key: :previous_owners, values: cars.joins(:history_cars).distinct.pluck('history_cars.previous_owners').sort }
+      ]
+    end
   end
 
   private
