@@ -1,6 +1,7 @@
 class CarFilterService
-  def initialize(params)
+  def initialize(params, per_page)
     @params = params
+    @per_page = per_page
   end
 
   def call
@@ -13,8 +14,6 @@ class CarFilterService
     cars = cars.by_year_from(@params[:year_from]) if @params[:year_from].present?
     cars = cars.by_price(@params[:max_price]) if @params[:max_price].present?
 
-
-
     cars = cars.by_gearbox_type(@params[:gearbox_type_id]) if @params[:gearbox_type_id].present?
     cars = cars.by_body_type(@params[:body_type_id]) if @params[:body_type_id].present?
     cars = cars.by_drive_type(@params[:drive_type_id]) if @params[:drive_type_id].present?
@@ -23,5 +22,10 @@ class CarFilterService
 
     cars = cars.by_engine_type_name(@params[:engine_type_name]) if @params[:engine_type_name].present?
     cars
+  end
+
+  def total_pages
+    total_cars = call.count
+    (total_cars.to_f / @per_page).ceil
   end
 end

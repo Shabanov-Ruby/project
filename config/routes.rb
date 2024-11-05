@@ -15,7 +15,11 @@ Rails.application.routes.draw do
   resources :models
   resources :history_cars
   resources :call_requests
-  resources :cars
+  resources :cars do
+    collection do
+      get :total_pages
+    end
+  end
   resources :banks
   resources :programs
   resources :installments

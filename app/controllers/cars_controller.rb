@@ -2,11 +2,17 @@ class CarsController < ApplicationController
   before_action :set_car, only: [:show, :edit, :update, :destroy]
 
   def index
-    filtered_cars = CarFilterService.new(filter_params).call
-    paginated_cars = filtered_cars.page(params[:page]).per(30)
+    per_page = 18
+    filtered_cars = CarFilterService.new(filter_params, per_page).call
+    paginated_cars = filtered_cars.page(params[:page]).per(per_page)
     render json: paginated_cars, each_serializer: CarSerializer
   end
 
+  def total_pages
+    per_page = 18
+    total_pages = CarFilterService.new(filter_params, per_page).total_pages
+    render json: { total_pages: total_pages }
+  end
 
   def show
     render json: @car, serializer: CarSerializer
