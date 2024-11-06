@@ -22,7 +22,7 @@ class CarFilterDataService
 
     [
       { key: :car_count, value: car_count },
-      { key: :brands_name, values: all_brands },
+      { key: :brand_name, values: all_brands },
       { key: :model_name, values: selected_brand_models.empty? ? ['Все модели'] : selected_brand_models },
       { key: :generation_name, values: selected_model_generations.empty? ? ['Поколения'] : selected_model_generations },
       { key: :year_from, values: available_years },
