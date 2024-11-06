@@ -1,10 +1,11 @@
 class ModelsController < ApplicationController
-  before_action :set_model, only: [:show, :update, :destroy]
+  before_action :set_model, only: [:index, :show, :create, :update, :destroy]
+  skip_before_action :verify_authenticity_token
   
   # GET /models or /models.json
   def index
     @models = Model.all
-    render json: @models, include: ['brand']
+    render json: @models
   end
 
   # GET /models/1 or /models/1.json

@@ -38,7 +38,9 @@ class CarsController < ApplicationController
   end
 
   def filters
-    filters = params.permit(:brand_name, :model_name, :generation_name, :year_from, :max_price, :gearbox_type_id, :body_type_id, :drive_type_id, :owners_count, :engine_type_name)
+    filters = params.permit(:brand_name, :model_name, :generation_name, 
+                           :year_from, :max_price, :gearbox_type_name, :body_type_name, 
+                           :drive_type_name, :owners_count, :engine_type_name)
     result = CarFilterDataService.call(filters)
     render json: result
   end
@@ -92,8 +94,8 @@ class CarsController < ApplicationController
 
     def filter_params
       params.permit(:brand_name, :model_name, :generation_name, 
-                    :year_from, :max_price, :gearbox_type_id, :body_type_id, 
-                    :drive_type_id, :owners_count, :engine_type_name)
+                    :year_from, :max_price, :gearbox_type_name, :body_type_name, 
+                    :drive_type_name, :owners_count, :engine_type_name)
     end    
 end
 

@@ -22,17 +22,22 @@ class Car < ApplicationRecord
   scope :by_model_name, -> (model_name) { joins(:model).where(models: { name: model_name }) if model_name.present? }
   scope :by_generation, -> (generation_name) { joins(:generation).where(generations: { name: generation_name }) if generation_name.present? }
 
-  scope :by_year_from, -> (year) { where('year >= ?', year) }
+  scope :by_year_from, -> (year) { where('year >= ?', year) if year.present? }
   scope :by_price, -> (max_price) { where('price <= ?', max_price) if max_price.present? }
   
-  scope :by_gearbox_type, -> (gearbox_type_id) { where(gearbox_type_id: gearbox_type_id) if gearbox_type_id.present? }
-  scope :by_body_type, -> (body_type_id) { where(body_type_id: body_type_id) if body_type_id.present? }
-  scope :by_drive_type, -> (drive_type_id) { where(drive_type_id: drive_type_id) if drive_type_id.present? }
-  scope :by_owners_count, -> (owners_count) { where(owners_count: owners_count) if owners_count.present? }
-
-  scope :by_owners_count, -> (owners_count) { joins(:history_cars).where(history_cars: { previous_owners: owners_count }) if owners_count.present? }
- 
-  scope :by_engine_type_name, -> (engine_type_name) {
+  scope :by_gearbox_type, -> (gearbox_type_name) { 
+    joins(:gearbox_type).where(gearbox_types: { name: gearbox_type_name }) if gearbox_type_name.present? 
+  }
+  scope :by_body_type, -> (body_type_name) { 
+    joins(:body_type).where(body_types: { name: body_type_name }) if body_type_name.present? 
+  }
+  scope :by_drive_type, -> (drive_type_name) { 
+    joins(:drive_type).where(drive_types: { name: drive_type_name }) if drive_type_name.present? 
+  }
+  scope :by_owners_count, -> (owners_count) { 
+    joins(:history_cars).where(history_cars: { previous_owners: owners_count }) if owners_count.present? 
+  }
+  scope :by_engine_type_name, -> (engine_type_name) { 
     joins(:engine_type).where(engine_types: { name: engine_type_name }) if engine_type_name.present?
   }
 

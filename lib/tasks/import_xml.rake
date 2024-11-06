@@ -14,6 +14,7 @@ namespace :import do
       create_history_for_car(car, node)
       save_images_for_car(car, node)
       save_extras_for_car(car, node)
+      puts "Car created: #{DateTime.now}"
     end
   end
 
@@ -131,7 +132,7 @@ namespace :import do
     )
 
     if history_car.save
-      puts "History created for car: #{car.id}"
+      puts "History saved for car: #{car.id}"
     else
       puts "History not created for car VIN: #{vin}"
       puts history_car.errors.full_messages.join(", ")
