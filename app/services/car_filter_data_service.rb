@@ -137,19 +137,19 @@ class CarFilterDataService
   def self.fetch_price_ranges(cars, filters)
     # Определяем cars в зависимости от фильтров
     if filters[:generation_name].present?
-      cars = Generation.joins(:cars).where('generations.name = ?', filters[:generation_name]).distinct.pluck('cars.price')
+      cars = Generation.joins(:cars).where('generations.name = ?', filters[:generation_name]).pluck('cars.price')
     elsif filters[:model_name].present?
-      cars = Model.joins(:cars).where('models.name = ?', filters[:model_name]).distinct.pluck('cars.price')
+      cars = Model.joins(:cars).where('models.name = ?', filters[:model_name]).pluck('cars.price')
     elsif filters[:brand_name].present?
-      cars = Brand.joins(models: :cars).where('brands.name = ?', filters[:brand_name]).distinct.pluck('cars.price')
+      cars = Brand.joins(models: :cars).where('brands.name = ?', filters[:brand_name]).pluck('cars.price')
     else
-      cars = cars.distinct.pluck(:price)
+      cars = Car.pluck(:price) # Извлекаем только цены
     end
-
+  
     # Рассчитываем минимальную и максимальную цену
     min_price = 300_000
-    max_price = cars.present? ? cars.max.ceil(-5) : min_price
-
+    max_price = cars.present? ? cars.map(&:to_f).max.ceil(-5) : min_price # Преобразуем в float перед вызовом ceil
+  
     (min_price..max_price).step(100_000).to_a
   end
 end 
