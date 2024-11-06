@@ -8,6 +8,9 @@ class CarFilterDataService
     selected_brand_models = filters[:brand_name].present? ? Model.joins(:brand).where('brands.name = ?', filters[:brand_name]).distinct.pluck('models.name') : []
     selected_model_generations = filters[:model_name].present? ? Generation.joins(:model).where('models.name = ?', filters[:model_name]).distinct.pluck('generations.name') : []
 
+    # Получаем количество машин после применения фильтров
+    car_count = cars.count
+
     [
       { key: :brands, values: all_brands },
       { key: :models, values: selected_brand_models.empty? ? ['Все модели'] : selected_brand_models },
@@ -18,7 +21,8 @@ class CarFilterDataService
       { key: :gearboxes, values: cars.joins(:gearbox_type).distinct.pluck('gearbox_types.name') },
       { key: :body_types, values: cars.joins(:body_type).distinct.pluck('body_types.name') },
       { key: :drives, values: cars.joins(:drive_type).distinct.pluck('drive_types.name') },
-      { key: :previous_owners, values: cars.joins(:history_cars).distinct.pluck('history_cars.previous_owners').sort }
+      { key: :previous_owners, values: cars.joins(:history_cars).distinct.pluck('history_cars.previous_owners').sort },
+      { key: :car_count, value: car_count }
     ]
   end
 

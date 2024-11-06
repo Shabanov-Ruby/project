@@ -1,5 +1,4 @@
 class ModelSerializer < ActiveModel::Serializer
-  attributes :id, :name
-  has_one :generation
+  attributes :id, :name, :brand_id, :created_at
 end
 

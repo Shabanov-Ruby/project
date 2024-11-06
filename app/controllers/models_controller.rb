@@ -3,8 +3,8 @@ class ModelsController < ApplicationController
   
   # GET /models or /models.json
   def index
-    @model = Model.all
-    render json: @model
+    @models = Model.all
+    render json: @models, include: ['brand']
   end
 
   # GET /models/1 or /models/1.json

@@ -1,16 +1,16 @@
 class BrandsController < ApplicationController
   before_action :set_brand, only: [:show, :update, :destroy]
+  skip_before_action :verify_authenticity_token
 
   # GET /brands
   def index
-    @brand = Brand.all
-    render json: @brand
+    @brands = Brand.all
+    render json: @brands
   end
 
   # GET /brands/1
   def show
-    @brand = Brand.find(params[:id])
-    render json: @brand
+    render json: @brand, serializer: BrandSerializer
   end
 
   # POST /brands
@@ -40,11 +40,19 @@ class BrandsController < ApplicationController
   end
 
   private
-    def set_brand
-      @brand = Brand.find(params[:id])
-    end
 
-    def brand_params
-      params.require(:brand).permit(:name)
+  def set_brand
+    if params[:id].present?
+      @brand = Brand.find_by(id: params[:id])
+      if @brand.nil?
+        render json: { error: 'Бренд не найден' }, status: :not_found
+      end
+    else
+      render json: { error: 'Не указан ID бренда' }, status: :bad_request
     end
+  end
+
+  def brand_params
+    params.require(:brand).permit(:name)
+  end
 end

@@ -15,10 +15,55 @@
 </head>
 <body>
     <h1>API Documentation</h1>
+    
+    <h2>Brands</h2>
+    <p><code>GET /brands</code> - Список всех брендов</p>
+    <p><code>GET /brands/:id</code> - Показать информацию о конкретном бренде</p>
+    <p><code>POST /brands</code> - Создать новый бренд</p>
+    <pre>
+    {
+        "brand": {
+            "name": "Ford"
+        }
+    }
+    </pre>
+    <p><code>PATCH/PUT /brands/:id</code> - Обновить информацию о бренде</p>
+    <pre>
+    {
+        "brand": {
+            "name": "Updated Ford"
+        }
+    }
+    </pre>
+    <p><code>DELETE /brands/:id</code> - Удалить бренд</p>
+
+    <h2>Models</h2>
+    <p><code>GET /models</code> - Список всех моделей</p>
+    <p><code>GET /models/:id</code> - Показать информацию о конкретной модели</p>
+    <p><code>POST /models</code> - Создать новую модель</p>
+    <pre>
+    {
+        "model": {
+            "name": "Focus",
+            "brand_id": 1
+        }
+    }
+    </pre>
+    <p><code>PATCH/PUT /models/:id</code> - Обновить информацию о модели</p>
+    <pre>
+    {
+        "model": {
+            "name": "Updated Focus"
+        }
+    }
+    </pre>
+    <p><code>DELETE /models/:id</code> - Удалить модель</p>
+    
     <h2>Cars</h2>
     <p><code>GET /cars?page=1</code> - Список автомобилей</p>
     <p><code>GET /cars/total_pages</code> - Количество страниц(такие же фильтры как и на список автомобилей)</p>
     <p><code>GET /last_cars</code> - Последние 20 автомобилей</p>
+    <p><code>GET /cars/total_pages</code> - количество страниц</p>
     <p><code>GET /call_requests</code> - Количество автомобилей</p>
     <pre>
     {
@@ -74,7 +119,7 @@
     <pre> 
         "exchange":{
             "car_id": "1",
-            "stomer_car": "toyota corola 3.5",
+            "customer_car": "toyota corola 3.5",
             "name": "Sergei",
             "phone": 375336085016,
             "credit_term": 36,

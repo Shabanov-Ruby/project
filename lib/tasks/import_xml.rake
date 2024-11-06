@@ -25,7 +25,7 @@ namespace :import do
     color = Color.find_or_create_by(name: node.at_xpath('color').text)
     engine_type = find_or_create_engine_type(node)
     gearbox_type = find_or_create_gearbox_type(node)
-    drive_type = DriveType.find_or_create_by(name: node.at_xpath('drive')&.text || "unknown")
+    drive_type = DriveType.find_or_create_by(name: node.at_xpath('drive')&.text || "Полный")
 
     car = Car.new(
       model: model,
