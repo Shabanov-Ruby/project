@@ -1,5 +1,6 @@
 class CarsController < ApplicationController
-  before_action :set_car, only: [:show, :edit, :update, :destroy]
+  before_action :set_car, only: [:show, :update, :destroy]
+  skip_before_action :verify_authenticity_token
 
   def index
     per_page = 18
@@ -8,23 +9,36 @@ class CarsController < ApplicationController
     render json: paginated_cars, each_serializer: CarSerializer
   end
 
-  def total_pages
-    per_page = 18
-    total_pages = CarFilterService.new(filter_params, per_page).total_pages
-    render json: { total_pages: total_pages }
-  end
-
   def show
     render json: @car, serializer: CarSerializer
   end
 
-  # GET /cars/new
-  def new
-    @car = Car.new
+  def create
+    @car = Car.new(car_params)
+    if @car.save
+      render json: @car, status: :created
+    else
+      render json: @car.errors, status: :unprocessable_entity
+    end
   end
 
-  # GET /cars/1/edit
-  def edit
+  def update
+    if @car.update(car_params)
+      render json: @car, status: :ok
+    else
+      render json: @car.errors, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @car.destroy
+    head :ok
+  end
+
+  def total_pages
+    per_page = 18
+    total_pages = CarFilterService.new(filter_params, per_page).total_pages
+    render json: { total_pages: total_pages }
   end
 
   def last_cars
@@ -54,38 +68,13 @@ class CarsController < ApplicationController
     render json: result
   end
 
-  # POST /cars or /cars.json
-  def create
-    @car = Car.new(car_params)
-    if @car.save
-      render json: @car, status: :created
-    else
-      render json: @car.errors, status: :unprocessable_entity
-    end
-  end
-
-  # PATCH/PUT /cars/1 or /cars/1.json
-  def update
-    if @car.update(car_params)
-      render json: @car, status: :ok
-    else
-      render json: @car.errors, status: :unprocessable_entity
-    end
-  end
-
-  # DELETE /cars/1 or /cars/1.json
-  def destroy
-    @car.destroy!
-    render json: { message: "Car was successfully destroyed." }, status: :see_other
-  end
-
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_car
       @car = Car.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      render json: { error: 'Машина не найдена' }, status: :not_found
     end
 
-    # Only allow a list of trusted parameters through.
     def car_params
       params.require(:car).permit(:model_id, :brand_id, :year, :price, :description, 
                                   :color_id, :body_type_id, :engine_type_id, :gearbox_type_id, 

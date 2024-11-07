@@ -1,5 +1,3 @@
 class ExtraSerializer < ActiveModel::Serializer
-  attributes :id, :name
-  has_one :car
-  has_one :category
+  attributes :id, :car_id, :category_id, :extra_name_id
 end

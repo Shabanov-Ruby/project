@@ -1,33 +1,19 @@
 class GearboxTypesController < ApplicationController
-  before_action :set_gearbox_type, only: %i[ show edit update destroy ]
+  before_action :set_gearbox_type, only: %i[ show update destroy ]
+  skip_before_action :verify_authenticity_token
 
-  # GET /gearbox_types or /gearbox_types.json
   def index
     @gearbox_types = GearboxType.all  
     render json: @gearbox_types
   end
 
-  # GET /gearbox_types/1 or /gearbox_types/1.json
   def show  
     render json: @gearbox_type
   end
 
-  # GET /gearbox_types/new
-  def new
-    @gearbox_type = GearboxType.new
-  end
-
-  # GET /gearbox_types/1/edit
-  def edit  
-    render json: @gearbox_type
-  end
-
-  # POST /gearbox_types or /gearbox_types.json
   def create
     @gearbox_type = GearboxType.new(gearbox_type_params)
 
-    respond_to do |format|
-      if @gearbox_type.save
     if @gearbox_type.save
       render json: @gearbox_type, status: :created
     else
@@ -35,7 +21,6 @@ class GearboxTypesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /gearbox_types/1 or /gearbox_types/1.json
   def update  
     if @gearbox_type.update(gearbox_type_params)
       render json: @gearbox_type, status: :ok
@@ -44,22 +29,26 @@ class GearboxTypesController < ApplicationController
     end
   end   
 
-  # DELETE /gearbox_types/1 or /gearbox_types/1.json
   def destroy
-    if @gearbox_type.destroy!
-      render json: { message: 'Gearbox type was successfully destroyed.' }, status: :see_other    
+    # Проверяем, есть ли связи с таблицей cars
+    if Car.exists?(gearbox_type_id: @gearbox_type.id)
+      render json: { error: "Невозможно удалить тип коробки передач, так как он используется в таблице автомобилей." }, status: :unprocessable_entity
     else
-      render json: @gearbox_type.errors, status: :unprocessable_entity
+      if @gearbox_type.destroy
+        head :ok
+      else
+        render json: @gearbox_type.errors, status: :unprocessable_entity
+      end
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_gearbox_type
       @gearbox_type = GearboxType.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      render json: { error: "Тип коробки передач не найден." }, status: :not_found
     end
 
-    # Only allow a list of trusted parameters through.
     def gearbox_type_params
       params.require(:gearbox_type).permit(:name, :abbreviation)
     end

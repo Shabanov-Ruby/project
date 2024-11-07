@@ -96,7 +96,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_05_095858) do
 
   create_table "colors", force: :cascade do |t|
     t.string "name"
-    t.string "hex_value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -166,9 +165,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_05_095858) do
   create_table "generations", force: :cascade do |t|
     t.bigint "model_id", null: false
     t.string "name"
-    t.date "start_date"
-    t.date "end_date"
-    t.text "modernization"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["model_id"], name: "index_generations_on_model_id"
@@ -213,8 +209,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_05_095858) do
   create_table "images", force: :cascade do |t|
     t.bigint "car_id", null: false
     t.string "url"
-    t.string "description"
-    t.boolean "is_primary"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["car_id"], name: "index_images_on_car_id"

@@ -1,28 +1,16 @@
 class HistoryCarsController < ApplicationController
-  before_action :set_history_car, only: %i[ show edit update destroy ]
+  before_action :set_history_car, only: %i[ show update destroy ]
+  skip_before_action :verify_authenticity_token 
 
-  # GET /history_cars or /history_cars.json
   def index
     @history_cars = HistoryCar.all  
     render json: @history_cars
   end
 
-  # GET /history_cars/1 or /history_cars/1.json
   def show  
     render json: @history_car
   end
 
-  # GET /history_cars/new
-  def new
-    @history_car = HistoryCar.new
-  end
-
-  # GET /history_cars/1/edit
-  def edit  
-    render json: @history_car
-  end
-
-  # POST /history_cars or /history_cars.json
   def create  
     @history_car = HistoryCar.new(history_car_params)
     if @history_car.save
@@ -32,7 +20,6 @@ class HistoryCarsController < ApplicationController
     end 
   end
 
-  # PATCH/PUT /history_cars/1 or /history_cars/1.json
   def update
     if @history_car.update(history_car_params)
       render json: @history_car, status: :ok
@@ -41,10 +28,9 @@ class HistoryCarsController < ApplicationController
     end
   end
 
-  # DELETE /history_cars/1 or /history_cars/1.json
   def destroy
-    if @history_car.destroy!
-      render json: { message: "History car was successfully destroyed." }, status: :see_other    
+    if @history_car.destroy
+      head :ok    
     else
       render json: @history_car.errors, status: :unprocessable_entity
     end
@@ -54,6 +40,8 @@ class HistoryCarsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_history_car
       @history_car = HistoryCar.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      render json: { error: "История автомобиля не найдена." }, status: :not_found
     end
 
     # Only allow a list of trusted parameters through.

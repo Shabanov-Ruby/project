@@ -1,3 +1,4 @@
 class ImageSerializer < ActiveModel::Serializer
-  attributes :id, :url, :is_primary
+  attributes :id, :car_id, :url
 end
+

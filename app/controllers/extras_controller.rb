@@ -1,28 +1,17 @@
 class ExtrasController < ApplicationController
-  before_action :set_extra, only: %i[ show edit update destroy ]
+  before_action :set_extra, only: %i[ show update destroy ]
+  skip_before_action :verify_authenticity_token
 
-  # GET /extras or /extras.json
   def index
-    @extras = Extra.all
+    per_page = 18
+    @extras = Extra.page(params[:page]).per(per_page)
     render json: @extras
   end
 
-  # GET /extras/1 or /extras/1.json
   def show
     render json: @extra
   end
 
-  # GET /extras/new
-  def new
-    @extra = Extra.new
-  end
-
-  # GET /extras/1/edit
-  def edit
-    render json: @extra
-  end
-
-  # POST /extras or /extras.json
   def create
     @extra = Extra.new(extra_params)
 
@@ -33,7 +22,6 @@ class ExtrasController < ApplicationController
     end
   end   
 
-  # PATCH/PUT /extras/1 or /extras/1.json
   def update
     if @extra.update(extra_params)
       render json: @extra, status: :ok
@@ -42,23 +30,22 @@ class ExtrasController < ApplicationController
     end
   end
 
-  # DELETE /extras/1 or /extras/1.json
   def destroy
-    if @extra.destroy!
-      render json: { message: 'Extra was successfully destroyed.' }, status: :see_other   
+    if @extra.destroy
+      head :ok  
     else
       render json: @extra.errors, status: :unprocessable_entity
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_extra
       @extra = Extra.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      render json: { error: "Дополнительное оборудование не найдено." }, status: :not_found
     end
 
-    # Only allow a list of trusted parameters through.
     def extra_params
-      params.require(:extra).permit(:car_id, :category_id, :name)
+      params.require(:extra).permit(:car_id, :category_id, :extra_name_id)
     end
 end

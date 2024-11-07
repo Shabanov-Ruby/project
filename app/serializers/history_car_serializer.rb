@@ -12,4 +12,6 @@ class HistoryCarSerializer < ActiveModel::Serializer
   :imported, :imported_info, 
   :insurance_found, :insurance_found_info, 
   :recall_campaigns_found, :recall_campaigns_found_info
+
+  belongs_to :car
 end

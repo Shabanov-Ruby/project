@@ -1,28 +1,17 @@
 class ImagesController < ApplicationController
-  before_action :set_image, only: %i[ show edit update destroy ]
+  before_action :set_image, only: %i[ show update destroy ]
+  skip_before_action :verify_authenticity_token
 
-  # GET /images or /images.json
   def index
-    @images = Image.all
-    render json: @images, each_serializer: ImageSerializer
+    per_page = 18
+    @images = Image.page(params[:page]).per(per_page)
+    render json: @images
   end
 
-  # GET /images/1 or /images/1.json
   def show
     render json: @image
   end
 
-  # GET /images/new
-  def new
-    @image = Image.new
-  end
-
-  # GET /images/1/edit
-  def edit  
-    render json: @image
-  end
-
-  # POST /images or /images.json
   def create
     @image = Image.new(image_params)
 
@@ -33,7 +22,6 @@ class ImagesController < ApplicationController
     end   
   end
 
-  # PATCH/PUT /images/1 or /images/1.json
   def update
     if @image.update(image_params)
       render json: @image, status: :ok
@@ -42,23 +30,22 @@ class ImagesController < ApplicationController
     end
   end
 
-  # DELETE /images/1 or /images/1.json
   def destroy
-    if @image.destroy!
-      render json: { message: 'Image was successfully destroyed.' }, status: :see_other
+    if @image.destroy
+      head :ok
     else
       render json: @image.errors, status: :unprocessable_entity
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_image
       @image = Image.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      render json: { error: 'Изображение не найдено' }, status: :not_found
     end
 
-    # Only allow a list of trusted parameters through.
     def image_params
-      params.require(:image).permit(:car_id, :url, :is_primary)
+      params.require(:image).permit(:car_id, :url)
     end
 end

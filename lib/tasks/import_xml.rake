@@ -7,14 +7,16 @@ namespace :import do
     xml_data = File.read(file_path)
     doc = Nokogiri::XML(xml_data)
 
-    doc.xpath('//car').each do |node|
-      car = create_car_from_node(node)
-      next unless car
+    ActiveRecord::Base.transaction do
+      doc.xpath('//car').each do |node|
+        car = create_car_from_node(node)
+        next unless car
 
-      create_history_for_car(car, node)
-      save_images_for_car(car, node)
-      save_extras_for_car(car, node)
-      puts "Car created: #{DateTime.now}"
+        create_history_for_car(car, node)
+        save_images_for_car(car, node)
+        save_extras_for_car(car, node)
+        puts "Car created: #{DateTime.now.strftime('%Y-%m-%d %H:%M:%S')}"
+      end
     end
   end
 
@@ -141,7 +143,7 @@ namespace :import do
 
   def save_images_for_car(car, node)
     node.xpath('images/image').each do |image_node|
-      Image.create(car: car, url: image_node.text, is_primary: false)
+      Image.create(car: car, url: image_node.text)
     end
     puts "Images saved for car: #{car.id}"
   end

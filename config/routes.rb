@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :admins
+  resources :admins, only: [:login]
   #Все ресурсы
   resources :extra_names
   resources :extras
