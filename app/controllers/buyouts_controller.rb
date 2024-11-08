@@ -1,22 +1,16 @@
 class BuyoutsController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :set_buyout, only: %i[ show edit update destroy ]
+  before_action :set_buyout, only: %i[ show update destroy ]
 
-  # GET /buyouts or /buyouts.json
   def index
     @buyouts = Buyout.all
     render json: @buyouts
   end
 
-  # GET /buyouts/1 or /buyouts/1.json
   def show
+    render json: @buyout
   end
 
-  # GET /buyouts/1/edit
-  def edit
-  end
-
-  # POST /buyouts or /buyouts.json
   def create
     Rails.logger.info "Received params: #{params.inspect}"
     @buyout = Buyout.new(buyout_params)
@@ -28,7 +22,6 @@ class BuyoutsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /buyouts/1 or /buyouts/1.json
   def update
     if @buyout.update(buyout_params)
       render json: @buyout, status: :ok
@@ -37,20 +30,21 @@ class BuyoutsController < ApplicationController
     end
   end
 
-  # DELETE /buyouts/1 or /buyouts/1.json
   def destroy
-    @buyout.destroy!
-
-    render json: {}, status: :no_content
+    if @buyout.destroy
+      head :ok
+    else
+      render json: @buyout.errors, status: :unprocessable_entity
+    end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_buyout
       @buyout = Buyout.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      render json: { error: "Выкуп не найден" }, status: :not_found
     end
 
-    # Only allow a list of trusted parameters through.
     def buyout_params
       params.require(:buyout).permit(:name, :phone, :brand, :model, :year, :mileage)
     end

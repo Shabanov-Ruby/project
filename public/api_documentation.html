@@ -209,10 +209,10 @@
         }
         </pre>
         <p><code>DELETE /body_types/:id</code> - Удалить тип кузова (возвращает 200)</p>
-        </div>
+    </div>
 
-        <h2 onclick="toggleSection(this)">Colors</h2>
-        <div class="toggle-content" style="display: none;">
+    <h2 onclick="toggleSection(this)">Colors</h2>
+    <div class="toggle-content" style="display: none;">
         <p><code>GET /colors</code> - Список всех цветов</p>
         <p><code>GET /colors/:id</code> - Показать информацию о конкретном цвете</p>
         <p><code>POST /colors</code> - Создать новый цвет</p>
@@ -256,10 +256,10 @@
         }
         </pre>
         <p><code>DELETE /drive_type/:id</code> - Удалить тип привода (возвращает 200)</p>
-        </div>
+    </div>
 
-        <h2 onclick="toggleSection(this)">Engine Types</h2>
-        <div class="toggle-content" style="display: none;">
+    <h2 onclick="toggleSection(this)">Engine Types</h2>
+    <div class="toggle-content" style="display: none;">
         <p><code>GET /engine_types</code> - Список всех типов двигателей</p>
         <p><code>GET /engine_types/:id</code> - Показать информацию о конкретном типе двигателя</p>
         <p><code>POST /engine_types</code> - Создать новый тип двигателя</p>
@@ -282,7 +282,7 @@
             }
         }
         </pre>
-        <p><code>DELETE /engine_types/:id</code> - Удалить тип двигателя (возвращает 200)</p>
+        <p><code>DELETE /engine_types/:id</code> - Удалить тип дви��ателя (возвращает 200)</p>
     </div>
 
     <h2 onclick="toggleSection(this)">Gearbox Types</h2>
@@ -541,7 +541,7 @@
         {
             "call_request": {
                 "car_id": 1,
-                "name": "Обновленный Иван Иванов",
+                "name": "Обновленный Ива�� Иванов",
                 "phone": "+79991234568",
                 "preferred_time": "с 12.00 до 13.00"
             }
@@ -550,42 +550,50 @@
         <p><code>DELETE /call_requests/:id</code> - Удалить конкретную заявку (возвращает 200)</p>
     </div>
     
-    <h2 onclick="toggleSection(this)">Exchanges</h2>
+    <h2 onclick="toggleSection(this)">Credits</h2>
     <div class="toggle-content" style="display: none;">
-        <p><code>GET /exchange</code> - Обмен</p>
-        <p><code>POST /exchange</code> - Создать обмен</p>
-        <pre> 
-            "exchange":{
-                "car_id": "1",
-                "customer_car": "toyota corola 3.5",
-                "name": "Sergei",
-                "phone": 375336085016,
-                "credit_term": 36,
-                "initial_contribution": 500000
-            }
-        </pre>
-    </div>
-    <h2 onclick="toggleSection(this)">Installments</h2>
-    <div class="toggle-content" style="display: none;">
-        <p><code>GET /installment</code> - Рассрочка</p>
-        <p><code>POST /installment</code> - Создать рассрочку</p>
-        <pre> 
-            "installment": {
+        <p><code>GET /credits</code> - Список всех кредитов</p>
+        <p><code>GET /credits/:id</code> - Показать информацию о конкретном кредите</p>
+        <p><code>POST /credits</code> - Создать новый кредит</p>
+        <pre>
+        {
+            "credit": {
                 "car_id": 1,
-                "name": "John Doe", 
-                "phone": "1234567890", 
-                "credit_term": 24, 
-                "initial_contribution": 30000
-                }
+                "name": "Sergey",
+                "phone": "37533605016",
+                "credit_term": 36,
+                "initial_contribution": 20000,
+                "banks_id": null,
+                "programs_id": 1
+            }
+        }
         </pre>
+        <p><code>PATCH/PUT /credits/:id</code> - Обновить информацию о кредите</p>
+        <pre>
+        {
+            "credit": {
+                "car_id": 1,
+                "name": "Обновленный Сергей",
+                "phone": "37533605017",
+                "credit_term": 24,
+                "initial_contribution": 15000,
+                "banks_id": 1,
+                "programs_id": 2
+            }
+        }
+        </pre>
+        <p><code>DELETE /credits/:id</code> - Удалить кредит (возвращает 200)</p>
     </div>
+
     <h2 onclick="toggleSection(this)">Buyouts</h2>
     <div class="toggle-content" style="display: none;">
-        <p><code>GET /buyout</code> - Выкуп</p>
-        <p><code>POST /buyout</code> - Создать выкуп</p>
-        <pre> 
+        <p><code>GET /buyouts</code> - Список всех выкупов</p>
+        <p><code>GET /buyouts/:id</code> - Показать информацию о конкретном выкупе</p>
+        <p><code>POST /buyouts</code> - Создать новый выкуп</p>
+        <pre>
+        {
             "buyout": {
-                "car_id": 1, 
+                "car_id": 1,
                 "name": "Toyota",
                 "phone": "John Doe",
                 "brand": "Toyota",
@@ -593,27 +601,87 @@
                 "year": 2006,
                 "mileage": 130000
             }
+        }
         </pre>
-    </div>
-    <h2 onclick="toggleSection(this)">Credits</h2>
-    <div class="toggle-content" style="display: none;">
-        <p><code>GET /credit</code> - Топ программ</p>
-        <p><code>GET /credits</code> - Список заявок на кредит</p>
-        <p><code>POST /credit</code> - Создать заявку на кредит</p>
+        <p><code>PATCH/PUT /buyouts/:id</code> - Обновить информацию о выкупе</p>
         <pre>
         {
-        "credit": {
+            "buyout": {
                 "car_id": 1,
-                "name": "Sergey",
-                "phone": 37533605016,
-                "credit_term": 36,
-                "initial_contribution": 20000,
-                "banks_id": null,
-                "programs_id": 1
-                }
-            }   
+                "name": "Обновленный Toyota",
+                "phone": "John Doe",
+                "brand": "Toyota",
+                "model": "Corola 3.5",
+                "year": 2007,
+                "mileage": 120000
+            }
+        }
         </pre>
-        <p><code>GET /credit/:id</code> - Показать заявку на кредит</p>
+        <p><code>DELETE /buyouts/:id</code> - Удалить выкуп (возвращает 200)</p>
+    </div>
+
+    <h2 onclick="toggleSection(this)">Exchanges</h2>
+    <div class="toggle-content" style="display: none;">
+        <p><code>GET /exchanges</code> - Список всех обменов</p>
+        <p><code>GET /exchanges/:id</code> - Показать информацию о конкретном обмене</p>
+        <p><code>POST /exchanges</code> - Создать новый обмен</p>
+        <pre>
+        {
+            "exchange": {
+                "car_id": 1,
+                "customer_car": "toyota corola 3.5",
+                "name": "Sergei",
+                "phone": "375336085016",
+                "credit_term": 36,
+                "initial_contribution": 500000
+            }
+        }
+        </pre>
+        <p><code>PATCH/PUT /exchanges/:id</code> - Обновить информацию об обмене</p>
+        <pre>
+        {
+            "exchange": {
+                "car_id": 1,
+                "customer_car": "Обновленный toyota corola 3.5",
+                "name": "Обновленный Sergei",
+                "phone": "375336085017",
+                "credit_term": 24,
+                "initial_contribution": 600000
+            }
+        }
+        </pre>
+        <p><code>DELETE /exchanges/:id</code> - Удалить обмен (возвращает 200)</p>
+    </div>
+
+    <h2 onclick="toggleSection(this)">Installments</h2>
+    <div class="toggle-content" style="display: none;">
+        <p><code>GET /installments</code> - Список всех рассрочек</p>
+        <p><code>GET /installments/:id</code> - Показать информацию о конкретной рассрочке</p>
+        <p><code>POST /installments</code> - Создать новую рассрочку</p>
+        <pre>
+        {
+            "installment": {
+                "car_id": 1,
+                "name": "John Doe",
+                "phone": "1234567890",
+                "credit_term": 24,
+                "initial_contribution": 30000
+            }
+        }
+        </pre>
+        <p><code>PATCH/PUT /installments/:id</code> - Обновить информацию о рассрочке</p>
+        <pre>
+        {
+            "installment": {
+                "car_id": 1,
+                "name": "Обновленный John Doe",
+                "phone": "1234567891",
+                "credit_term": 12,
+                "initial_contribution": 25000
+            }
+        }
+        </pre>
+        <p><code>DELETE /installments/:id</code> - Удалить рассрочку (возвращает 200)</p>
     </div>
 
     <h2 onclick="toggleSection(this)">Admins</h2>
@@ -630,6 +698,7 @@
             }
         </pre>
     </div>
+
     <script>
         function toggleSection(header) {
             const content = header.nextElementSibling;
