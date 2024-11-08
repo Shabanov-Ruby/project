@@ -1,9 +1,5 @@
-# db/seeds.rb
-require 'faker'
 
 
-
-# Создаем банки
 banks = Bank.create([
   { name: "Сбербанк", country: "Sberbank" },
   { name: "Т Банк", country: "T Bank" },
@@ -34,7 +30,6 @@ banks = Bank.create([
   { name: "Банк Авангард", country: "Bank Avangard" }
 ])
 
-# Для каждого банка создаем 2-3 кредитные программы
 banks.each do |bank|
   Program.create([
     { bank_id: bank.id, program_name: "Стандарт", interest_rate: 5.5 },
@@ -42,9 +37,32 @@ banks.each do |bank|
     { bank_id: bank.id, program_name: "Экспресс", interest_rate: 6.5 }
   ])
 end
-
 puts "Banks and programs created successfully"
 
 Admin.create(email: 'admin1@gmail.com', password: 'password')
 Admin.create(email: 'admin2@gmail.com', password: '123456')
 puts "Admin created successfully"
+
+OrderStatus.create([
+  { name: 'Новая' },
+  { name: 'В обработке' },
+  { name: 'Одобрена' },
+  { name: 'Отклонена' },
+  { name: 'Завершена' }
+])
+puts "Order statuses created successfully"
+
+AboutCompany.create([
+  { description: 'Компания «YouAuto» на автомобильном рынке функционирует с 2013 года. Мы посвятили много времени и усилий нашему профессионализму в продажах и обслуживании за эти годы. В автопарке нашего автосалона мы собрали множество автомобилей с пробегом, которые прошли техническую и юридическую экспертизу. Проверка каждого автомобиля начинается с этапа закупки и продолжается во время предпродажной подготовки.' },
+  { description: 'В «YouAuto» представлены автомобили более 40 марок, что позволит Вам найти подходящий вариант в стенах одного автосалона. Мы создали комфортные и доступные условия для своих покупателей, позволяющие безопасно совершить покупку. Выгодные кредитные условия, подробная информация об автомобилях, техническая гарантия и подарки — то, ради чего люди приходят в наш автосалон.' },
+  { description: 'Ждем Вас в «YouAuto»!' },
+])
+puts "About company created successfully"
+
+Contact.create([
+  { phone: '+79999999999', 
+    mode_operation: 'пн-пт 10:00-19:00', 
+    auto_address: 'г. Москва, ул. Ленина, д. 1', 
+    status: true },
+])
+puts "Contact created successfully"

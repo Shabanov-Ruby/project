@@ -699,6 +699,117 @@
         </pre>
     </div>
 
+    <h2 onclick="toggleSection(this)">About Companies</h2>
+    <div class="toggle-content" style="display: none;">
+        <p><code>GET /about_companies</code> - Список всех компаний</p>
+        <p><code>GET /about_companies/:id</code> - Показать информацию о конкретной компании</p>
+        <p><code>POST /about_companies</code> - Создать новую компанию</p>
+        <pre>
+        {
+            "about_company": {
+                "description": "Описание компании"
+            }
+        }
+        </pre>
+        <p><code>PATCH/PUT /about_companies/:id</code> - Обновить информацию о компании</p>
+        <pre>
+        {
+            "about_company": {
+                "description": "Обновленное описание компании"
+            }
+        }
+        </pre>
+        <p><code>DELETE /about_companies/:id</code> - Удалить компанию (возвращает 200)</p>
+    </div>
+
+    <h2 onclick="toggleSection(this)">Orders</h2>
+    <div class="toggle-content" style="display: none;">
+        <p><code>GET /orders</code> - Список всех заказов</p>
+        <p><code>GET /orders/:id</code> - Показать информацию о конкретном заказе</p>
+        <p><code>POST /orders</code> - Создать новый заказ</p>
+        <pre>
+        {
+            "order": {
+                "buyout_id": 1,
+                "credit_id": 1,
+                "exchange_id": 1,
+                "installment_id": 1,
+                "call_request_id": 1,
+                "order_status_id": 1,
+                "description": "Описание заказа"
+            }
+        }
+        </pre>
+        <p><code>PATCH/PUT /orders/:id</code> - Обновить информацию о заказе</p>
+        <pre>
+        {
+            "order": {
+                "buyout_id": 2,
+                "credit_id": 2,
+                "exchange_id": 2,
+                "installment_id": 2,
+                "call_request_id": 2,
+                "order_status_id": 2,
+                "description": "Обновленное описание заказа"
+            }
+        }
+        </pre>
+        <p><code>DELETE /orders/:id</code> - Удалить заказ (возвращает 200)</p>
+    </div>
+
+    <h2 onclick="toggleSection(this)">Order Statuses</h2>
+    <div class="toggle-content" style="display: none;">
+        <p><code>GET /order_statuses</code> - Список всех статусов заказов</p>
+        <p><code>GET /order_statuses/:id</code> - Показать информацию о конкретном статусе заказа</p>
+        <p><code>POST /order_statuses</code> - Создать новый статус заказа</p>
+        <pre>
+        {
+            "order_status": {
+                "name": "Новый статус"
+            }
+        }
+        </pre>
+        <p><code>PATCH/PUT /order_statuses/:id</code> - Обновить информацию о статусе заказа</p>
+        <pre>
+        {
+            "order_status": {
+                "name": "Обновленный статус"
+            }
+        }
+        </pre>
+        <p><code>DELETE /order_statuses/:id</code> - Удалить статус заказа (возвращает 200)</p>
+    </div>
+
+    <h2 onclick="toggleSection(this)">Contacts</h2>
+    <div class="toggle-content" style="display: none;">
+        <p><code>GET /contacts</code> - Список всех контактов</p>
+        <p><code>GET /contacts/:id</code> - Показать информацию о конкретном контакте</p>
+        <p><code>POST /contacts</code> - Создать новый контакт</p>
+        <pre>
+        {
+            "contact": {
+                "phone": "1234567890",
+                "mode_operation": "Режим работы",
+                "auto_address": "Адрес авто",
+                "status": false
+            }
+        }
+        </pre>
+        <p><code>PATCH/PUT /contacts/:id</code> - Обновить информацию о контакте</p>
+        <pre>
+        {
+            "contact": {
+                "phone": "0987654321",
+                "mode_operation": "Обновленный режим работы",
+                "auto_address": "Обновленный адрес авто",
+                "status": false
+            }
+        }
+        </pre>
+        <p><code>DELETE /contacts/:id</code> - Удалить контакт (возвращает 200)</p>
+    </div>
+
+
     <script>
         function toggleSection(header) {
             const content = header.nextElementSibling;

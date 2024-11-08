@@ -10,9 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_05_095858) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_08_172714) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "about_companies", force: :cascade do |t|
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "admins", force: :cascade do |t|
     t.string "email"
@@ -96,6 +102,15 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_05_095858) do
 
   create_table "colors", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "contacts", force: :cascade do |t|
+    t.bigint "phone"
+    t.string "mode_operation"
+    t.string "auto_address"
+    t.boolean "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -232,6 +247,30 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_05_095858) do
     t.index ["brand_id"], name: "index_models_on_brand_id"
   end
 
+  create_table "order_statuses", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.bigint "buyout_id"
+    t.bigint "credit_id"
+    t.bigint "exchange_id"
+    t.bigint "installment_id"
+    t.bigint "call_request_id"
+    t.bigint "order_status_id"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["buyout_id"], name: "index_orders_on_buyout_id"
+    t.index ["call_request_id"], name: "index_orders_on_call_request_id"
+    t.index ["credit_id"], name: "index_orders_on_credit_id"
+    t.index ["exchange_id"], name: "index_orders_on_exchange_id"
+    t.index ["installment_id"], name: "index_orders_on_installment_id"
+    t.index ["order_status_id"], name: "index_orders_on_order_status_id"
+  end
+
   create_table "programs", force: :cascade do |t|
     t.integer "bank_id"
     t.string "program_name"
@@ -261,5 +300,11 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_05_095858) do
   add_foreign_key "images", "cars"
   add_foreign_key "installments", "cars"
   add_foreign_key "models", "brands"
+  add_foreign_key "orders", "buyouts"
+  add_foreign_key "orders", "call_requests"
+  add_foreign_key "orders", "credits"
+  add_foreign_key "orders", "exchanges"
+  add_foreign_key "orders", "installments"
+  add_foreign_key "orders", "order_statuses"
   add_foreign_key "programs", "banks"
 end

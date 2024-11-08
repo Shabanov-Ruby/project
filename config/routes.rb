@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :contacts
+  resources :about_companies
+  resources :orders
+  resources :order_statuses
   resources :admins, only: [:login]
   #Все ресурсы
   resources :extra_names
