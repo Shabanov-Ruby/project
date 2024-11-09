@@ -16,7 +16,7 @@ class CreditsController < ApplicationController
     @credit = Credit.new(credit_params)
 
     if @credit.save 
-      render json: @credit, status: :created
+      create_order_credit(@credit)
     else
       render json: @credit.errors, status: :unprocessable_entity
     end
@@ -52,5 +52,18 @@ class CreditsController < ApplicationController
 
     def credit_params
       params.require(:credit).permit(:car_id, :name, :phone, :credit_term, :initial_contribution, :banks_id, :programs_id)
+    end
+
+    def create_order_credit(credit)
+      order_credit = OrdersCredit.new(
+        credit_id: credit.id,
+        description: "Заявка создана и ожидает обработки",
+        order_status_id: OrderStatus.find_by(name: "Новая").id
+      )
+      if order_credit.save
+        render json: { credit: credit, order_credit: order_credit }, status: :created
+      else
+        render json: { credit: credit, errors: order_credit.errors }, status: :unprocessable_entity
+      end
     end
 end

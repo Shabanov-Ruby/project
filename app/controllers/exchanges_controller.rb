@@ -49,4 +49,17 @@ class ExchangesController < ApplicationController
     def exchange_params
       params.require(:exchange).permit(:car_id, :customer_car, :name, :phone, :credit_term, :initial_contribution)
     end
+
+    def create_order_exchange(exchange)
+      order_exchange = OrdersExchange.new(
+        exchange_id: exchange.id,
+        description: "Обмен создан и ожидает обработки",
+        order_status_id: OrderStatus.find_by(name: "Новая").id
+      )
+      if order_exchange.save
+        render json: { exchange: exchange, order_exchange: order_exchange }, status: :created
+      else
+        render json: { exchange: exchange, errors: order_exchange.errors }, status: :unprocessable_entity
+      end
+    end 
 end

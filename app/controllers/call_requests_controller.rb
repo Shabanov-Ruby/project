@@ -14,9 +14,8 @@ class CallRequestsController < ApplicationController
 
   def create
     @call_request = CallRequest.new(call_request_params)
-
-    if @call_request.save
-      render json: @call_request, status: :created
+    if @call_request.save && create_order_call_request(@call_request)
+      create_order_call_request(@call_request)
     else
       render json: @call_request.errors, status: :unprocessable_entity
     end 
@@ -31,8 +30,11 @@ class CallRequestsController < ApplicationController
   end   
 
   def destroy
-    @call_request.destroy
-    head :ok
+    if @call_request.destroy
+      head :ok
+    else
+      render json: @call_request.errors, status: :unprocessable_entity
+    end
   end
 
   private
@@ -44,5 +46,18 @@ class CallRequestsController < ApplicationController
 
     def call_request_params
       params.require(:call_request).permit(:car_id, :name, :phone, :preferred_time)
+    end
+
+    def create_order_call_request(call_request)
+      order_call_request = OrdersCallRequest.new(
+        call_request_id: call_request.id,
+        description: "Заявка создана и ожидает обработки",
+        order_status_id: OrderStatus.find_by(name: "Новая").id
+      )
+      if order_call_request.save
+        render json: { call_request: call_request, order_call_request: order_call_request }, status: :created
+      else
+        render json: { call_request: call_request, errors: order_call_request.errors }, status: :unprocessable_entity
+      end
     end
 end

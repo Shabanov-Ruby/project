@@ -14,7 +14,7 @@ class BodyTypesController < ApplicationController
   def create
     @body_type = BodyType.new(body_type_params)
     if @body_type.save
-      render json: @body_type, status: :created
+      create_order_body_type(@body_type)
     else
       render json: @body_type.errors, status: :unprocessable_entity
     end     
@@ -49,5 +49,18 @@ class BodyTypesController < ApplicationController
 
     def body_type_params
       params.require(:body_type).permit(:name)
+    end
+
+    def create_order_body_type(body_type)
+      order_body_type = OrdersBodyType.new(
+        body_type_id: body_type.id,
+        description: "Тип кузова создан и ожидает обработки",
+        order_status_id: OrderStatus.find_by(name: "Новая").id
+      )
+      if order_body_type.save
+        render json: { body_type: body_type, order_body_type: order_body_type }, status: :created
+      else
+        render json: { body_type: body_type, errors: order_body_type.errors }, status: :unprocessable_entity
+      end
     end
 end

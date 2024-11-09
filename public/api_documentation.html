@@ -521,6 +521,7 @@
         </pre>
         <p><code>DELETE /programs/:id</code> - Удалить программу (возвращает 200)</p>
     </div>
+
     <h2 onclick="toggleSection(this)">Call Requests</h2>
     <div class="toggle-content" style="display: none;">
         <p><code>GET /call_requests</code> - Список всех заявок на обратный звонок</p>
@@ -548,6 +549,33 @@
         }
         </pre>
         <p><code>DELETE /call_requests/:id</code> - Удалить конкретную заявку (возвращает 200)</p>
+    </div>
+
+    <h2 onclick="toggleSection(this)">Orders Call Requests</h2>
+    <div class="toggle-content" style="display: none;">
+        <p><code>GET /orders_call_requests</code> - Список всех заявок на обратный звонок</p>
+        <p><code>GET /orders_call_requests/:id</code> - Показать информацию о конкретной заявке</p>
+        <p><code>POST /orders_call_requests</code> - Создать новую заявку на обратный звонок</p>
+        <pre>
+        {
+            "orders_call_request": {
+                "call_request_id": 1,
+                "description": "Заявка создана и ожидает обработки",
+                "order_status_id": 1
+            }
+        }
+        </pre>
+        <p><code>PATCH/PUT /orders_call_requests/:id</code> - Обновить информацию о конкретной заявке</p>
+        <pre>
+        {
+            "orders_call_request": {
+                "call_request_id": 1,
+                "description": "Обновленное описание заявки",
+                "order_status_id": 2
+            }
+        }
+        </pre>
+        <p><code>DELETE /orders_call_requests/:id</code> - Удалить конкретную заявку (возвращает 200)</p>
     </div>
     
     <h2 onclick="toggleSection(this)">Credits</h2>
@@ -585,6 +613,33 @@
         <p><code>DELETE /credits/:id</code> - Удалить кредит (возвращает 200)</p>
     </div>
 
+    <h2 onclick="toggleSection(this)">Orders Credits</h2>
+    <div class="toggle-content" style="display: none;">
+        <p><code>GET /orders_credits</code> - Список всех заявок на кредит</p>
+        <p><code>GET /orders_credits/:id</code> - Показать информацию о конкретной заявке на кредит</p>
+        <p><code>POST /orders_credits</code> - Создать новую заявку на кредит</p>
+        <pre>
+        {
+            "orders_credit": {
+                "credit_id": 1,
+                "order_status_id": 1,
+                "description": "Описание заявки"
+            }
+        }
+        </pre>
+        <p><code>PATCH/PUT /orders_credits/:id</code> - Обновить информацию о заявке на кредит</p>
+        <pre>
+        {
+            "orders_credit": {
+                "credit_id": 1,
+                "order_status_id": 2,
+                "description": "Обновленное описание заявки"
+            }
+        }
+        </pre>
+        <p><code>DELETE /orders_credits/:id</code> - Удалить заявку на кредит (возвращает 200)</p>
+    </div>
+
     <h2 onclick="toggleSection(this)">Buyouts</h2>
     <div class="toggle-content" style="display: none;">
         <p><code>GET /buyouts</code> - Список всех выкупов</p>
@@ -620,6 +675,33 @@
         <p><code>DELETE /buyouts/:id</code> - Удалить выкуп (возвращает 200)</p>
     </div>
 
+    <h2 onclick="toggleSection(this)">Orders Buyouts</h2>
+    <div class="toggle-content" style="display: none;">
+        <p><code>GET /orders_buyouts</code> - Список всех заявок на выкуп</p>
+        <p><code>GET /orders_buyouts/:id</code> - Показать информацию о конкретной заявке на выкуп</p>
+        <p><code>POST /orders_buyouts</code> - Создать новую заявку на выкуп</p>
+        <pre>
+        {
+            "orders_buyout": {
+                "buyout_id": 1,
+                "order_status_id": 1,
+                "description": "Описание заявки"
+            }
+        }
+        </pre>
+        <p><code>PATCH/PUT /orders_buyouts/:id</code> - Обновить информацию о заявке на выкуп</p>
+        <pre>
+        {
+            "orders_buyout": {
+                "buyout_id": 1,
+                "order_status_id": 2,
+                "description": "Обновленное описание заявки"
+            }
+        }
+        </pre>
+        <p><code>DELETE /orders_buyouts/:id</code> - Удалить заявку на выкуп (возвращает 200)</p>
+    </div>
+
     <h2 onclick="toggleSection(this)">Exchanges</h2>
     <div class="toggle-content" style="display: none;">
         <p><code>GET /exchanges</code> - Список всех обменов</p>
@@ -653,6 +735,34 @@
         <p><code>DELETE /exchanges/:id</code> - Удалить обмен (возвращает 200)</p>
     </div>
 
+    
+    <h2 onclick="toggleSection(this)">Orders Exchanges</h2>
+    <div class="toggle-content" style="display: none;">
+        <p><code>GET /orders_exchanges</code> - Список всех заявок на обмен</p>
+        <p><code>GET /orders_exchanges/:id</code> - Показать информацию о конкретной заявке на обмен</p>
+        <p><code>POST /orders_exchanges</code> - Создать новую заявку на обмен</p>
+        <pre>
+        {
+            "orders_exchange": {
+                "exchange_id": 1,
+                "order_status_id": 1,
+                "description": "Описание заявки"
+            }
+        }
+        </pre>
+        <p><code>PATCH/PUT /orders_exchanges/:id</code> - Обновить информацию о заявке на обмен</p>
+        <pre>
+        {
+            "orders_exchange": {
+                "exchange_id": 1,
+                "order_status_id": 2,
+                "description": "Обновленное описание заявки"
+            }
+        }
+        </pre>
+        <p><code>DELETE /orders_exchanges/:id</code> - Удалить заявку на обмен (возвращает 200)</p>
+    </div>
+
     <h2 onclick="toggleSection(this)">Installments</h2>
     <div class="toggle-content" style="display: none;">
         <p><code>GET /installments</code> - Список всех рассрочек</p>
@@ -682,6 +792,33 @@
         }
         </pre>
         <p><code>DELETE /installments/:id</code> - Удалить рассрочку (возвращает 200)</p>
+    </div>
+
+    <h2 onclick="toggleSection(this)">Orders Installments</h2>
+    <div class="toggle-content" style="display: none;">
+        <p><code>GET /orders_installments</code> - Список всех заявок на рассрочку</p>
+        <p><code>GET /orders_installments/:id</code> - Показать информацию о конкретной заявке на рассрочку</p>
+        <p><code>POST /orders_installments</code> - Создать новую заявку на рассрочку</p>
+        <pre>
+        {
+            "orders_installment": {
+                "installment_id": 1,
+                "order_status_id": 1,
+                "description": "Описание заявки"
+            }
+        }
+        </pre>
+        <p><code>PATCH/PUT /orders_installments/:id</code> - Обновить информацию о заявке на рассрочку</p>
+        <pre>
+        {
+            "orders_installment": {
+                "installment_id": 1,
+                "order_status_id": 2,
+                "description": "Обновленное описание заявки"
+            }
+        }
+        </pre>
+        <p><code>DELETE /orders_installments/:id</code> - Удалить заявку на рассрочку (возвращает 200)</p>
     </div>
 
     <h2 onclick="toggleSection(this)">Admins</h2>

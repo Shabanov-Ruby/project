@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_08_172714) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_09_120814) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -254,21 +254,66 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_08_172714) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.bigint "buyout_id"
-    t.bigint "credit_id"
-    t.bigint "exchange_id"
-    t.bigint "installment_id"
-    t.bigint "call_request_id"
+    t.integer "buyout_id"
+    t.integer "credit_id"
+    t.integer "exchange_id"
+    t.integer "installment_id"
+    t.integer "call_request_id"
     t.bigint "order_status_id"
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["buyout_id"], name: "index_orders_on_buyout_id"
-    t.index ["call_request_id"], name: "index_orders_on_call_request_id"
-    t.index ["credit_id"], name: "index_orders_on_credit_id"
-    t.index ["exchange_id"], name: "index_orders_on_exchange_id"
-    t.index ["installment_id"], name: "index_orders_on_installment_id"
     t.index ["order_status_id"], name: "index_orders_on_order_status_id"
+  end
+
+  create_table "orders_buyouts", force: :cascade do |t|
+    t.bigint "buyout_id", null: false
+    t.bigint "order_status_id", null: false
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["buyout_id"], name: "index_orders_buyouts_on_buyout_id"
+    t.index ["order_status_id"], name: "index_orders_buyouts_on_order_status_id"
+  end
+
+  create_table "orders_call_requests", force: :cascade do |t|
+    t.bigint "call_request_id", null: false
+    t.bigint "order_status_id", null: false
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["call_request_id"], name: "index_orders_call_requests_on_call_request_id"
+    t.index ["order_status_id"], name: "index_orders_call_requests_on_order_status_id"
+  end
+
+  create_table "orders_credits", force: :cascade do |t|
+    t.bigint "credit_id", null: false
+    t.bigint "order_status_id", null: false
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["credit_id"], name: "index_orders_credits_on_credit_id"
+    t.index ["order_status_id"], name: "index_orders_credits_on_order_status_id"
+  end
+
+  create_table "orders_exchanges", force: :cascade do |t|
+    t.bigint "exchanges_id", null: false
+    t.bigint "order_status_id", null: false
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["exchanges_id"], name: "index_orders_exchanges_on_exchanges_id"
+    t.index ["order_status_id"], name: "index_orders_exchanges_on_order_status_id"
+  end
+
+  create_table "orders_installments", force: :cascade do |t|
+    t.bigint "installment_id", null: false
+    t.bigint "order_status_id", null: false
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["installment_id"], name: "index_orders_installments_on_installment_id"
+    t.index ["order_status_id"], name: "index_orders_installments_on_order_status_id"
   end
 
   create_table "programs", force: :cascade do |t|
@@ -306,5 +351,15 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_08_172714) do
   add_foreign_key "orders", "exchanges"
   add_foreign_key "orders", "installments"
   add_foreign_key "orders", "order_statuses"
+  add_foreign_key "orders_buyouts", "buyouts"
+  add_foreign_key "orders_buyouts", "order_statuses"
+  add_foreign_key "orders_call_requests", "call_requests"
+  add_foreign_key "orders_call_requests", "order_statuses"
+  add_foreign_key "orders_credits", "credits"
+  add_foreign_key "orders_credits", "order_statuses"
+  add_foreign_key "orders_exchanges", "exchanges", column: "exchanges_id"
+  add_foreign_key "orders_exchanges", "order_statuses"
+  add_foreign_key "orders_installments", "installments"
+  add_foreign_key "orders_installments", "order_statuses"
   add_foreign_key "programs", "banks"
 end

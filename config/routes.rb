@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
+  resources :orders_call_requests
+  resources :orders_buyouts
+  resources :orders_exchanges
+  resources :orders_installments
+  resources :orders_credits
   resources :contacts
   resources :about_companies
-  resources :orders
   resources :order_statuses
   resources :admins, only: [:login]
   #Все ресурсы
