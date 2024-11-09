@@ -1,7 +1,7 @@
 class CarFilterService
   def initialize(params, per_page)
     @params = params
-    @per_page = per_page
+    @per_page = per_page || Car.count
   end
 
   def call
@@ -31,9 +31,5 @@ class CarFilterService
 
   def cars_count
     call.count
-  end
-
-  def all_cars
-    call.to_a
   end
 end

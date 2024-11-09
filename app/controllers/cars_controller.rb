@@ -3,16 +3,15 @@ class CarsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
-    if params[:page] == 'all'
-      paginated_cars_all = CarFilterService.new(filter_params, per_page).all_cars
-      render json: paginated_cars_all, each_serializer: CarSerializer
+    per_page = 18
+    filtered_cars = CarFilterService.new(filter_params, per_page).call
+    paginated_cars = filtered_cars.page(params[:page]).per(params[:per_page] || per_page)
+    
+    if params[:coll] == 'all'
+      render json: filtered_cars, each_serializer: CarSerializer
     else
-      per_page = 18
-      filtered_cars = CarFilterService.new(filter_params, per_page).call
-      paginated_cars = filtered_cars.page(params[:page]).per(params[:per_page] || per_page)
       render json: paginated_cars, each_serializer: CarSerializer
     end
-    
   end
 
   def show
