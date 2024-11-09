@@ -5,7 +5,7 @@ class CarsController < ApplicationController
   def index
     per_page = 18
     filtered_cars = CarFilterService.new(filter_params, per_page).call
-    paginated_cars = filtered_cars.page(params[:page]).per(per_page)
+    paginated_cars = filtered_cars.page(params[:page]).per(params[:per_page] || per_page)
     render json: paginated_cars, each_serializer: CarSerializer
   end
 
