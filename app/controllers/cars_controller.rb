@@ -3,10 +3,16 @@ class CarsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
-    per_page = 18
-    filtered_cars = CarFilterService.new(filter_params, per_page).call
-    paginated_cars = filtered_cars.page(params[:page]).per(params[:per_page] || per_page)
-    render json: paginated_cars, each_serializer: CarSerializer
+    if params[:page] == 'all'
+      paginated_cars_all = CarFilterService.new(filter_params, per_page).all_cars
+      render json: paginated_cars_all, each_serializer: CarSerializer
+    else
+      per_page = 18
+      filtered_cars = CarFilterService.new(filter_params, per_page).call
+      paginated_cars = filtered_cars.page(params[:page]).per(params[:per_page] || per_page)
+      render json: paginated_cars, each_serializer: CarSerializer
+    end
+    
   end
 
   def show
@@ -31,14 +37,18 @@ class CarsController < ApplicationController
   end
 
   def destroy
-    @car.destroy
-    head :ok
+    if @car.destroy
+      head :ok
+    else
+      render json: @car.errors, status: :internal_server_error
+    end
   end
 
   def total_pages
     per_page = 18
     total_pages = CarFilterService.new(filter_params, per_page).total_pages
-    render json: { total_pages: total_pages }
+    cars_count = CarFilterService.new(filter_params, per_page).cars_count
+    render json: { total_pages: total_pages, cars_count: cars_count }
   end
 
   def last_cars

@@ -10,10 +10,10 @@ class Car < ApplicationRecord
   belongs_to :drive_type
   
   has_many :call_requests
-  has_many :history_cars
-  has_many :images
+  has_many :images, dependent: :destroy
+  has_many :history_cars, dependent: :destroy
 
-  has_many :extras
+  has_many :extras, dependent: :destroy
   has_many :categories, through: :extras
 
   has_one :history_car
