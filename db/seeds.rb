@@ -62,7 +62,6 @@ puts "About company created successfully"
 Contact.create([
   { phone: '+79999999999', 
     mode_operation: 'пн-пт 10:00-19:00', 
-    auto_address: 'г. Москва, ул. Ленина, д. 1', 
-    status: true },
+    auto_address: 'г. Москва, ул. Ленина, д. 1'},
 ])
 puts "Contact created successfully"
