@@ -4,7 +4,7 @@ class ContactsController < ApplicationController
 
   def index
     @contacts = Contact.all
-    render json: @contacts
+    render json: @contacts.first
   end
 
   def show
