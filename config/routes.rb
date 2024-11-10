@@ -13,7 +13,11 @@ Rails.application.routes.draw do
   resources :admins, only: [:login]
   #Все ресурсы
   resources :extra_names
-  resources :extras
+  resources :extras do
+    collection do
+      get :car_show
+    end
+  end
   resources :categories
   resources :images
   resources :drive_types

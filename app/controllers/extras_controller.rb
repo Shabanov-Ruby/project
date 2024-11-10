@@ -38,6 +38,11 @@ class ExtrasController < ApplicationController
     end
   end
 
+  def car_show
+    @extras_car_show = ExtrasCarShowService.new(params).call
+    render json: @extras_car_show
+  end
+
   private
     def set_extra
       @extra = Extra.find(params[:id])
@@ -46,6 +51,6 @@ class ExtrasController < ApplicationController
     end
 
     def extra_params
-      params.require(:extra).permit(:car_id, :category_id, :extra_name_id)
+      params.require(:extra).permit(:id, :car_id, :category_id, :extra_name_id)
     end
 end
