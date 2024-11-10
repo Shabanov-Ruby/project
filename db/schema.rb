@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_09_120814) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_10_142612) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -75,9 +75,11 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_09_120814) do
     t.text "description"
     t.bigint "color_id", null: false
     t.bigint "body_type_id", null: false
-    t.bigint "engine_type_id", null: false
     t.bigint "gearbox_type_id", null: false
     t.bigint "drive_type_id", null: false
+    t.bigint "engine_name_type_id", null: false
+    t.bigint "engine_power_type_id", null: false
+    t.bigint "engine_capacity_type_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "generation_id", null: false
@@ -87,7 +89,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_09_120814) do
     t.index ["brand_id"], name: "index_cars_on_brand_id"
     t.index ["color_id"], name: "index_cars_on_color_id"
     t.index ["drive_type_id"], name: "index_cars_on_drive_type_id"
-    t.index ["engine_type_id"], name: "index_cars_on_engine_type_id"
+    t.index ["engine_capacity_type_id"], name: "index_cars_on_engine_capacity_type_id"
+    t.index ["engine_name_type_id"], name: "index_cars_on_engine_name_type_id"
+    t.index ["engine_power_type_id"], name: "index_cars_on_engine_power_type_id"
     t.index ["gearbox_type_id"], name: "index_cars_on_gearbox_type_id"
     t.index ["generation_id"], name: "index_cars_on_generation_id"
     t.index ["model_id"], name: "index_cars_on_model_id"
@@ -129,6 +133,24 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_09_120814) do
 
   create_table "drive_types", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "engine_capacity_types", force: :cascade do |t|
+    t.float "capacity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "engine_name_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "engine_power_types", force: :cascade do |t|
+    t.integer "power"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -253,19 +275,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_09_120814) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "orders", force: :cascade do |t|
-    t.integer "buyout_id"
-    t.integer "credit_id"
-    t.integer "exchange_id"
-    t.integer "installment_id"
-    t.integer "call_request_id"
-    t.bigint "order_status_id"
-    t.string "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["order_status_id"], name: "index_orders_on_order_status_id"
-  end
-
   create_table "orders_buyouts", force: :cascade do |t|
     t.bigint "buyout_id", null: false
     t.bigint "order_status_id", null: false
@@ -329,7 +338,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_09_120814) do
   add_foreign_key "cars", "brands"
   add_foreign_key "cars", "colors"
   add_foreign_key "cars", "drive_types"
-  add_foreign_key "cars", "engine_types"
+  add_foreign_key "cars", "engine_capacity_types"
+  add_foreign_key "cars", "engine_name_types"
+  add_foreign_key "cars", "engine_power_types"
   add_foreign_key "cars", "gearbox_types"
   add_foreign_key "cars", "generations"
   add_foreign_key "cars", "models"
@@ -345,12 +356,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_09_120814) do
   add_foreign_key "images", "cars"
   add_foreign_key "installments", "cars"
   add_foreign_key "models", "brands"
-  add_foreign_key "orders", "buyouts"
-  add_foreign_key "orders", "call_requests"
-  add_foreign_key "orders", "credits"
-  add_foreign_key "orders", "exchanges"
-  add_foreign_key "orders", "installments"
-  add_foreign_key "orders", "order_statuses"
   add_foreign_key "orders_buyouts", "buyouts"
   add_foreign_key "orders_buyouts", "order_statuses"
   add_foreign_key "orders_call_requests", "call_requests"

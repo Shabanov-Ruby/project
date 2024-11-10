@@ -5,7 +5,9 @@ class Car < ApplicationRecord
   
   belongs_to :color
   belongs_to :body_type
-  belongs_to :engine_type
+  belongs_to :engine_name_type
+  belongs_to :engine_power_type
+  belongs_to :engine_capacity_type
   belongs_to :gearbox_type
   belongs_to :drive_type
   
@@ -37,8 +39,8 @@ class Car < ApplicationRecord
   scope :by_owners_count, -> (owners_count) { 
     joins(:history_cars).where(history_cars: { previous_owners: owners_count }) if owners_count.present? 
   }
-  scope :by_engine_type_name, -> (engine_type_name) { 
-    joins(:engine_type).where(engine_types: { name: engine_type_name }) if engine_type_name.present?
+  scope :by_engine_name_type, -> (engine_name_type_name) { 
+    joins(:engine_name_type).where(engine_name_types: { name: engine_name_type_name }) if engine_name_type_name.present?
   }
 
   belongs_to :generation

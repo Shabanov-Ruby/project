@@ -20,16 +20,9 @@ class CarFilterService
 
     cars = cars.by_owners_count(@params[:owners_count]) if @params[:owners_count].present?
 
-    cars = cars.by_engine_type_name(@params[:engine_type_name]) if @params[:engine_type_name].present?
+    cars = cars.by_engine_name_type(@params[:engine_name_type_name]) if @params[:engine_name_type_name].present?
     cars
   end
 
-  def total_pages
-    total_cars = call.count
-    (total_cars.to_f / @per_page).ceil
-  end
-
-  def cars_count
-    call.count
-  end
+ 
 end

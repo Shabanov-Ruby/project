@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :engine_capacity_types
+  resources :engine_power_types
+  resources :engine_name_types
   resources :orders_call_requests
   resources :orders_buyouts
   resources :orders_exchanges
@@ -48,7 +51,7 @@ Rails.application.routes.draw do
   get 'car_details' => 'cars#car_details'#Детали автомобиля
   get 'cars/:id' => 'cars#show'#Показать автомобиль
   get 'filters', to: 'cars#filters'#Фильтры для автомобилей
-  
+  get 'car_ids', to: 'cars#car_ids'#Список идентификаторов автомобилей
   get 'exchange' => 'exchanges#index'#Обмен
   post 'exchange' => 'exchanges#create'#Создать обмен
   

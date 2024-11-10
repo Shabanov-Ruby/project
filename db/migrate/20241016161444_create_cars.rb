@@ -11,6 +11,9 @@ class CreateCars < ActiveRecord::Migration[7.2]
       t.references :engine_type, null: false, foreign_key: true
       t.references :gearbox_type, null: false, foreign_key: true
       t.references :drive_type, null: false, foreign_key: true
+      t.references :engine_name_type, null: false, foreign_key: true
+      t.references :engine_power_type, null: false, foreign_key: true
+      t.references :engine_capacity_type, null: false, foreign_key: true
 
       t.timestamps
     end

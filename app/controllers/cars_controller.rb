@@ -77,6 +77,13 @@ class CarsController < ApplicationController
     render json: result
   end
 
+  def car_ids
+    result = CarIdsService.new(filter_params).call
+    render json: result
+  end
+
+
+
   private
     def set_car
       @car = Car.find(params[:id])
@@ -91,7 +98,7 @@ class CarsController < ApplicationController
     end
 
     def filter_params
-      params.permit(:brand_name, :model_name, :generation_name, 
+      params.permit(:id, :brand_name, :model_name, :generation_name, 
                     :year_from, :max_price, :gearbox_type_name, :body_type_name, 
                     :drive_type_name, :owners_count, :engine_type_name)
     end    

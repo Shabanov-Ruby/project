@@ -4,7 +4,6 @@ class CreateContacts < ActiveRecord::Migration[7.2]
       t.bigint :phone
       t.string :mode_operation
       t.string :auto_address
-      t.boolean :status
 
       t.timestamps
     end

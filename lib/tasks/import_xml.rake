@@ -26,7 +26,9 @@ namespace :import do
     generation = find_or_create_generation(node, model)
     body_type = BodyType.find_or_create_by(name: node.at_xpath('body_type').text)
     color = Color.find_or_create_by(name: node.at_xpath('color').text)
-    engine_type = find_or_create_engine_type(node)
+    engine_name_type = EngineNameType.find_or_create_by(name: node.at_xpath('engine_type').text)
+    engine_power_type = EnginePowerType.find_or_create_by(power: node.at_xpath('engine_power').text.to_i)
+    engine_capacity_type = find_or_create_engine_capacity_type(node)
     gearbox_type = find_or_create_gearbox_type(node)
     drive_type = DriveType.find_or_create_by(name: node.at_xpath('drive')&.text || "Полный")
 
@@ -39,7 +41,9 @@ namespace :import do
       description: node.at_xpath('modification_id').text,
       color: color,
       body_type: body_type,
-      engine_type: engine_type,
+      engine_name_type: engine_name_type,
+      engine_power_type: engine_power_type,
+      engine_capacity_type: engine_capacity_type,
       gearbox_type: gearbox_type,
       drive_type: drive_type,
       online_view_available: true,
@@ -62,15 +66,13 @@ namespace :import do
     generation
   end
 
-  def find_or_create_engine_type(node)
+  def find_or_create_engine_capacity_type(node)
     modification_text = node.at_xpath('modification_id').text
     engine_capacity_match = modification_text.match(/(\d+\.\d+)/)
     engine_capacity = engine_capacity_match[1] if engine_capacity_match
 
-    EngineType.find_or_create_by(
-      name: node.at_xpath('engine_type').text,
-      engine_power: node.at_xpath('engine_power').text,
-      engine_capacity: engine_capacity
+    EngineCapacityType.find_or_create_by(
+      capacity: engine_capacity.to_f 
     )
   end
 

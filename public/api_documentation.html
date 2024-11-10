@@ -19,6 +19,7 @@
     <h2 onclick="toggleSection(this)">Cars</h2>
     <div class="toggle-content" style="display: none;">
         <p><code>GET /cars?page=1</code> - Список автомобилей</p>
+        <p><code>GET /cars?coll=all</code> - Список автомобилей без пагинации</p>
         <p><code>GET /cars/:id</code> - Показать автомобиль</p>
         <p><code>POST /cars</code> - Создать новый автомобиль</p>
         <pre>
@@ -257,32 +258,74 @@
         </pre>
         <p><code>DELETE /drive_type/:id</code> - Удалить тип привода (возвращает 200)</p>
     </div>
-
-    <h2 onclick="toggleSection(this)">Engine Types</h2>
+    
+    <h2 onclick="toggleSection(this)">Engine Power Types</h2>
     <div class="toggle-content" style="display: none;">
-        <p><code>GET /engine_types</code> - Список всех типов двигателей</p>
-        <p><code>GET /engine_types/:id</code> - Показать информацию о конкретном типе двигателя</p>
-        <p><code>POST /engine_types</code> - Создать новый тип двигателя</p>
+        <p><code>GET /engine_power_types</code> - Список всех типов мощности двигателей</p>
+        <p><code>GET /engine_power_types/:id</code> - Показать информацию о конкретном типе мощности двигателя</p>
+        <p><code>POST /engine_power_types</code> - Создать новый тип мощности двигателя</p>
         <pre>
         {
-            "engine_type": {
-                "name": "Дизель",
-                "engine_power": 150,
-                "engine_capacity": 2.0
+            "engine_power_type": {
+                "power": 150
             }
         }
         </pre>
-        <p><code>PATCH/PUT /engine_types/:id</code> - Обновить информацию о типе двигателя</p>
+        <p><code>PATCH/PUT /engine_power_types/:id</code> - Обновить информацию о типе мощности двигателя</p>
         <pre>
         {
-            "engine_type": {
-                "name": "Обновленный Дизель",
-                "engine_power": 160,
-                "engine_capacity": 2.2
+            "engine_power_type": {
+                "power": 160
             }
         }
         </pre>
-        <p><code>DELETE /engine_types/:id</code> - Удалить тип дви��ателя (возвращает 200)</p>
+        <p><code>DELETE /engine_power_types/:id</code> - Удалить тип мощности двигателя (возвращает 200)</p>
+    </div>
+
+    <h2 onclick="toggleSection(this)">Engine Name Types</h2>
+    <div class="toggle-content" style="display: none;">
+        <p><code>GET /engine_name_types</code> - Список всех типов названий двигателей</p>
+        <p><code>GET /engine_name_types/:id</code> - Показать информацию о конкретном типе названия двигателя</p>
+        <p><code>POST /engine_name_types</code> - Создать новый тип названия двигателя</p>
+        <pre>
+        {
+            "engine_name_type": {
+                "name": "Дизель"
+            }
+        }
+        </pre>
+        <p><code>PATCH/PUT /engine_name_types/:id</code> - Обновить информацию о типе названия двигателя</p>
+        <pre>
+        {
+            "engine_name_type": {
+                "name": "Обновленный Дизель"
+            }
+        }
+        </pre>
+        <p><code>DELETE /engine_name_types/:id</code> - Удалить тип названия двигателя (возвращает 200)</p>
+    </div>
+
+    <h2 onclick="toggleSection(this)">Engine Capacity Types</h2>
+    <div class="toggle-content" style="display: none;">
+        <p><code>GET /engine_capacity_types</code> - Список всех типов объема двигателей</p>
+        <p><code>GET /engine_capacity_types/:id</code> - Показать информацию о конкретном типе объема двигателя</p>
+        <p><code>POST /engine_capacity_types</code> - Создать новый тип объема двигателя</p>
+        <pre>
+        {
+            "engine_capacity_type": {
+                "capacity": 2.0
+            }
+        }
+        </pre>
+        <p><code>PATCH/PUT /engine_capacity_types/:id</code> - Обновить информацию о типе объема двигателя</p>
+        <pre>
+        {
+            "engine_capacity_type": {
+                "capacity": 2.2
+            }
+        }
+        </pre>
+        <p><code>DELETE /engine_capacity_types/:id</code> - Удалить тип объема двигателя (возвращает 200)</p>
     </div>
 
     <h2 onclick="toggleSection(this)">Gearbox Types</h2>
@@ -735,7 +778,6 @@
         <p><code>DELETE /exchanges/:id</code> - Удалить обмен (возвращает 200)</p>
     </div>
 
-    
     <h2 onclick="toggleSection(this)">Orders Exchanges</h2>
     <div class="toggle-content" style="display: none;">
         <p><code>GET /orders_exchanges</code> - Список всех заявок на обмен</p>
@@ -927,8 +969,7 @@
             "contact": {
                 "phone": "1234567890",
                 "mode_operation": "Режим работы",
-                "auto_address": "Адрес авто",
-                "status": false
+                "auto_address": "Адрес авто"
             }
         }
         </pre>
@@ -938,8 +979,7 @@
             "contact": {
                 "phone": "0987654321",
                 "mode_operation": "Обновленный режим работы",
-                "auto_address": "Обновленный адрес авто",
-                "status": false
+                "auto_address": "Обновленный адрес авто"
             }
         }
         </pre>

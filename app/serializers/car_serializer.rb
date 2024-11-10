@@ -6,7 +6,9 @@ class CarSerializer < ActiveModel::Serializer
   belongs_to :generation
   belongs_to :color
   belongs_to :body_type
-  belongs_to :engine_type
+  belongs_to :engine_name_type
+  belongs_to :engine_power_type
+  belongs_to :engine_capacity_type
   belongs_to :gearbox_type
   belongs_to :drive_type
   has_many :extras

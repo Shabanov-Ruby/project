@@ -11,7 +11,7 @@ class CarFilterDataService
     # Получаем доступные значения для различных параметров
     available_years = fetch_available_values(cars, filters, :year)
     available_prices = fetch_available_values(cars, filters, :price)
-    available_engine_types = fetch_available_values(cars, filters, :engine_type)
+    available_engine_name_types = fetch_available_values(cars, filters, :engine_name_type)
     available_gearbox_types = fetch_available_values(cars, filters, :gearbox_type)
     available_body_types = fetch_available_values(cars, filters, :body_type)
     available_drive_types = fetch_available_values(cars, filters, :drive_type)
@@ -27,7 +27,7 @@ class CarFilterDataService
       { key: :generation_name, values: selected_model_generations.empty? ? ['Поколения'] : selected_model_generations },
       { key: :year_from, values: available_years },
       { key: :max_price, values: available_prices },
-      { key: :engine_type_name, values: available_engine_types },
+      { key: :engine_name_type_name, values: available_engine_name_types },
       { key: :gearbox_type_name, values: available_gearbox_types },
       { key: :body_type_name, values: available_body_types },
       { key: :drive_type_name, values: available_drive_types },
