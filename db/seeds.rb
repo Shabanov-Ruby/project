@@ -60,8 +60,8 @@ AboutCompany.create([
 puts "About company created successfully"
 
 Contact.create([
-  { phone: '+79999999999', 
-    mode_operation: 'пн-пт 10:00-19:00', 
-    auto_address: 'г. Москва, ул. Ленина, д. 1'},
+  { phone: '74992887610', 
+    mode_operation: 'с 09:00 до 21:00 ежедневно', 
+    auto_address: 'г. Москва, Ореховый бульвар, 26к1'},
 ])
 puts "Contact created successfully"
