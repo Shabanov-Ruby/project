@@ -24,5 +24,17 @@ class CarFilterService
     cars
   end
 
+  def total_pages
+    total_cars = call.count
+    (total_cars.to_f / @per_page).ceil
+  end
+
+  def cars_count
+    call.count
+  end
+
+  def all_cars
+    call.to_a
+  end
  
 end
