@@ -23,7 +23,11 @@ Rails.application.routes.draw do
     end
   end
   resources :categories
-  resources :images
+  resources :images do
+    collection do
+      patch :update_multiple # Добавьте этот маршрут
+    end
+  end
   resources :drive_types
   resources :gearbox_types
   resources :engine_types

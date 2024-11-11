@@ -30,6 +30,12 @@ class ImagesController < ApplicationController
     end
   end
 
+  def update_multiple
+    service = UpdateImagesService.new(params[:images])
+    service.call
+    render json: { message: 'Изображения обновлены успешно.' }, status: :ok
+  end
+
   def destroy
     if @image.destroy
       head :ok

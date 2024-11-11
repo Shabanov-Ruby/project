@@ -435,6 +435,28 @@
             }
         }
         </pre>
+        <p><code>PATCH /images/update_multiple</code> - Обновить информацию о нескольких изображениях</p>
+        <pre>
+        {
+            "images": [
+                  {
+                    "id": 1,
+                    "car_id": 1,
+                    "url": "http://example.com/image1.jpg"
+                  },
+                  {
+                    "id": 2,
+                    "car_id": 1,
+                    "url": "http://example.com/image2.jpg"
+                  },
+                  {
+                    "id": 3,
+                    "car_id": 1,
+                    "url": "http://example.com/image3.jpg"
+                  }
+                ]
+            }
+        </pre>
         <p><code>DELETE /images/:id</code> - Удалить изображение (возвращает 200)</p>
     </div>
 
