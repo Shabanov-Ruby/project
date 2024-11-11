@@ -114,7 +114,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_10_142612) do
     t.bigint "phone"
     t.string "mode_operation"
     t.string "auto_address"
-    t.boolean "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -1,3 +1,22 @@
+AboutCompany.destroy_all
+Contact.destroy_all
+Admin.destroy_all
+Credit.destroy_all
+CallRequest.destroy_all
+Buyout.destroy_all
+Exchange.destroy_all
+Installment.destroy_all
+OrderStatus.destroy_all
+Program.destroy_all
+Bank.destroy_all
+
+
+
+
+
+
+
+
 
 
 banks = Bank.create([
@@ -65,3 +84,57 @@ Contact.create([
     auto_address: 'г. Москва, Ореховый бульвар, 26к1'},
 ])
 puts "Contact created successfully"
+
+Credit.create([
+  { car_id: Car.first.id,
+    name: "ТЕСТ",
+    phone: "66666666666",
+    credit_term: 66,
+    initial_contribution: 666666,
+    banks_id: Bank.first.id,
+    programs_id: Program.first.id
+  }
+])
+puts "Credit created successfully"
+
+CallRequest.create([
+  { car_id: Car.first.id,
+    name: "ТЕСТ",
+    phone: "66666666666",
+    preferred_time: "с 11.00 до 12.00"
+  }
+])
+puts "Call request created successfully"
+
+Buyout.create([
+  { name: "ТЕСТ", 
+    phone: "66666666666",
+    brand: "Toyota",
+    model: "Corola 3.5",
+    year: 2006,
+    mileage: 130000
+  }
+])
+puts "Buyout created successfully"
+
+Exchange.create([
+  { car_id: Car.first.id, 
+    customer_car: "Toyota Corola 3.5", 
+    name: "ТЕСТ", 
+    phone: "66666666666", 
+    credit_term: 66, 
+    initial_contribution: 666666 
+    
+  }
+])
+puts "Exchange created successfully"
+
+Installment.create([
+  { car_id: Car.first.id, 
+    name: "ТЕСТ", 
+    phone: "66666666666", 
+    credit_term: 66, 
+    initial_contribution: 666666 
+  }
+])
+puts "Installment created successfully"

@@ -10,12 +10,11 @@ Rails.application.routes.draw do
   resources :contacts
   resources :about_companies do
     collection do
-      patch :update_multiple # Добавьте этот маршрут
+      patch :update_multiple 
     end
   end
   resources :order_statuses
   resources :admins, only: [:login]
-  #Все ресурсы
   resources :extra_names
   resources :extras do
     collection do
@@ -25,7 +24,7 @@ Rails.application.routes.draw do
   resources :categories
   resources :images do
     collection do
-      patch :update_multiple # Добавьте этот маршрут
+      patch :update_multiple 
     end
   end
   resources :drive_types
