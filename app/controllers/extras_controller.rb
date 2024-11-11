@@ -48,6 +48,12 @@ class ExtrasController < ApplicationController
     render json: @all_extras
   end
 
+  def update_multiple
+    service = UpdateExtrasService.new(params[:extras])
+    service.call
+    render json: { message: 'Дополнительные опции обновлены успешно.' }, status: :ok
+  end
+
   private
 
   def set_extra

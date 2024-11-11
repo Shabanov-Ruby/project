@@ -20,6 +20,9 @@ Rails.application.routes.draw do
     collection do
       get :car_show
       get :all_extras
+      post :update_multiple
+      patch :update_multiple 
+      
     end
   end
   resources :categories

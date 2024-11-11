@@ -480,6 +480,23 @@
             }
         }
         </pre>
+        <p><code>POST /extras/update_multiple</code> - Обновить информацию о нескольких дополнительных названиях</p>
+        <pre>
+            {
+                "extras": [
+                  {
+                    "car_id": 10,
+                    "category_id": 2,
+                    "name": "Новая опция 1"
+                  },
+                  {
+                    "car_id": 10,
+                    "category_id": 3,
+                    "name": "Новая опция 2"
+                  }
+                ]
+            }          
+        </pre>
         <p><code>PATCH/PUT /extras/:id</code> - Обновить информацию о дополнительном названии</p>
         <pre>
         {
@@ -489,6 +506,25 @@
                 "extra_name_id": 3
             }
         }
+        </pre>
+        <p><code>PATCH /extras/update_multiple</code> - Обновить информацию о нескольких дополнительных названиях</p>
+        <pre>
+            {
+                "extras": [
+                  {
+                    "id": 1,
+                    "car_id": 10,
+                    "category_id": 2,
+                    "name": "Обновленная опция 1"
+                  },
+                  {
+                    "id": 2,
+                    "car_id": 10,
+                    "category_id": 3,
+                    "name": "Обновленная опция 2"
+                  }
+                ]
+            }
         </pre>
         <p><code>DELETE /extras/:id</code> - Удалить дополнительное оборудование (возвращает 200)</p>
     </div>
