@@ -4,12 +4,18 @@ class ExtrasCarShowService
     end
   
     def call
-      return find_car_by_id if @params[:car_id].present?
+      return find_car_by_id if @params[:car_id].present? 
   
       # Если id не указан, возвращаем пустой массив или сообщение об ошибке
       []
     end
-  
+    
+    def self.all_extras
+      return {} if ExtraName.all.empty? || Category.all.empty?
+      { all_extra_names: ExtraName.all.map { |extra_name| { id: extra_name.id, name: extra_name.name } },
+        all_categories: Category.all.map { |category| { id: category.id, name: category.name } } }
+    end
+
     private
   
     def find_car_by_id
@@ -22,4 +28,6 @@ class ExtrasCarShowService
         all_categories: Category.all.map { |category| { id: category.id, name: category.name } }
       }
     end
+
+    
   end 

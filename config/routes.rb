@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   resources :extras do
     collection do
       get :car_show
+      get :all_extras
     end
   end
   resources :categories

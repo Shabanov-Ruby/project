@@ -20,7 +20,7 @@ class ExtrasController < ApplicationController
     else
       render json: @extra.errors, status: :unprocessable_entity
     end
-  end   
+  end
 
   def update
     if @extra.update(extra_params)
@@ -43,14 +43,20 @@ class ExtrasController < ApplicationController
     render json: @extras_car_show
   end
 
-  private
-    def set_extra
-      @extra = Extra.find(params[:id])
-    rescue ActiveRecord::RecordNotFound
-      render json: { error: "Дополнительное оборудование не найдено." }, status: :not_found
-    end
+  def all_extras
+    @all_extras = ExtrasCarShowService.all_extras
+    render json: @all_extras
+  end
 
-    def extra_params
-      params.require(:extra).permit(:id, :car_id, :category_id, :extra_name_id)
-    end
+  private
+
+  def set_extra
+    @extra = Extra.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    render json: { error: "Дополнительное оборудование не найдено." }, status: :not_found
+  end
+
+  def extra_params
+    params.require(:extra).permit(:car_id, :category_id, :name)
+  end
 end
