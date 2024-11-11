@@ -17,7 +17,7 @@ class ExtrasCarShowService
       return {} if extra_car.empty?
   
       {
-        extras: extra_car.map { |car| { category_id: car.category.id, category_name: car.category.name, extra_name_id: car.extra_name.id, extra_name_name: car.extra_name.name } },
+        extras: extra_car.map { |car| { extra_id: car.id, category_id: car.category.id, category_name: car.category.name, extra_name_id: car.extra_name.id, extra_name_name: car.extra_name.name } },
         all_extra_names: ExtraName.all.map { |extra_name| { id: extra_name.id, name: extra_name.name } },
         all_categories: Category.all.map { |category| { id: category.id, name: category.name } }
       }
