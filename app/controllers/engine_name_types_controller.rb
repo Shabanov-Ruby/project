@@ -4,6 +4,7 @@ class EngineNameTypesController < ApplicationController
 
   def index
     @engine_name_types = EngineNameType.all
+    render json: @engine_name_types
   end
 
   def show

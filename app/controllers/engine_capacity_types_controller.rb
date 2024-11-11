@@ -4,6 +4,7 @@ class EngineCapacityTypesController < ApplicationController
 
   def index
     @engine_capacity_types = EngineCapacityType.all
+    render json: @engine_capacity_types
   end
 
   def show
