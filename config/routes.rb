@@ -8,7 +8,11 @@ Rails.application.routes.draw do
   resources :orders_installments
   resources :orders_credits
   resources :contacts
-  resources :about_companies
+  resources :about_companies do
+    collection do
+      patch :update_multiple # Добавьте этот маршрут
+    end
+  end
   resources :order_statuses
   resources :admins, only: [:login]
   #Все ресурсы

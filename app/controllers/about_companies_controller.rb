@@ -29,6 +29,12 @@ class AboutCompaniesController < ApplicationController
     end
   end
 
+  def update_multiple
+    service = UpdateAboutCompaniesService.new(params[:about_companies])
+    service.call
+    render json: { message: 'Записи обновлены успешно.' }, status: :ok
+  end
+
   def destroy
     if @about_company.destroy
       head :ok
