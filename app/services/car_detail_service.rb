@@ -7,7 +7,7 @@ class CarDetailService
   private
 
   def self.fetch_cars(brand_name, model_name, generation_name)
-    Car.joins(:brand, :model, :generation, :color, :body_type, :engine_type, :gearbox_type, :drive_type, :history_car)
+    Car.joins(:brand, :model, :generation, :color, :body_type, :engine_name_type, :engine_power_type, :engine_capacity_type, :gearbox_type, :drive_type, :history_car)
        .includes(:images)
        .where('brands.name = ? AND models.name = ? AND generations.name = ?', brand_name, model_name, generation_name)
        .select(select_fields)
@@ -18,11 +18,11 @@ class CarDetailService
      brands.id as brand_id, brands.name as brand_name, 
      models.id as model_id, models.name as model_name, 
      generations.id as generation_id, generations.name as generation_name, 
-     generations.start_date, generations.end_date, generations.modernization, 
      colors.id as color_id, colors.name as color_name, 
      body_types.id as body_type_id, body_types.name as body_type_name, 
-     engine_types.id as engine_type_id, engine_types.name as engine_type_name, 
-     engine_types.engine_power, engine_types.engine_capacity, 
+     engine_name_types.id as engine_name_type_id, engine_name_types.name as engine_name_type_name, 
+     engine_power_types.id as engine_power_type_id, engine_power_types.power as engine_power_type_power, 
+     engine_capacity_types.id as engine_capacity_type_id, engine_capacity_types.capacity as engine_capacity_type_capacity, 
      gearbox_types.id as gearbox_type_id, gearbox_types.name as gearbox_type_name, 
      gearbox_types.abbreviation, 
      drive_types.id as drive_type_id, drive_types.name as drive_type_name,
@@ -42,7 +42,9 @@ class CarDetailService
       generation: format_generation(car),
       color: format_association(car, :color),
       body_type: format_association(car, :body_type),
-      engine_type: format_engine_type(car),
+      engine_name_type: format_engine_name_type(car),
+      engine_power_type: format_engine_power_type(car),
+      engine_capacity_type: format_engine_capacity_type(car),
       gearbox_type: format_gearbox_type(car),
       drive_type: format_association(car, :drive_type),
       images: format_images(car),
@@ -69,19 +71,28 @@ class CarDetailService
   def self.format_generation(car)
     {
       id: car.generation_id,
-      name: car.generation_name,
-      start_date: car.start_date,
-      end_date: car.end_date,
-      modernization: car.modernization
+      name: car.generation_name
     }
   end
 
-  def self.format_engine_type(car)
+  def self.format_engine_name_type(car)
     {
-      id: car.engine_type_id,
-      name: car.engine_type_name,
-      engine_power: car.engine_power,
-      engine_capacity: car.engine_capacity
+      id: car.engine_name_type_id,
+      name: car.engine_name_type_name
+    }
+  end
+
+  def self.format_engine_power_type(car)
+    {
+      id: car.engine_power_type_id,
+      power: car.engine_power_type_power
+    }
+  end
+
+  def self.format_engine_capacity_type(car)
+    {
+      id: car.engine_capacity_type_id,
+      capacity: car.engine_capacity_type_capacity
     }
   end
 
