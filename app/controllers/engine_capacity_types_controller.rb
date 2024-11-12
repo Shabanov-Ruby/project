@@ -30,10 +30,14 @@ class EngineCapacityTypesController < ApplicationController
   end
 
   def destroy
-    if @engine_capacity_type.destroy
-      render status: :ok
+    if Car.exists?(engine_capacity_type_id: @engine_capacity_type.id)
+      render json: { error: "Невозможно удалить тип объема двигателя, так как он используется в таблице автомобилей." }, status: :unprocessable_entity
     else
-      render status: :internal_server_error
+      if @engine_capacity_type.destroy
+        head :ok
+    else
+        render json: @engine_capacity_type.errors, status: :internal_server_error
+      end
     end
   end
 

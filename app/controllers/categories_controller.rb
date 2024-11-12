@@ -30,7 +30,7 @@ class CategoriesController < ApplicationController
   end
 
   def destroy
-    if Extra.where(category: @category.name).exists?
+    if Extra.where(category_id: @category.id).exists?
       render json: { error: "Категория не может быть удалена, так как используется." }, status: :unprocessable_entity
     else
       if @category.destroy

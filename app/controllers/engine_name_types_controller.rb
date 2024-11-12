@@ -32,10 +32,14 @@ class EngineNameTypesController < ApplicationController
 
   # DELETE /engine_name_types/1 or /engine_name_types/1.json
   def destroy
-    if @engine_name_type.destroy!
-      render status: :ok
+    if Car.exists?(engine_name_type_id: @engine_name_type.id)
+      render json: { error: "Невозможно удалить тип названия двигателя, так как он используется в таблице автомобилей." }, status: :unprocessable_entity
     else
-      render status: :internal_server_error
+      if @engine_name_type.destroy
+        head :ok
+    else
+        render json: @engine_name_type.errors, status: :internal_server_error
+      end
     end
   end
 
