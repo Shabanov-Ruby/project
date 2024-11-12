@@ -63,6 +63,6 @@ class ExtrasController < ApplicationController
   end
 
   def extra_params
-    params.require(:extra).permit(:car_id, :category_id, :name)
+    params.require(:extra).permit(:car_id, :category_id, :extra_name_id)
   end
 end

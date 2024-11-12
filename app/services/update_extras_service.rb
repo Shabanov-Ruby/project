@@ -11,14 +11,14 @@ class UpdateExtrasService
         extra.update(
           car_id: extra_params[:car_id],
           category_id: extra_params[:category_id],
-          name: extra_params[:name]
+          extra_name_id: extra_params[:extra_name_id]
         ) if extra
       else
         # Создание новой записи
         Extra.create(
           car_id: extra_params[:car_id],
           category_id: extra_params[:category_id],
-          name: extra_params[:name]
+          extra_name_id: extra_params[:extra_name_id]
         )
       end
     end
