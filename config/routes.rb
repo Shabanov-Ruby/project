@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   resources :categories
   resources :images do
     collection do
+      post :update_multiple
       patch :update_multiple 
     end
   end

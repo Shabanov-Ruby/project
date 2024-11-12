@@ -117,7 +117,7 @@
             <li><code>body_type_name</code> - Тип кузова</li>
             <li><code>drive_type_name</code> - Тип привода</li>
             <li><code>owners_count</code> - Количество владельцев</li>
-            <li><code>engine_type_name</code> - Тип двигателя</li>
+            <li><code>engine_name_type_name</code> - Тип двигателя</li>
         </ul>
     </div>
 
@@ -430,6 +430,21 @@
             }
         }
         </pre>
+        <p></p><code>POST /images/update_multiple</code> - Обновить информацию о нескольких изображениях</p>
+        <pre>
+            {
+                "images": [
+                  {
+                    "car_id": 10,
+                    "url": "http://example.com/image1.jpg"
+                  },
+                  {
+                    "car_id": 10,
+                    "url": "http://example.com/image2.jpg"
+                  }
+                ]
+              }
+        </pre>
         <p><code>PATCH/PUT /images/:id</code> - Обновить информацию о изображении</p>
         <pre>
         {
@@ -441,22 +456,17 @@
         </pre>
         <p><code>PATCH /images/update_multiple</code> - Обновить информацию о нескольких изображениях</p>
         <pre>
-        {
-            "images": [
+            {
+                "images": [
                   {
                     "id": 1,
-                    "car_id": 1,
-                    "url": "http://example.com/image1.jpg"
+                    "car_id": 10,
+                    "url": "http://example.com/updated_image1.jpg"
                   },
                   {
                     "id": 2,
-                    "car_id": 1,
-                    "url": "http://example.com/image2.jpg"
-                  },
-                  {
-                    "id": 3,
-                    "car_id": 1,
-                    "url": "http://example.com/image3.jpg"
+                    "car_id": 10,
+                    "url": "http://example.com/updated_image2.jpg"
                   }
                 ]
             }
