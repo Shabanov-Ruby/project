@@ -42,6 +42,4 @@ class Car < ApplicationRecord
   scope :by_engine_name_type, -> (engine_name_type_name) { 
     joins(:engine_name_type).where(engine_name_types: { name: engine_name_type_name }) if engine_name_type_name.present?
   }
-
-  belongs_to :generation
 end

@@ -14,9 +14,9 @@ class CarFilterService
     cars = cars.by_year_from(@params[:year_from]) if @params[:year_from].present?
     cars = cars.by_price(@params[:max_price]) if @params[:max_price].present?
 
-    cars = cars.by_gearbox_type(@params[:gearbox_type_id]) if @params[:gearbox_type_id].present?
-    cars = cars.by_body_type(@params[:body_type_id]) if @params[:body_type_id].present?
-    cars = cars.by_drive_type(@params[:drive_type_id]) if @params[:drive_type_id].present?
+    cars = cars.by_gearbox_type(@params[:gearbox_type_name]) if @params[:gearbox_type_name].present?
+    cars = cars.by_body_type(@params[:body_type_name]) if @params[:body_type_name].present?
+    cars = cars.by_drive_type(@params[:drive_type_name]) if @params[:drive_type_name].present?
 
     cars = cars.by_owners_count(@params[:owners_count]) if @params[:owners_count].present?
 
