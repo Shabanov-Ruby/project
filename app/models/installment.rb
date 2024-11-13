@@ -1,4 +1,3 @@
 class Installment < ApplicationRecord
-    has_one :car
-    has_many :orders_installments
+    belongs_to :car
 end
