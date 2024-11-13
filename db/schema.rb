@@ -58,13 +58,12 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_10_142612) do
   end
 
   create_table "call_requests", force: :cascade do |t|
-    t.bigint "car_id", null: false
+    t.bigint "car_id"
     t.string "name"
     t.bigint "phone"
     t.string "preferred_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["car_id"], name: "index_call_requests_on_car_id"
   end
 
   create_table "cars", force: :cascade do |t|

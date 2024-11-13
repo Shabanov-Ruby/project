@@ -49,8 +49,10 @@ class CallRequestsController < ApplicationController
       render json: { error: 'Заявка не найдена' }, status: :not_found
     end
 
+    
+
     def call_request_params
-      params.require(:call_request).permit(:car_id, :name, :phone, :preferred_time)
+      params.require(:call_request).permit(:car_id, :name, :phone, :preferred_time) # car_id остается, но не обязательно
     end
 
     def create_order_call_request(call_request)

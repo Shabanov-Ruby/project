@@ -937,6 +937,31 @@
         <p><code>DELETE /orders_installments/:id</code> - Удалить заявку на рассрочку (возвращает 200)</p>
     </div>
 
+
+    <h2 onclick="toggleSection(this)">Order Statuses</h2>
+    <div class="toggle-content" style="display: none;">
+        <p><code>GET /order_statuses</code> - Список всех статусов заказов</p>
+        <p><code>GET /order_statuses/:id</code> - Показать информацию о конкретном статусе заказа</p>
+        <p><code>POST /order_statuses</code> - Создать новый статус заказа</p>
+        <pre>
+        {
+            "order_status": {
+                "name": "Новый статус"
+            }
+        }
+        </pre>
+        <p><code>PATCH/PUT /order_statuses/:id</code> - Обновить информацию о статусе заказа</p>
+        <pre>
+        {
+            "order_status": {
+                "name": "Обновленный статус"
+            }
+        }
+        </pre>
+        <p><code>DELETE /order_statuses/:id</code> - Удалить статус заказа (возвращает 200)</p>
+    </div>
+
+
     <h2 onclick="toggleSection(this)">Admins</h2>
     <div class="toggle-content" style="display: none;">
         <p><code>POST /admins/login</code> - Авторизация(если нет такого пользователя то возвращает 401, если есть то возвращает 200)</p>
@@ -993,64 +1018,6 @@
               }
         </pre>
         <p><code>DELETE /about_companies/:id</code> - Удалить информацию о компании (возвращает 200)</p>
-    </div>
-
-    <h2 onclick="toggleSection(this)">Orders</h2>
-    <div class="toggle-content" style="display: none;">
-        <p><code>GET /orders</code> - Список всех заказов</p>
-        <p><code>GET /orders/:id</code> - Показать информацию о конкретном заказе</p>
-        <p><code>POST /orders</code> - Создать новый заказ</p>
-        <pre>
-        {
-            "order": {
-                "buyout_id": 1,
-                "credit_id": 1,
-                "exchange_id": 1,
-                "installment_id": 1,
-                "call_request_id": 1,
-                "order_status_id": 1,
-                "description": "Описание заказа"
-            }
-        }
-        </pre>
-        <p><code>PATCH/PUT /orders/:id</code> - Обновить информацию о заказе</p>
-        <pre>
-        {
-            "order": {
-                "buyout_id": 2,
-                "credit_id": 2,
-                "exchange_id": 2,
-                "installment_id": 2,
-                "call_request_id": 2,
-                "order_status_id": 2,
-                "description": "Обновленное описание заказа"
-            }
-        }
-        </pre>
-        <p><code>DELETE /orders/:id</code> - Удалить заказ (возвращает 200)</p>
-    </div>
-
-    <h2 onclick="toggleSection(this)">Order Statuses</h2>
-    <div class="toggle-content" style="display: none;">
-        <p><code>GET /order_statuses</code> - Список всех статусов заказов</p>
-        <p><code>GET /order_statuses/:id</code> - Показать информацию о конкретном статусе заказа</p>
-        <p><code>POST /order_statuses</code> - Создать новый статус заказа</p>
-        <pre>
-        {
-            "order_status": {
-                "name": "Новый статус"
-            }
-        }
-        </pre>
-        <p><code>PATCH/PUT /order_statuses/:id</code> - Обновить информацию о статусе заказа</p>
-        <pre>
-        {
-            "order_status": {
-                "name": "Обновленный статус"
-            }
-        }
-        </pre>
-        <p><code>DELETE /order_statuses/:id</code> - Удалить статус заказа (возвращает 200)</p>
     </div>
 
     <h2 onclick="toggleSection(this)">Contacts</h2>
