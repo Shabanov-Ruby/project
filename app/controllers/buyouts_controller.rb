@@ -16,7 +16,7 @@ class BuyoutsController < ApplicationController
     @buyout = Buyout.new(buyout_params)
 
     if @buyout.save
-      render json: @buyout, status: :created
+      render json: create_order_buyout(@buyout), status: :created
     else
       render json: @buyout.errors, status: :unprocessable_entity
     end
@@ -47,5 +47,19 @@ class BuyoutsController < ApplicationController
 
     def buyout_params
       params.require(:buyout).permit(:name, :phone, :brand, :model, :year, :mileage)
+    end
+
+    def create_order_buyout(buyout)
+      order_buyout = OrdersBuyout.new(
+        buyout_id: buyout.id,
+        description: "Выкуп создан и ожидает обработки",
+        order_status_id: OrderStatus.find_by(name: "Новая").id
+      )
+      
+      if order_buyout.save
+        { buyout: buyout, order_buyout: order_buyout, status: :created }
+      else
+        { errors: order_buyout.errors, status: :unprocessable_entity }
+      end
     end
 end
