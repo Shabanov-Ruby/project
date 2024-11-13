@@ -3,7 +3,7 @@ class CreateCallRequests < ActiveRecord::Migration[7.2]
     create_table :call_requests do |t|
       t.bigint :car_id
       t.string :name
-      t.bigint :phone
+      t.string :phone
       t.string :preferred_time
 
       t.timestamps

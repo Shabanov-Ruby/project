@@ -60,7 +60,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_10_142612) do
   create_table "call_requests", force: :cascade do |t|
     t.bigint "car_id"
     t.string "name"
-    t.bigint "phone"
+    t.string "phone"
     t.string "preferred_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
