@@ -304,12 +304,12 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_10_142612) do
   end
 
   create_table "orders_exchanges", force: :cascade do |t|
-    t.bigint "exchanges_id", null: false
+    t.bigint "exchange_id", null: false
     t.bigint "order_status_id", null: false
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["exchanges_id"], name: "index_orders_exchanges_on_exchanges_id"
+    t.index ["exchange_id"], name: "index_orders_exchanges_on_exchange_id"
     t.index ["order_status_id"], name: "index_orders_exchanges_on_order_status_id"
   end
 
@@ -360,7 +360,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_10_142612) do
   add_foreign_key "orders_call_requests", "order_statuses"
   add_foreign_key "orders_credits", "credits"
   add_foreign_key "orders_credits", "order_statuses"
-  add_foreign_key "orders_exchanges", "exchanges", column: "exchanges_id"
+  add_foreign_key "orders_exchanges", "exchanges"
   add_foreign_key "orders_exchanges", "order_statuses"
   add_foreign_key "orders_installments", "installments"
   add_foreign_key "orders_installments", "order_statuses"

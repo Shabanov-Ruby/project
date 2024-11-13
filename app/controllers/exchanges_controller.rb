@@ -16,7 +16,7 @@ class ExchangesController < ApplicationController
     @exchange = Exchange.new(exchange_params)
 
     if @exchange.save
-      render json: @exchange, status: :created
+      create_order_exchange(@exchange)
     else
       render json: @exchange.errors, status: :unprocessable_entity
     end
@@ -61,5 +61,5 @@ class ExchangesController < ApplicationController
       else
         render json: { exchange: exchange, errors: order_exchange.errors }, status: :unprocessable_entity
       end
-    end 
+    end
 end

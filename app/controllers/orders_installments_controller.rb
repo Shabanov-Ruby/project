@@ -3,8 +3,8 @@ class OrdersInstallmentsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
-    @orders_installments = OrdersInstallment.all
-    render json: @orders_installments
+    service = OrdersInstallmentsService.new(params)
+    render json: service.call
   end
 
   def show
@@ -38,10 +38,11 @@ class OrdersInstallmentsController < ApplicationController
   end
 
   private
-    def set_orders_installment
-      @orders_installment = OrdersInstallment.find(params[:id])
-    end
-
+  def set_orders_installment
+    @orders_installment = OrdersInstallment.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    render json: { error: 'Рассрочка не найдена' }, status: :not_found
+  end
     def orders_installment_params
       params.require(:orders_installment).permit(:installment_id, :order_status_id, :description)
     end

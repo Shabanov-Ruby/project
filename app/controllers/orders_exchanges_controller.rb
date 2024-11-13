@@ -3,11 +3,12 @@ class OrdersExchangesController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
-    @orders_exchanges = OrdersExchange.all
-    render json: @orders_exchanges
+    service = OrdersExchangesService.new(params)
+    render json: service.call
   end
 
   def show
+    
     render json: @orders_exchange
   end
 
@@ -43,6 +44,6 @@ class OrdersExchangesController < ApplicationController
     end
 
     def orders_exchange_params
-      params.require(:orders_exchange).permit(:exchanges_id, :order_status_id, :description)
+      params.require(:orders_exchange).permit(:exchange_id, :order_status_id, :description)
     end
 end
