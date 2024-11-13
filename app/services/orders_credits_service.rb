@@ -22,8 +22,8 @@ class OrdersCreditsService
         id: order_credit.order_status.id,
         name: order_credit.order_status.name
       },
-      bank: Bank.find(order_credit.credit.banks_id) ? format_bank(Bank.find(order_credit.credit.banks_id)) : nil,
-      program: Program.find(order_credit.credit.programs_id) ? format_program(Program.find(order_credit.credit.programs_id)) : nil
+      bank: order_credit.credit.banks_id.present? ? format_bank(Bank.find(order_credit.credit.banks_id)) : nil,
+      program: order_credit.credit.programs_id.present? ? format_program(Program.find(order_credit.credit.programs_id)) : nil
     }
   end
 
