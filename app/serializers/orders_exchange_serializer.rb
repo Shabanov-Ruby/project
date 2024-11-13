@@ -1,5 +1,5 @@
 class OrdersExchangeSerializer < ActiveModel::Serializer
   attributes :id, :description
-  has_one :exchange
-  has_one :order_status
+  belongs_to :exchange
+  belongs_to :order_status
 end

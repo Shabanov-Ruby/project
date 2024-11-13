@@ -52,7 +52,7 @@ class ExchangesController < ApplicationController
 
     def create_order_exchange(exchange)
       order_exchange = OrdersExchange.new(
-        exchanges_id: exchange.id,
+        exchange_id: exchange.id,
         description: "Обмен создан и ожидает обработки",
         order_status_id: OrderStatus.find_by(name: "Новая").id
       )
