@@ -3,8 +3,8 @@ class OrdersCreditsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
-    @orders_credits = OrdersCredit.all
-    render json: @orders_credits
+    service = OrdersCreditsService.new(params)
+    render json: service.call
   end
 
   def show
@@ -38,9 +38,11 @@ class OrdersCreditsController < ApplicationController
   end
 
   private
-    def set_orders_credit
-      @orders_credit = OrdersCredit.find(params[:id])
-    end
+  def set_orders_credit
+    @orders_credit = OrdersCredit.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    render json: { error: 'Заявка не найдена' }, status: :not_found
+  end
 
     def orders_credit_params
       params.require(:orders_credit).permit(:credit_id, :order_status_id, :description)
