@@ -3,9 +3,10 @@ class OrdersCallRequestsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
-    @orders_call_requests = OrdersCallRequest.all
-    render json: @orders_call_requests
+    service = OrdersCallRequestsService.new(params)
+    render json: service.call
   end
+  
 
   def show
     render json: @orders_call_request
@@ -39,10 +40,11 @@ class OrdersCallRequestsController < ApplicationController
   end
 
   private
-    def set_orders_call_request
-      @orders_call_request = OrdersCallRequest.find(params[:id])
-    end
-
+  def set_orders_call_request
+    @orders_call_request = OrdersCallRequest.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    render json: { error: 'Заказ не найден' }, status: :not_found
+  end
     def orders_call_request_params
       params.require(:orders_call_request).permit(:call_request_id, :order_status_id, :description)
     end
