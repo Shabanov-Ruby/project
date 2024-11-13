@@ -14,8 +14,13 @@ class CallRequestsController < ApplicationController
 
   def create
     @call_request = CallRequest.new(call_request_params)
-    if @call_request.save && create_order_call_request(@call_request)
-      create_order_call_request(@call_request)
+    if @call_request.save
+      result = create_order_call_request(@call_request)
+      if result[:errors]
+        render json: { call_request: @call_request, errors: result[:errors] }, status: result[:status]
+      else
+        render json: { call_request: @call_request, order_call_request: result[:order_call_request] }, status: result[:status]
+      end
     else
       render json: @call_request.errors, status: :unprocessable_entity
     end 
@@ -54,10 +59,11 @@ class CallRequestsController < ApplicationController
         description: "Заявка создана и ожидает обработки",
         order_status_id: OrderStatus.find_by(name: "Новая").id
       )
+      
       if order_call_request.save
-        render json: { call_request: call_request, order_call_request: order_call_request }, status: :created
+        { call_request: call_request, order_call_request: order_call_request, status: :created }
       else
-        render json: { call_request: call_request, errors: order_call_request.errors }, status: :unprocessable_entity
+        { errors: order_call_request.errors, status: :unprocessable_entity }
       end
     end
 end
