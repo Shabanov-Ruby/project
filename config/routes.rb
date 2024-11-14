@@ -59,7 +59,7 @@ Rails.application.routes.draw do
   resources :offers
   resources :call_requests
   resources :admins, only: [:login]
-
+  resources :reports, only: [:show]
   #Маршруты для клиентов
   get 'cars' => 'cars#index'#Список автомобилей
   get 'last_cars' => 'cars#last_cars'#Последние 20 автомобилей
