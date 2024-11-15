@@ -19,6 +19,8 @@ gem "jbuilder"
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
+gem 'rack-cors', require: 'rack/cors'
+
 # Изображения
 gem 'image_processing', '~> 1.2'  
 # Загрузка изображений альтернативно
