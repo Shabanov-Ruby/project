@@ -158,10 +158,10 @@ table {
   --main-text-color: #1e1e1e;
   --inverse-text-color: #fff;
   --light-text-color: #727c95;
-  --decorative-line-color: rgba(111, 131, 110, 0.4);
+  --decorative-line-color: rgba(16, 86, 167, 0.4);
   --box-shadow: 0 4px 32px 0 rgba(0, 16, 61, 0.12);
   --transition-time: 0.3s;
-  --hover-main-color: #16982e;
+  --hover-main-color: #1e91c7;
 }
 
 /**
