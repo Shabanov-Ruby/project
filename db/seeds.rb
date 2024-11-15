@@ -1,15 +1,3 @@
-AboutCompany.destroy_all
-Contact.destroy_all
-Admin.destroy_all
-Credit.destroy_all
-CallRequest.destroy_all
-Buyout.destroy_all
-Exchange.destroy_all
-Installment.destroy_all
-OrderStatus.destroy_all
-Program.destroy_all
-Bank.destroy_all
-
 banks = Bank.create([
   { name: "Сбербанк", country: "Sberbank" },
   { name: "Т Банк", country: "T Bank" },
@@ -75,3 +63,4 @@ Contact.create([
     auto_address: 'г. Москва, Ореховый бульвар, 26к1'},
 ])
 puts "Contact created successfully"
+  

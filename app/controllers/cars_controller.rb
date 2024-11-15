@@ -82,7 +82,12 @@ class CarsController < ApplicationController
     render json: result
   end
 
+  def download_pdf
+    car = Car.find(params[:id])
+    pdf = generate_pdf(car) # Метод для генерации PDF
 
+    send_data pdf.render, filename: "#{car.brand}_#{car.id}.pdf", type: 'application/pdf', disposition: 'attachment'
+  end
 
   private
     def set_car
@@ -102,5 +107,13 @@ class CarsController < ApplicationController
                     :year_from, :max_price, :gearbox_type_name, :body_type_name, 
                     :drive_type_name, :owners_count, :engine_name_type_name)
     end    
+
+  def generate_pdf(car)
+    # Логика для генерации PDF
+    Prawn::Document.new do |pdf|
+      pdf.text "Details for #{car.brand}"
+      # Добавьте другие детали автомобиля
+    end
+  end
 end
 

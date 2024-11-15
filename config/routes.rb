@@ -58,8 +58,8 @@ Rails.application.routes.draw do
   resources :credit_offers
   resources :offers
   resources :call_requests
-  resources :admins, only: [:login]
-  resources :reports, only: [:show]
+  #resources :admins, only: [:login]
+  #resources :reports, only: [:show]
   #Маршруты для клиентов
   get 'cars' => 'cars#index'#Список автомобилей
   get 'last_cars' => 'cars#last_cars'#Последние 20 автомобилей
@@ -82,7 +82,11 @@ Rails.application.routes.draw do
   post 'credit' => 'credits#create'#Создать программу
   get 'credit/:id' => 'credits#show'#Показать программу
 
-  post 'admins/login' => 'admins#login'#Авторизация
+  #post 'admins/login' => 'admins#login'#Авторизация
+  get 'admin' => 'admin#index'#Главная страница
   
+  get '/car/:brand/:id/download_pdf', to: 'cars#download_pdf'
+
+  get '/api/reports/:id', to: 'reports#show'
 end
   
