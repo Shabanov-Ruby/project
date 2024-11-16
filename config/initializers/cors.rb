@@ -8,7 +8,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
     allow do
-      origins 'http://usecar.ru' # Укажите ваш фронтенд URL
+      origins 'http://37.46.134.73' # Укажите ваш фронтенд URL
       resource '*',
         headers: :any,
         methods: [:get, :post, :put, :patch, :delete, :options, :head]
