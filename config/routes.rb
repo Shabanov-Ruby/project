@@ -91,6 +91,10 @@ Rails.application.routes.draw do
   get 'admin' => 'admin#index'#Главная страница
 
   get 'admin/cars' => 'cars#index'#Автомобили
+  get 'admin/car/:id' => 'cars#show'#Показать автомобиль
+  get 'admin/car/:id/history' => 'cars#show'#История автомобиля
+  get 'admin/car/:id/complectation' => 'cars#show'#Комплектация автомобиля
+  get 'admin/car/:id/images' => 'cars#show'#Изображения автомобиля
   get 'admin/add_car' => 'cars#add_car'#Добавить автомобиль
   get 'admin/categories' => 'cars#add_car'#Категории
   get 'admin/banks' => 'banks#index'#Банки
