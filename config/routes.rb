@@ -101,5 +101,7 @@ Rails.application.routes.draw do
   match '*path', to: 'application#frontend', via: :all
 
   get 'favorites', to: 'favorites#index'
+
+  
 end
   
