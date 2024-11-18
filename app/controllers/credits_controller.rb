@@ -43,8 +43,13 @@ class CreditsController < ApplicationController
   end
 
   def top_programs
+
     @all_banks = Bank.includes(:programs).all
-    render json: @all_banks.to_json(include: :programs)
+    if request.format.html?
+      render file: "#{Rails.root}/public/index.html", layout: false
+    else
+      render json: @all_banks.to_json(include: :programs)
+    end
   end
 
   private
