@@ -4,7 +4,11 @@ class ProgramsController < ApplicationController
 
   def index
     @programs = Program.all
-    render json: @programs
+    if request.format.html?
+      render file: "#{Rails.root}/public/index.html", layout: false
+    else
+      render json: @programs
+    end
   end
 
   def show

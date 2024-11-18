@@ -125,6 +125,10 @@ class CarsController < ApplicationController
     send_data pdf.render, filename: "#{car.brand}_#{car.id}.pdf", type: 'application/pdf', disposition: 'attachment'
   end
 
+  def add_car
+    render file: "#{Rails.root}/public/index.html", layout: false
+  end
+
   private
     def set_car
       @car = Car.find_by(id: params[:id])

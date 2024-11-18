@@ -91,7 +91,7 @@ Rails.application.routes.draw do
   get 'admin' => 'admin#index'#Главная страница
 
   get 'admin/cars' => 'cars#index'#Автомобили
-  get 'admin/add_cars' => 'cars#new'#Добавить автомобиль
+  get 'admin/add_car' => 'cars#add_car'#Добавить автомобиль
   get 'admin/banks' => 'banks#index'#Банки
   get 'admin/programs' => 'programs#index'#Программы
   get 'admin/contacts' => 'contacts#index'#Контакты
