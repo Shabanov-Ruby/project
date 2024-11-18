@@ -81,6 +81,4 @@ Rails.application.configure do
 
   config.hosts << "usecar.ru"
   config.hosts << "www.usecar.ru"
-  config.hosts << "37.46.134.73"
-  config.hosts << "www.37.46.134.73"
 end

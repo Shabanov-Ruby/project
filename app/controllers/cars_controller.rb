@@ -7,7 +7,9 @@ class CarsController < ApplicationController
     filtered_cars = CarFilterService.new(filter_params, per_page).call
     paginated_cars = filtered_cars.page(params[:page]).per(params[:per_page] || per_page)
     
-    if params[:coll] == 'all'
+    if request.format.html?
+      render file: "#{Rails.root}/public/index.html", layout: false
+    elsif params[:coll] == 'all'
       render json: filtered_cars, each_serializer: CarSerializer
     else
       render json: paginated_cars, each_serializer: CarSerializer
@@ -15,7 +17,11 @@ class CarsController < ApplicationController
   end
 
   def show
-    render json: @car, serializer: CarSerializer
+    if request.format.html?
+      render file: "#{Rails.root}/public/index.html", layout: false
+    else
+      render json: @car, serializer: CarSerializer
+    end
   end
 
   def create
