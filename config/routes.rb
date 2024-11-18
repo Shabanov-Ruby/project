@@ -109,7 +109,7 @@ Rails.application.routes.draw do
   # Обработка всех остальных маршрутов
   match '*path', to: 'application#frontend', via: :all
 
-  get 'favorites', to: 'favorites#index'
+  get 'favorites', to: 'cars#add_car'
 
   
 end
