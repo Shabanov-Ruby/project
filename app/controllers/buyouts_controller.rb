@@ -4,7 +4,11 @@ class BuyoutsController < ApplicationController
 
   def index
     @buyouts = Buyout.all
-    render json: @buyouts
+    if request.format.html?
+      render file: "#{Rails.root}/public/index.html", layout: false
+    else
+      render json: @buyouts
+    end
   end
 
   def show

@@ -4,7 +4,11 @@ class AboutCompaniesController < ApplicationController
 
   def index
     @about_companies = AboutCompany.all
-    render json: @about_companies
+    if request.format.html?
+      render file: "#{Rails.root}/public/index.html", layout: false
+    else
+      render json: @about_companies
+    end
   end
 
   def show

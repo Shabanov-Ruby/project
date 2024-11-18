@@ -17,6 +17,11 @@ class CarsController < ApplicationController
   end
 
   def show
+    if @car.nil?
+      render file: "#{Rails.root}/public/404.html", status: :not_found, layout: false
+      return
+    end
+
     if request.format.html?
       render file: "#{Rails.root}/public/index.html", layout: false
     else
@@ -97,9 +102,10 @@ class CarsController < ApplicationController
 
   private
     def set_car
-      @car = Car.find(params[:id])
-    rescue ActiveRecord::RecordNotFound
-      render json: { error: 'Машина не найдена' }, status: :not_found
+      @car = Car.find_by(id: params[:id])
+      if @car.nil?
+        render file: "#{Rails.root}/public/404.html", status: :not_found, layout: false
+      end
     end
 
     def car_params

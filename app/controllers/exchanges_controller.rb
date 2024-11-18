@@ -4,7 +4,11 @@ class ExchangesController < ApplicationController
 
   def index
     @exchanges = Exchange.all
-    render json: @exchanges
+    if request.format.html?
+      render file: "#{Rails.root}/public/index.html", layout: false
+    else
+      render json: @exchanges
+    end
   end
 
   def show

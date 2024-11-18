@@ -4,7 +4,11 @@ class ContactsController < ApplicationController
 
   def index
     @contacts = Contact.all
-    render json: @contacts.first
+    if request.format.html?
+      render file: "#{Rails.root}/public/index.html", layout: false
+    else
+      render json: @contacts.first
+    end
   end
 
   def show

@@ -4,7 +4,11 @@ class CreditsController < ApplicationController
 
   def index
     @credits = Credit.all
-    render json: @credits
+    if request.format.html?
+      render file: "#{Rails.root}/public/index.html", layout: false
+    else
+      render json: @credits
+    end
   end
 
   def show

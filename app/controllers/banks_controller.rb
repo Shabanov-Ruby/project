@@ -4,7 +4,11 @@ class BanksController < ApplicationController
 
   def index
     @banks = Bank.includes(:programs).all
-    render json: @banks.as_json(include: :programs)
+    if request.format.html?
+      render file: "#{Rails.root}/public/index.html", layout: false
+    else
+      render json: @banks.as_json(include: :programs)
+    end
   end
 
   def show

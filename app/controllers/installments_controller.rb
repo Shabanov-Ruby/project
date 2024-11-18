@@ -4,7 +4,11 @@ class InstallmentsController < ApplicationController
 
   def index
     @installments = Installment.all
-    render json: @installments
+    if request.format.html?
+      render file: "#{Rails.root}/public/index.html", layout: false
+    else
+      render json: @installments
+    end
   end
 
   def show  
