@@ -89,6 +89,13 @@ Rails.application.routes.draw do
   get 'car/:brand/:id' => 'cars#show'#Показать автомобиль
   #post 'admins/login' => 'admins#login'#Авторизация
   get 'admin' => 'admin#index'#Главная страница
+
+  get 'admin/cars' => 'cars#index'#Автомобили
+  get 'admin/add_cars' => 'cars#new'#Добавить автомобиль
+  get 'admin/banks' => 'banks#index'#Банки
+  get 'admin/programs' => 'programs#index'#Программы
+  get 'admin/contacts' => 'contacts#index'#Контакты
+  get 'admin/about' => 'about_companies#index'#О компании
   
   get '/car/:brand/:id/download_pdf', to: 'cars#download_pdf'
 

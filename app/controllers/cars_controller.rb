@@ -14,6 +14,7 @@ class CarsController < ApplicationController
     else
       render json: paginated_cars, each_serializer: CarSerializer
     end
+
   end
 
   def show
@@ -32,25 +33,49 @@ class CarsController < ApplicationController
   def create
     @car = Car.new(car_params)
     if @car.save
-      render json: @car, status: :created
+      if request.format.html?
+        render file: "#{Rails.root}/public/index.html", layout: false
+      else
+        render json: @car, status: :created
+      end
     else
-      render json: @car.errors, status: :unprocessable_entity
+      if request.format.html?
+        render file: "#{Rails.root}/public/index.html", layout: false
+      else
+        render json: @car.errors, status: :unprocessable_entity
+      end
     end
   end
 
   def update
     if @car.update(car_params)
-      render json: @car, status: :ok
+      if request.format.html?
+        render file: "#{Rails.root}/public/index.html", layout: false
+      else
+        render json: @car, status: :ok
+      end
     else
-      render json: @car.errors, status: :unprocessable_entity
+      if request.format.html?
+        render file: "#{Rails.root}/public/index.html", layout: false
+      else
+        render json: @car.errors, status: :unprocessable_entity
+      end
     end
   end
 
   def destroy
     if @car.destroy
-      head :ok
+      if request.format.html? 
+        render file: "#{Rails.root}/public/index.html", layout: false
+      else
+        head :ok
+      end
     else
-      render json: @car.errors, status: :internal_server_error
+      if request.format.html?
+        render file: "#{Rails.root}/public/index.html", layout: false
+      else
+        render json: @car.errors, status: :internal_server_error
+      end
     end
   end
 
