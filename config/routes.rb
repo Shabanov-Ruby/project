@@ -86,6 +86,7 @@ Rails.application.routes.draw do
   post 'credit' => 'credits#create'#Создать программу
   get 'credit/:id' => 'credits#show'#Показать программу
   get 'about' => 'about_companies#index'#О компании
+  get 'cars/:brand/:id' => 'cars#show'#Показать автомобиль
   #post 'admins/login' => 'admins#login'#Авторизация
   get 'admin' => 'admin#index'#Главная страница
   
