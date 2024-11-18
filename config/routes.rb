@@ -87,6 +87,8 @@ Rails.application.routes.draw do
   get 'credit/:id' => 'credits#show'#Показать программу
   get 'about' => 'about_companies#index'#О компании
   get 'car/:brand/:id' => 'cars#show'#Показать автомобиль
+
+  get 'favorites', to: 'favorites#index'#Избранное
   #post 'admins/login' => 'admins#login'#Авторизация
   get 'admin' => 'admin#index'#Главная страница
 
@@ -112,9 +114,6 @@ Rails.application.routes.draw do
 
   # Обработка всех остальных маршрутов
   match '*path', to: 'application#frontend', via: :all
-
-  get 'favorites', to: 'cars#add_car'
-
   
 end
   
