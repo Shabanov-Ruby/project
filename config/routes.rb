@@ -58,9 +58,11 @@ Rails.application.routes.draw do
   resources :credit_offers
   resources :offers
   resources :call_requests
+  resources :admin, only: [:index]
   #resources :admins, only: [:login]
   #resources :reports, only: [:show]
   #Маршруты для клиентов
+
   get 'cars' => 'cars#index'#Список автомобилей
   get 'last_cars' => 'cars#last_cars'#Последние 20 автомобилей
   get 'cars_count' => 'cars#cars_count'#Количество автомобилей
@@ -69,6 +71,8 @@ Rails.application.routes.draw do
   get 'filters', to: 'cars#filters'#Фильтры для автомобилей
   get 'car_ids', to: 'cars#car_ids'#Список идентификаторов автомобилей
   get 'exchange' => 'exchanges#index'#Обмен
+
+
   post 'exchange' => 'exchanges#create'#Создать обмен
   
   get 'installment' => 'installments#index'#Рассрочка
@@ -88,5 +92,8 @@ Rails.application.routes.draw do
   get '/car/:brand/:id/download_pdf', to: 'cars#download_pdf'
 
   get '/api/reports/:id', to: 'reports#show'
+
+  match "/500", to: "errors#internal_server_error", via: :all
+  match "*unmatched", to: "errors#internal_server_error", via: :all
 end
   
