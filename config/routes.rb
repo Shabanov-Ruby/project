@@ -93,7 +93,10 @@ Rails.application.routes.draw do
 
   get '/api/reports/:id', to: 'reports#show'
 
-  match "/500", to: "errors#internal_server_error", via: :all
-  match "*unmatched", to: "errors#internal_server_error", via: :all
+  match "/404", to: "errors#not_found", via: :all
+  match "*unmatched", to: "errors#not_found", via: :all
+
+  # Обработка всех остальных маршрутов
+  match '*path', to: 'application#frontend', via: :all
 end
   
