@@ -12,7 +12,11 @@ class AboutCompaniesController < ApplicationController
   end
 
   def show
-    render json: @about_company
+    if request.format.html?
+      render file: "#{Rails.root}/public/index.html", layout: false
+    else
+      render json: @about_company
+    end
   end
 
   def create
