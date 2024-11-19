@@ -2,7 +2,6 @@ require 'open-uri'
 require 'prawn'
 require 'prawn/table'
 
-module Api
   class ReportsController < ApplicationController
 
     def show
@@ -138,4 +137,3 @@ module Api
       send_file Rails.root.join("car_report_#{car.id}.pdf"), type: 'application/pdf', disposition: 'inline'
     end
   end
-end
