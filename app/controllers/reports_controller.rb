@@ -5,12 +5,16 @@ require 'prawn/table'
   class ReportsController < ApplicationController
 
     def show
-      @car = Car.find(params[:id])
-      
-      # Генерируем PDF и сохраняем его в файл
+      Rails.logger.info "Received request for report with car ID: #{params[:id]}"
+      @car = Car.find_by(id: params[:id])
+    
+      if @car.nil?
+        Rails.logger.error "Car with ID #{params[:id]} not found"
+        render json: { error: 'Car not found' }, status: :not_found
+        return
+      end
+    
       pdf_file_path = generate_pdf(@car)
-
-      # Отправляем PDF-файл клиенту
       send_file pdf_file_path, type: 'application/pdf', disposition: 'inline', status: :ok
     end
 
