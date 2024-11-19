@@ -7,6 +7,7 @@ require 'prawn/table'
     def show
       @car = Car.find(params[:id])
       generate_pdf(@car)
+      head :okg
     end
 
     private
