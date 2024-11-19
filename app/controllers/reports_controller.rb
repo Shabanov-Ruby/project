@@ -5,7 +5,7 @@ require 'prawn/table'
   class ReportsController < ApplicationController
 
     def show
-      @car = Car.find(params[:id]) # Предполагается, что у вас есть модель Car
+      @car = Car.find(params[:id])
       generate_pdf(@car)
     end
 

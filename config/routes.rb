@@ -104,9 +104,8 @@ Rails.application.routes.draw do
   get 'admin/about' => 'about_companies#index'#О компании
   get 'privacy' => 'cars#add_car'#Политика конфиденциальности
   
-  get 'car/:brand/:id/download_pdf', to: 'cars#download_pdf'
   get 'api/reports/:id' => 'cars#add_car'
-  get '/api/reports/:id', to: 'reports#show'
+  get 'api/reports/:id', to: 'reports#show'
 
   match "/404", to: "errors#not_found", via: :all
   match "*unmatched", to: "errors#not_found", via: :all
