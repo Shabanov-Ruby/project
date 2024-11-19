@@ -106,7 +106,8 @@ Rails.application.routes.draw do
   get 'admin/about' => 'about_companies#index'#О компании
   get 'privacy' => 'cars#add_car'#Политика конфиденциальности
   
-  get '/car/:brand/:id/download_pdf', to: 'cars#download_pdf'
+  #get '/car/:brand/:id/download_pdf', to: 'cars#download_pdf'
+  get 'api/reports/:id' => 'reports#show'
 
   get '/api/reports/:id', to: 'reports#show'
 
