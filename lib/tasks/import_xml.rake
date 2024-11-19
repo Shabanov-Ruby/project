@@ -109,7 +109,7 @@ namespace :import do
     history_car = HistoryCar.create(
       car: car,
       vin: vin,
-      last_mileage = node.at_xpath('run') ? node.at_xpath('run').text.to_i : 10,
+      last_mileage: node.at_xpath('run') ? node.at_xpath('run').text.to_i : 10,
       previous_owners: owners_number,
       registration_number: "Отсутствует",
       registration_restrictions: "Не найдены ограничения на регистрацию",
