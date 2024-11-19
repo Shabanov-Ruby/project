@@ -59,8 +59,9 @@ Rails.application.routes.draw do
   resources :offers
   resources :call_requests
   resources :admin, only: [:index]
-  #Маршруты для клиентов
 
+
+  #Маршруты для клиентов
   get 'cars' => 'cars#index'#Список автомобилей
   get 'last_cars' => 'cars#last_cars'#Последние 20 автомобилей
   get 'cars_count' => 'cars#cars_count'#Количество автомобилей
@@ -68,9 +69,10 @@ Rails.application.routes.draw do
   get 'cars/:id' => 'cars#show'#Показать автомобиль
   get 'filters', to: 'cars#filters'#Фильтры для автомобилей
   get 'car_ids', to: 'cars#car_ids'#Список идентификаторов автомобилей
+  get 'car/:brand/:id' => 'cars#show'#Показать автомобиль
+  get 'api/reports/:id' => 'cars#add_car'
+  
   get 'exchange' => 'exchanges#index'#Обмен
-
-
   post 'exchange' => 'exchanges#create'#Создать обмен
   
   get 'installment' => 'installments#index'#Рассрочка
@@ -83,13 +85,12 @@ Rails.application.routes.draw do
   get 'credits' => 'credits#index '#Список программ
   post 'credit' => 'credits#create'#Создать программу
   get 'credit/:id' => 'credits#show'#Показать программу
-  get 'about' => 'about_companies#index'#О компании
-  get 'car/:brand/:id' => 'cars#show'#Показать автомобиль
 
+  get 'about' => 'about_companies#index'#О компании
+  
   get 'favorites', to: 'favorites#index'#Избранное
   #post 'admins/login' => 'admins#login'#Авторизация
   get 'admin' => 'admin#index'#Главная страница
-
   get 'admin/cars' => 'cars#index'#Автомобили
   get 'admin/car/:id' => 'cars#show'#Показать автомобиль
   get 'admin/car/:id/history' => 'cars#show'#История автомобиля
@@ -102,12 +103,8 @@ Rails.application.routes.draw do
   get 'admin/orders' => 'cars#add_car'#Заказы
   get 'admin/contacts' => 'contacts#index'#Контакты
   get 'admin/about' => 'about_companies#index'#О компании
-  get 'privacy' => 'cars#add_car'#Политика конфиденциальности
-  
-  # get 'car/:brand/:id/download_pdf', to: 'cars#download_pdf'
-  get 'api/reports/:id' => 'cars#add_car'
-  # get 'api/reports/:id', to: 'reports#show'
-
+  get 'privacy' => 'cars#add_car'#Политика конфиденциальности'
+ 
   match "/404", to: "errors#not_found", via: :all
   match "*unmatched", to: "errors#not_found", via: :all
 
