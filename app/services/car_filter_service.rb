@@ -19,8 +19,9 @@ class CarFilterService
     cars = cars.by_drive_type(@params[:drive_type_name]) if @params[:drive_type_name].present?
 
     cars = cars.by_owners_count(@params[:owners_count]) if @params[:owners_count].present?
-
     cars = cars.by_engine_name_type(@params[:engine_name_type_name]) if @params[:engine_name_type_name].present?
+
+
     cars
   end
 
