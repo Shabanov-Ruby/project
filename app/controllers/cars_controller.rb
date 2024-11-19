@@ -115,7 +115,11 @@ class CarsController < ApplicationController
 
   def car_ids
     result = CarIdsService.new(filter_params).call
-    render json: result
+    if request.format.html?
+      render file: "#{Rails.root}/public/index.html", layout: false
+    else
+      render json: result
+    end
   end
 
   def download_pdf
