@@ -2,9 +2,11 @@ namespace :import do
   desc "Import cars and their history from XML"
   task cars: :environment do
     require 'nokogiri'
+    require 'open-uri'
 
-    file_path = Rails.root.join('app', 'assets', 'xml', 'hpbz0dmc.xml')
-    xml_data = File.read(file_path)
+    #file_path = Rails.root.join('app', 'assets', 'xml', 'hpbz0dmc.xml')
+    #xml_data = File.read(file_path)
+    xml_data = URI.open('https://plex-crm.ru/xml/youauto/hpbz0dmc').read
     doc = Nokogiri::XML(xml_data)
 
     ActiveRecord::Base.transaction do
