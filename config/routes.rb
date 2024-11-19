@@ -60,7 +60,9 @@ Rails.application.routes.draw do
   resources :call_requests
   resources :admin, only: [:index]
   #resources :admins, only: [:login]
-  #resources :reports, only: [:show]
+  namespace :api do
+    resources :reports, only: [:show]
+  end
   #Маршруты для клиентов
 
   get 'cars' => 'cars#index'#Список автомобилей
@@ -106,10 +108,9 @@ Rails.application.routes.draw do
   get 'admin/about' => 'about_companies#index'#О компании
   get 'privacy' => 'cars#add_car'#Политика конфиденциальности
   
-  #get '/car/:brand/:id/download_pdf', to: 'cars#download_pdf'
+  get 'car/:brand/:id/download_pdf', to: 'cars#download_pdf'
   get 'api/reports/:id' => 'reports#show'
-
-  get '/api/reports/:id', to: 'reports#show'
+  get 'api/reports/:id', to: 'reports#show'
 
   match "/404", to: "errors#not_found", via: :all
   match "*unmatched", to: "errors#not_found", via: :all
