@@ -6,15 +6,21 @@ require 'prawn/table'
 
     def show
       @car = Car.find(params[:id])
-      generate_pdf(@car)
-      head :okg
+      
+      # Генерируем PDF и сохраняем его в файл
+      pdf_file_path = generate_pdf(@car)
+
+      # Отправляем PDF-файл клиенту
+      send_file pdf_file_path, type: 'application/pdf', disposition: 'inline', status: :ok
     end
 
     private
 
     def generate_pdf(car)
+      pdf_file_path = Rails.root.join("car_report_#{car.id}.pdf") # Путь к файлу
+
       begin
-        Prawn::Document.generate("car_report_#{car.id}.pdf") do
+        Prawn::Document.generate(pdf_file_path) do
           font_families.update('TimesNewRoman' => {
             normal: { file: 'app/assets/fonts/Inter.ttf' },
             bold: { file: 'app/assets/fonts/Inter.ttf' }
@@ -135,6 +141,6 @@ require 'prawn/table'
         puts "Ошибка при генерации PDF: #{e.message}"
       end
 
-      send_file Rails.root.join("car_report_#{car.id}.pdf"), type: 'application/pdf', disposition: 'inline'
+      pdf_file_path # Возвращаем путь к сгенерированному PDF
     end
   end
