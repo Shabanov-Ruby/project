@@ -97,15 +97,28 @@ namespace :import do
 
   def create_history_for_car(car, node)
     vin = node.at_xpath('vin').text
-    return if HistoryCar.exists?(vin: vin)
-
+    original_vin = vin # Сохраняем оригинальный VIN для дальнейшего использования
+  
+    # Проверяем, существует ли VIN в базе данных
+    while HistoryCar.exists?(vin: vin)
+      # Генерируем две случайные буквы или цифры
+      random_suffix = Array.new(2) { rand(0..9).to_s + ('A'..'Z').to_a.sample }.join
+      vin = "#{original_vin}#{random_suffix}" # Добавляем к оригинальному VIN
+    end
+  
     owners_number_text = node.at_xpath('owners_number').text.downcase.split.first
     text_to_number = {
       "ноль" => 0, "один" => 1, "два" => 2, "три" => 3, "четыре" => 4,
       "пять" => 5, "шесть" => 6, "семь" => 7, "восемь" => 8, "девять" => 9, "десять" => 10
     }
     owners_number = text_to_number[owners_number_text] || owners_number_text.scan(/\d+/).first.to_i
-    params_last_mileage = node.at_xpath('run') ? node.at_xpath('run').text.to_i : 10000.to_i
+  
+    # Получаем текстовое значение элемента 'run'
+    run_value = node.at_xpath('run')&.text
+
+    # Проверяем, является ли значение числом, и устанавливаем params_last_mileage
+    params_last_mileage = (run_value && run_value.match?(/^\d+$/)) ? run_value.to_i : 10
+  
     history_car = HistoryCar.create(
       car: car,
       vin: vin,
@@ -136,12 +149,12 @@ namespace :import do
       recall_campaigns_found: "Не найдены сведения об отзывных кампаниях",
       recall_campaigns_found_info: "Для данного автомобиля не проводилось или нет действующих отзывных кампаний. Отзыв автомобиля представляет собой устранение выявленного брака. Практически все автомобильные производители периодически отзывают свои продукты для устранения дефектов."
     )
-
+  
     if history_car.save
       puts "History saved for car: #{car.id}"
     else
       puts "History not created for car VIN: #{vin}"
-      puts history_car.errors.full_messages.join(", ")
+      puts "Errors: #{history_car.errors.full_messages.join(", ")}"
     end
   end
 

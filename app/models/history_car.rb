@@ -1,6 +1,7 @@
 class HistoryCar < ApplicationRecord
   belongs_to :car
-
+  
+  attribute :last_mileage, default: 10.to_i
   attribute :registration_number, default: "Отсутствует"
   attribute :registration_restrictions, default: "Не найдены ограничения на регистрацию"
   attribute :wanted_status, default: "Нет сведений о розыске"
