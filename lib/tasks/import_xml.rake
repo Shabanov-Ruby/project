@@ -105,11 +105,11 @@ namespace :import do
       "пять" => 5, "шесть" => 6, "семь" => 7, "восемь" => 8, "девять" => 9, "десять" => 10
     }
     owners_number = text_to_number[owners_number_text] || owners_number_text.scan(/\d+/).first.to_i
-
+    params_last_mileage = node.at_xpath('run') ? node.at_xpath('run').text.to_i : 10000.to_i
     history_car = HistoryCar.create(
       car: car,
       vin: vin,
-      last_mileage: node.at_xpath('run') ? node.at_xpath('run').text.to_i : 10,
+      last_mileage: params_last_mileage,
       previous_owners: owners_number,
       registration_number: "Отсутствует",
       registration_restrictions: "Не найдены ограничения на регистрацию",
