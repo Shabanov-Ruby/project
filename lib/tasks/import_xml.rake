@@ -6,7 +6,7 @@ namespace :import do
 
     #file_path = Rails.root.join('app', 'assets', 'xml', 'hpbz0dmc.xml')
     #xml_data = File.read(file_path)
-    xml_data = URI.open('https://plex-crm.ru/xml/youauto/hpbz0dmc').read
+    xml_data = URI.open('https://plex-crm.ru/xml/usecarmax/hpbz0dmc').read
     doc = Nokogiri::XML(xml_data)
 
     ActiveRecord::Base.transaction do
