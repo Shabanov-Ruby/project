@@ -3,7 +3,7 @@ class BanksController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
-    @banks = Bank.includes(:programs).all
+    @banks = Bank.includes(:programs).all 
     if request.format.html?
       render file: "#{Rails.root}/public/index.html", layout: false
     else
