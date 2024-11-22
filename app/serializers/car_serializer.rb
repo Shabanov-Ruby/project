@@ -23,4 +23,8 @@ class CarSerializer < ActiveModel::Serializer
       }
     end
   end
+
+  def images
+    object.images.order(id: :asc) # Замените :size на нужное поле для сортировки
+  end
 end
