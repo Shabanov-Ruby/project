@@ -36,6 +36,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_25_183230) do
 
   create_table "banners", force: :cascade do |t|
     t.string "image"
+    t.boolean "status"
+    t.string "main_text"
+    t.string "second_text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

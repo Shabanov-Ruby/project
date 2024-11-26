@@ -10,6 +10,21 @@ namespace :import do
     doc = Nokogiri::XML(xml_data)
 
     ActiveRecord::Base.transaction do
+      # Удаление автомобилей
+      existing_cars = Car.includes(:history_cars, :images, :extras).all
+
+      if existing_cars.empty?
+        puts "No existing cars found. Skipping deletion."
+      else
+        existing_cars.each do |car|
+          car.history_cars.destroy_all
+          car.images.destroy_all
+          car.extras.destroy_all
+          car.destroy
+          puts "Car removed: #{car.id}"
+        end
+      end
+
       doc.xpath('//car').each do |node|
         car = create_car_from_node(node)
         next unless car
