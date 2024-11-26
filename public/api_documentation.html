@@ -1066,6 +1066,35 @@
         <p><code>DELETE /contacts/:id</code> - Удалить контакт (возвращает 200)</p>
     </div>
 
+    <h2 onclick="toggleSection(this)">Banners</h2>
+    <div class="toggle-content" style="display: none;">
+        <p><code>GET /banners</code> - Список всех баннеров</p>
+        <p><code>GET /banners/:id</code> - Показать информацию о конкретном баннере</p>
+        <p><code>POST /banners</code> - Создать новый баннер</p>
+        <pre>
+        {
+            "banner": {
+                "main_text": "Основной текст",
+                "second_text": "Второстепенный текст",
+                "images": "url изображение",
+                "status": "true/false"
+            }
+        }
+        </pre>
+        <p><code>PATCH/PUT /banners/:id</code> - Обновить информацию о баннере</p>
+        <pre>
+        {
+            "banner": {
+                "main_text": "Обновленный основной текст",
+                "second_text": "Обновленный второстепенный текст",
+                "images": "url изображение",
+                "status": "true/false"
+            }
+        }
+        </pre>
+        <p><code>DELETE /banners/:id</code> - Удалить баннер (возвращает 200)</p>
+    </div>
+
 
     <script>
         function toggleSection(header) {

@@ -32,6 +32,5 @@ class CreateHistoryCars < ActiveRecord::Migration[7.2]
       t.string :recall_campaigns_found_info
       t.timestamps
     end
-    add_index :history_cars, :vin, unique: true
   end
 end

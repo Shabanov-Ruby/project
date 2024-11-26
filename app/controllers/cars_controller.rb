@@ -175,7 +175,7 @@ class CarsController < ApplicationController
     def filter_params
       params.permit(:id, :brand_name, :model_name, :generation_name, 
                     :year_from, :max_price, :gearbox_type_name, :body_type_name, 
-                    :drive_type_name, :owners_count, :engine_name_type_name)
+                    :drive_type_name, :owners_count, :engine_name_type_name, :unique_id)
     end    
 
   def generate_pdf(car)

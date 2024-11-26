@@ -6,6 +6,7 @@ class CreateCars < ActiveRecord::Migration[7.2]
       t.integer :year
       t.decimal :price
       t.text :description
+      t.string :unique_id
       t.references :color, null: false, foreign_key: true
       t.references :body_type, null: false, foreign_key: true
       t.references :engine_type, null: false, foreign_key: true

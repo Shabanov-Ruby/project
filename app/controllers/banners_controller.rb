@@ -45,14 +45,12 @@ class BannersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_banner
       @banner = Banner.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      render json: { error: 'Баннер не найден' }, status: :not_found
     end
 
     # Only allow a list of trusted parameters through.
     def banner_params
       params.require(:banner).permit(:image, :status, :main_text, :second_text)
-      # таблица баннер:
-      #   поля: картинки (boolean, url)
-      #   main_text,
-      #   second_text
     end
 end

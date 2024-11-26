@@ -81,6 +81,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_25_183230) do
     t.integer "year"
     t.decimal "price"
     t.text "description"
+    t.string "unique_id"
     t.bigint "color_id", null: false
     t.bigint "body_type_id", null: false
     t.bigint "gearbox_type_id", null: false
@@ -247,7 +248,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_25_183230) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["car_id"], name: "index_history_cars_on_car_id"
-    t.index ["vin"], name: "index_history_cars_on_vin", unique: true
   end
 
   create_table "images", force: :cascade do |t|
