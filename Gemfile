@@ -22,7 +22,7 @@ gem "jbuilder"
 gem 'rack-cors', require: 'rack/cors'
 
 # Изображения
-gem 'image_processing', '~> 1.2'  
+gem 'image_processing', '~> 1.2'
 # Загрузка изображений альтернативно
 gem 'carrierwave', '~> 2.0'
 # Пагинация

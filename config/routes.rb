@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :banners
   resources :engine_capacity_types
   resources :engine_power_types
   resources :engine_name_types
