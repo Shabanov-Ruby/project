@@ -1,3 +1,11 @@
+Banner.destroy_all
+Program.destroy_all
+Bank.destroy_all
+Admin.destroy_all
+OrderStatus.destroy_all
+AboutCompany.destroy_all
+Contact.destroy_all
+
 banks = Bank.create([
   { name: "Сбербанк", country: "Sberbank" },
   { name: "Т Банк", country: "T Bank" },
@@ -63,4 +71,12 @@ Contact.create([
     auto_address: 'г. Москва, Ореховый бульвар, 26к1'},
 ])
 puts "Contact created successfully"
-  
+
+Banner.create([
+  { image: 'https://raw.githubusercontent.com/Shabanov-Ruby/project/refs/heads/main/public/main.webp', 
+    status: true, 
+    main_text: 'Главный текст', 
+    second_text: 'Второстепенный текст' 
+  }
+])
+puts "Banner created successfully"
