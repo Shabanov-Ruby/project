@@ -314,7 +314,7 @@ namespace :import do
                         'Обзор'
                       when /диски|рейлинги/
                         'Элементы экстерьера'
-                      when /иммобилайзер|замок|сигнализация/
+                      when /им��обилайзер|замок|сигнализация/
                         'Защита от угона'
                       when /audi|usb|bluetooth|навигационная система|розетка/
                         'Мультимедиа'
@@ -371,6 +371,7 @@ namespace :import do
 
   def update_extras_for_car(car, node)
     extras_string = node.at_xpath('extras').text
+    puts "Extras from XML: #{extras_string}" # Логируем полученные данные
     extras_array = extras_string.split(',').map(&:strip)
 
     # Удаляем старые комплектации, если они отсутствуют в новых данных
@@ -383,11 +384,19 @@ namespace :import do
 
     # Добавляем новые комплектации
     extras_array.each do |extra|
-      unless car.extras.exists?(extra_name: ExtraName.find_or_create_by(name: extra))
-        category_name = determine_category(extra) # Метод для определения категории
+      extra_name_record = ExtraName.find_or_create_by(name: extra)
+      unless car.extras.exists?(extra_name: extra_name_record)
+        category_name = determine_category(extra)
         category = Category.find_or_create_by(name: category_name)
-        Extra.create(car: car, category: category, extra_name: ExtraName.find_or_create_by(name: extra))
-        puts "Extra added for car: #{car.id} (Extra: #{extra})"
+        new_extra = Extra.create(car: car, category: category, extra_name: extra_name_record)
+        if new_extra.persisted?
+          puts "Extra added for car: #{car.id} (Extra: #{extra})"
+        else
+          puts "Failed to add extra for car: #{car.id} (Extra: #{extra})"
+          puts new_extra.errors.full_messages.join(", ")
+        end
+      else
+        puts "Extra already exists for car: #{car.id} (Extra: #{extra})"
       end
     end
   end
