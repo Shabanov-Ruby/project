@@ -22,6 +22,7 @@ default: &default
   password: password
   host: localhost
   port: 5432
+  sslmode: require
   
 
 
@@ -89,3 +90,4 @@ production:
   database: project_auto_production
   username: project_auto
   password: <%= ENV["PROJECT_AUTO_DATABASE_PASSWORD"] %>
+  timeout: 5000
