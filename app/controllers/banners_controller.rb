@@ -17,7 +17,7 @@ class BannersController < ApplicationController
   def create
     @banner = Banner .new(banner_params)
     if @banner.save
-      render json: @banner, status: :created
+      render json: @banner, status: :ok
     else
       render json: @banner.errors, status: :unprocessable_entity
     end
