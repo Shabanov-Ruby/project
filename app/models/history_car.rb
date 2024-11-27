@@ -4,6 +4,7 @@ class HistoryCar < ApplicationRecord
   attribute :last_mileage, default: 10.to_i
   attribute :registration_number, default: "Отсутствует"
   attribute :registration_restrictions, default: "Не найдены ограничения на регистрацию"
+  attribute :registration_restrictions_info, default: "Запрет регистрационных действий на машину накладывается, если у автовладельца есть неоплаченные штрафы и налоги, либо если имущество стало предметом спора."
   attribute :wanted_status, default: "Нет сведений о розыске"
   attribute :wanted_status_info, default: "Покупка разыскиваемого автомобиля грозит тем, что его отберут в ГИБДД при регистрации, и пока будет идти следствие, а это может затянуться на долгий срок, автомобиль будет стоять на штрафплощадке."
   attribute :pledge_status, default: "Залог не найден"

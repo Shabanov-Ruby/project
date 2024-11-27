@@ -338,11 +338,24 @@ namespace :import do
   def update_history_for_car(car, node)
     vin = node.at_xpath('vin').text
     history_car = car.history_cars.find_or_initialize_by(vin: vin)
+  
+    owners_number_text = node.at_xpath('owners_number').text.downcase.split.first
+    text_to_number = {
+      "ноль" => 0, "один" => 1, "два" => 2, "три" => 3, "четыре" => 4,
+      "пять" => 5, "шесть" => 6, "семь" => 7, "восемь" => 8, "девять" => 9, "десять" => 10
+    }
+    owners_number = text_to_number[owners_number_text] || owners_number_text.scan(/\d+/).first.to_i
+  
+    # Получаем текстовое значение элемента 'run'
+    run_value = node.at_xpath('run')&.text
 
+    # Проверяем, является ли значение числом, и устанавливаем params_last_mileage
+    params_last_mileage = (run_value && run_value.match?(/^\d+$/)) ? run_value.to_i : 10
+  
     # Обновляем атрибуты истории
     history_car.assign_attributes(
-      last_mileage: node.at_xpath('run').text.to_i,
-      previous_owners: node.at_xpath('owners_number').text.to_i,
+      last_mileage: params_last_mileage,
+      previous_owners: owners_number,
       vin: node.at_xpath('vin').text.present? ? node.at_xpath('vin').text : nil
       # Добавьте другие атрибуты, которые нужно обновить
     )
