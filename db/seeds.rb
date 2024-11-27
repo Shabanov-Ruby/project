@@ -76,12 +76,16 @@ Banner.create([
   { image: 'https://raw.githubusercontent.com/Shabanov-Ruby/project/refs/heads/main/public/main.webp', 
     status: true, 
     main_text: 'АВТОКРЕДИТ ОТ 4,5%', 
-    second_text: 'со скидкой до 300.000р.' 
+    second_text: 'со скидкой до 300.000р.', 
+    main_2_text: 'TRADE-IN', 
+    second_2_text: 'со скидкой до 150.000р.'
   },
   { image: 'https://raw.githubusercontent.com/Shabanov-Ruby/project/refs/heads/main/public/main.webp', 
-    status: true, 
+    status: false, 
     main_text: 'TRADE-IN', 
-    second_text: 'со скидкой до 150.000р.' 
+    second_text: 'со скидкой до 150.000р.', 
+    main_2_text: 'АВТОКРЕДИТ ОТ 4,5%', 
+    second_2_text: 'со скидкой до 300.000р.' 
   },
 ])
 puts "Banner created successfully"

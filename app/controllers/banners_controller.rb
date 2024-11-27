@@ -4,7 +4,7 @@ class BannersController < ApplicationController
 
   # GET /banners or /banners.json
   def index
-    @banners = Banner.all
+    @banners = BannerService.fetch_active_banners
     render json: @banners
   end
 

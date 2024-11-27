@@ -39,6 +39,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_25_183230) do
     t.boolean "status"
     t.string "main_text"
     t.string "second_text"
+    t.string "main_2_text"
+    t.string "second_2_text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

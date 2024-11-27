@@ -5,6 +5,8 @@ class CreateBanners < ActiveRecord::Migration[7.2]
       t.boolean :status
       t.string :main_text
       t.string :second_text
+      t.string :main_2_text
+      t.string :second_2_text
 
       t.timestamps
     end
