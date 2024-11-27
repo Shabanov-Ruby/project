@@ -75,8 +75,13 @@ puts "Contact created successfully"
 Banner.create([
   { image: 'https://raw.githubusercontent.com/Shabanov-Ruby/project/refs/heads/main/public/main.webp', 
     status: true, 
-    main_text: 'Главный текст', 
-    second_text: 'Второстепенный текст' 
-  }
+    main_text: 'АВТОКРЕДИТ ОТ 4,5%', 
+    second_text: 'со скидкой до 300.000р.' 
+  },
+  { image: 'https://raw.githubusercontent.com/Shabanov-Ruby/project/refs/heads/main/public/main.webp', 
+    status: true, 
+    main_text: 'TRADE-IN', 
+    second_text: 'со скидкой до 150.000р.' 
+  },
 ])
 puts "Banner created successfully"
